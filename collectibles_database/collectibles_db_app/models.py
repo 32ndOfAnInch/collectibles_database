@@ -84,7 +84,7 @@ class CollectibleItem(models.Model):
     # obverse side  // image
     # reverse side  // imgae
     register_date = models.DateTimeField(_("register_date"), auto_now_add=True)
-    update_date = models.DateTimeField(_("update date"))
+    update_date = models.DateTimeField(_("update date"), null=True, blank=True)
     
 
     class Meta:
