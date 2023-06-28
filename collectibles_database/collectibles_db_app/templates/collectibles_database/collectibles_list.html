@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ block.super }} {% endblock title %} 
+
+{% block content %}
+{% if collectibles_list %}
+<table>
+    <tr>
+        <th>Country</th>
+        <th>Currency</th>
+        <th>Release Year</th>
+        <th>Circulation</th>
+        <th>Item Type</th>
+        <th>Denomination</th>
+        <th>Quantity</th>
+        <th>Condition</th>
+        <th>Description</th>
+        <th>Register Date</th>
+        <th>Update Date</th>
+    </tr>
+    {% for item in collectibles_list %}
+    <tr>
+        <td>{{ item.country }}</td>
+        <td>{{ item.currency }}</td>
+        <td>{{ item.release_year }}</td>
+        <td>{{ item.circulation }}</td>
+        <td>{{ item.item_type }}</td>
+        <td>{{ item.denomination }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.condition.condition }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.register_date }}</td>
+        <td>{{ item.update_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+{% endblock content %}

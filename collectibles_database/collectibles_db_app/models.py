@@ -92,7 +92,7 @@ class CollectibleItem(models.Model):
         verbose_name_plural = _("collectible_items")
 
     def __str__(self):
-        return self.name
+        return self.country
 
     def get_absolute_url(self):
         return reverse("collectibleitem_detail", kwargs={"pk": self.pk})
