@@ -45,18 +45,40 @@ class GradingSystem(models.Model):
     
 
 class CollectibleItem(models.Model):
+    user = models.ForeignKey(
+        User, 
+        verbose_name=_("user"), 
+        on_delete=models.CASCADE,
+        related_name="collectible_items"
+        )
     country = models.CharField(_("country"), max_length=100)
     currency = models.CharField(_("currency"), max_length=100)
     release_year = models.IntegerField(_("release_year"))
     circulation = models.IntegerField(_("circulation"))
-    item_type = models.PositiveSmallIntegerField(_("item_type"))
+
+    ITEM_TYPE_CHOICES = (
+        (1, _('Circulation Coins')),
+        (2, _('Banknotes')),
+        (3, _('Commemorative Coins')),
+        (4, _('Circulating Commemoratives')),
+        (5, _('Collector Coins')),
+        (6, _('Bullion Coins')),
+        (7, _('Medals')),
+        (8, _('Other')),
+    )
+
+    item_type = models.PositiveSmallIntegerField(
+        _("item_type"),
+        choices=ITEM_TYPE_CHOICES,
+        db_index=True,
+        )
     denomination = models.FloatField(_("denomination"))
     quantity = models.IntegerField(_("quantity"))
     condition = models.ForeignKey(
         GradingSystem, 
         verbose_name=_("condition"), 
         on_delete=models.CASCADE,
-        related_name="grading_systems"
+        related_name="collectible_items"
         )
     description = models.CharField(_("description"), max_length=3000)
     # obverse side  // image
