@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ block.super }} {% endblock title %}
+
+{% block content %}
+{% if collectibleitem.id %}
+<h1>Update item record</h1>
+{% else %}
+<h1>Add item to the list</h1>
+{% endif %}
+    <form method = "post" action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Confirm</button>
+    </form>
+
+{% endblock content %}

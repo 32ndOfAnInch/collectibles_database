@@ -3,7 +3,11 @@
 {% block title %} {{ block.super }} {% endblock title %} 
 
 {% block content %}
+
+<p><a href="{% url 'create_new_item' %}">Create new item</a></p>
+
 {% if collectibles_list %}
+
 <table>
     <tr>
         <th>Country</th>
@@ -24,16 +28,17 @@
         <td>{{ item.currency }}</td>
         <td>{{ item.release_year }}</td>
         <td>{{ item.circulation }}</td>
-        <td>{{ item.item_type }}</td>
+        <td>{{ item.get_item_type_display }}</td>
         <td>{{ item.denomination }}</td>
         <td>{{ item.quantity }}</td>
-        <td>{{ item.condition.condition }}</td>
+        <td>{{ item.condition }}</td>
         <td>{{ item.description }}</td>
         <td>{{ item.register_date }}</td>
         <td>{{ item.update_date }}</td>
     </tr>
     {% endfor %}
 </table>
+
 
 {% endif %}
 {% endblock content %}

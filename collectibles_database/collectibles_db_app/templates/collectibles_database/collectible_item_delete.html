@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ block.super }} {% endblock title %}
+
+{% block content %}
+<h1>Are you really want to delete this record? :</h1>
+<p>Country: {{ collectibleitem.id }}</p>
+<p>Currency: {{ collectibleitem.currency }}</p>
+<p>Denomination: {{ collectibleitem.denomination }}</p>
+<p>Condition: {{ collectibleitem.condition }}</p>
+<p>Description: {{ collectibleitem.description }}</p>
+<form action="{{ request.path }}" method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+    <a href="{% url 'collectibles_list' %}">Cancel</a>
+</form>
+
+{% endblock content %}
