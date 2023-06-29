@@ -11,11 +11,4 @@ class  CollectibleItemAdmin(admin.ModelAdmin):
     search_fields = ('country', 'currency', 'item_type',)
 
 
-class GradingSystemAdmin(admin.ModelAdmin):
-    model = models.GradingSystem
-    list_display = ('name',  'description', 'condition')
-
-
 admin.site.register(models.CollectibleItem, CollectibleItemAdmin)
-admin.site.register(models.Condition)
-admin.site.register(models.GradingSystem, GradingSystemAdmin)

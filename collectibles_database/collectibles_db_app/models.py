@@ -7,43 +7,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class Condition(models.Model):
-    value = models.CharField(_("value"), max_length=70)
-    
-
-    class Meta:
-        verbose_name = _("condition")
-        verbose_name_plural = _("conditions")
-
-    def __str__(self):
-        return f"{self.value}"
-
-    def get_absolute_url(self):
-        return reverse("condition_detail", kwargs={"pk": self.pk})
-
-
-class GradingSystem(models.Model):
-    name = models.CharField(_("name"), max_length=50)
-    description = models.CharField(_("description"), max_length=2000)
-    condition = models.ForeignKey(
-        Condition, 
-        verbose_name=_("condition"), 
-        on_delete=models.CASCADE,
-        related_name="grading_systems"
-        )
-    
-
-    class Meta:
-        verbose_name = _("grading_system")
-        verbose_name_plural = _("grading_systems")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("gradingsystem_detail", kwargs={"pk": self.pk})
-    
-
 class CollectibleItem(models.Model):
     user = models.ForeignKey(
         User, 
@@ -74,12 +37,8 @@ class CollectibleItem(models.Model):
         )
     denomination = models.FloatField(_("denomination"))
     quantity = models.IntegerField(_("quantity"))
-    condition = models.ForeignKey(
-        GradingSystem, 
-        verbose_name=_("condition"), 
-        on_delete=models.CASCADE,
-        related_name="collectible_items"
-        )
+    condition = models.CharField(_("condition"), max_length=50)
+    
     description = models.CharField(_("description"), max_length=3000)
     # obverse side  // image
     # reverse side  // imgae
@@ -96,3 +55,4 @@ class CollectibleItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("collectibleitem_detail", kwargs={"pk": self.pk})
+
