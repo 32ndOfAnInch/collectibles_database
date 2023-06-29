@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +10,46 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <nav>
+        <p>Collectibles database</p>
+        <ul>
+            <li>
+                <a>{% trans "about"|capfirst %}</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'collectibles_list' %}" >{% trans "collectibles_list"|capfirst %}</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                {% if user.is_staff or user.is_superuser %}
+                <li>
+                    <a href="{% url 'admin:index' %}">&#129691; {% trans "admin"|capfirst %}</a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profile' %}">&#128100;{{ user.username }}</a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">{% trans "log out"|title %}</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}?next={{request.path}}">{% trans "login"|capfirst %}</a>
+            </li>
+            <li>
+                <a href="{% url 'signup' %}">{% trans "sign up"|capfirst %}</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
     <div>
         {% block content %}
         {% endblock content %}
     </div>
-    <footer><p>&copy;codeacademy.lt 2023 </p></footer>
+    <footer><p>&copy;collectibles database 2023 </p></footer>
 </body>
 </html>
