@@ -3,6 +3,8 @@ from datetime import datetime
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
+from django.db.models.query import QuerySet
 from . import models
 from . import forms
 from django.urls import reverse, reverse_lazy
@@ -16,11 +18,23 @@ def index(request):
 
 class CollectiblesListView(LoginRequiredMixin, ListView):
     model = models.CollectibleItem
+    paginate_by = 7
     template_name = 'collectibles_database/collectibles_list.html'
     context_object_name = 'collectibles_list'
 
-    def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+        
+        if query:
+            qs = qs.filter(
+                Q(country__icontains=query),
+                user=self.request.user
+            )
+        else:
+            qs = qs.filter(user=self.request.user)
+        
+        return qs
 
 
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
