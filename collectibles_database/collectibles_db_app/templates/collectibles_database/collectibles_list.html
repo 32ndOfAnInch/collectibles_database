@@ -5,6 +5,7 @@
 {% block content %}
 
 <p><a href="{% url 'create_new_item' %}">Create new item</a></p>
+<p><a href="{% url 'profile_search' %}">Search for users</a></p>
 
 {% if collectibles_list %}
 {% include 'includes/search.html' %}

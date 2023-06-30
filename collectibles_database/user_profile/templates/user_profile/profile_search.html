@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} {{ block.super }} {% endblock title %}
+
+{% block content %}
+<h1>search for users</h1>
+{% include 'includes/search.html' %}
+{% for profile in profile_search %}
+<p><a href="{% url 'profile' user_id=profile.user.id %}">{{ profile.user }}</a></p>
+{% endfor %}
+
+{% endblock content %}

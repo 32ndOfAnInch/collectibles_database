@@ -4,7 +4,12 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from . forms import ProfileUpdateForm, UserUpdateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 from .import models
+from django.db.models import Q
+from django.db.models.query import QuerySet
+from typing import Any
 
 
 User = get_user_model()
@@ -12,7 +17,7 @@ User = get_user_model()
 
 @login_required
 def profile(request, user_id=None):
-    if user_id == None:
+    if user_id is None:
         user = request.user
     else:
         user = get_object_or_404(get_user_model(), id=user_id)
@@ -79,3 +84,18 @@ def signup(request):
             messages.success(request, "User registration successful!")
             return redirect('login')
     return render(request, 'user_profile/signup.html')
+
+
+class ProfileSearchView(LoginRequiredMixin, ListView):
+    model = models.Profile
+    template_name = 'user_profile/profile_search.html'
+    context_object_name = 'profile_search'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+        if query:
+            qs = qs.filter(
+                Q(user__username__icontains=query)
+            )
+        return qs
