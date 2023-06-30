@@ -76,7 +76,8 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     # UserPassesTestMixin conditions
     def test_func(self):
-        return self.request.user.is_authenticated
+        obj = self.get_object()
+        return self.request.user.is_authenticated and obj.user == self.request.user
     
 
 class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -92,4 +93,5 @@ class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     # UserPassesTestMixin conditions
     def test_func(self) -> bool | None:
         obj = self.get_object()
-        return obj.user == self.request.user
+        return self.request.user.is_authenticated and obj.user == self.request.user
+    
