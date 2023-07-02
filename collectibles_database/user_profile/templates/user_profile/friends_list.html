@@ -9,7 +9,9 @@
     <ul>
       {% for friend in friends %}
         <li>
-          <a href="{% url 'friend_collectibles_list' friend.user.id %}">{{ friend.user.username }}</a>
+            <p>{{ friend.user.username }}</p>
+          <p><a href="{% url 'profile' user_id=friend.user.id %}">Go to {{ friend.user.username }}'s profile</a></p>
+          <p><a href="{% url 'friend_collectibles_list' friend.user.id %}">View {{ friend.user.username }}'s' database</a></p>
         </li>
       {% endfor %}
     </ul>

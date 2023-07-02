@@ -131,5 +131,4 @@ def manage_friend_requests(request):
 def friends_list(request):
     user = request.user
     friends = user.profile.friends.all()
-    print(friends)
     return render(request, 'user_profile/friends_list.html', {'friends': friends})

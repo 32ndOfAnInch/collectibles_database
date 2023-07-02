@@ -10,6 +10,7 @@ from . import forms
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
+from django.http import Http404
 
 
 def index(request):
@@ -48,15 +49,20 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('query')
         user_id = self.kwargs.get('user_id')
         
-        if query:
-            qs = qs.filter(
-                Q(country__icontains=query),
-                user_id=user_id
-            )
-        else:
-            qs = qs.filter(user_id=user_id)
+        # Check if the logged-in user is friends with the requested user
+        if self.request.user.profile.friends.filter(user_id=user_id).exists():
+            if query:
+                qs = qs.filter(
+                    Q(country__icontains=query),
+                    user_id=user_id
+                )
+            else:
+                qs = qs.filter(user_id=user_id)
+            
+            return qs
         
-        return qs
+        # If the logged-in user is not friends with the requested user, raise 404 error
+        raise Http404("You are not authorized to view this page.")
 
 
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
