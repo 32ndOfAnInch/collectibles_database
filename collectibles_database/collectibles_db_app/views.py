@@ -35,6 +35,28 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
             qs = qs.filter(user=self.request.user)
         
         return qs
+    
+
+class FriendCollectiblesListView(LoginRequiredMixin, ListView):
+    model = models.CollectibleItem
+    paginate_by = 7
+    template_name = 'collectibles_database/friend_collectibles_list.html'
+    context_object_name = 'friend_collectibles_list'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+        user_id = self.kwargs.get('user_id')
+        
+        if query:
+            qs = qs.filter(
+                Q(country__icontains=query),
+                user_id=user_id
+            )
+        else:
+            qs = qs.filter(user_id=user_id)
+        
+        return qs
 
 
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):

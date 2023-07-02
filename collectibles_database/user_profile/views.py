@@ -99,3 +99,37 @@ class ProfileSearchView(LoginRequiredMixin, ListView):
                 Q(user__username__icontains=query)
             )
         return qs
+
+
+@login_required
+def send_friend_request(request, user_id):
+    receiver = get_object_or_404(User, id=user_id)
+    collectible_item = models.CollectibleItem.objects.first()
+    if request.method == 'POST':
+        friend_request = models.FriendRequest(sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1)
+        friend_request.save()
+        return redirect('collectibles_list')  # Redirect to a success page or appropriate URL
+    return render(request, 'user_profile/send_friend_request.html', {'receiver': receiver})
+
+@login_required
+def manage_friend_requests(request):
+    if request.method == 'POST':
+        friend_request_id = request.POST.get('friend_request_id')
+        action = request.POST.get('action')
+        friend_request = get_object_or_404(models.FriendRequest, id=friend_request_id, receiver=request.user)
+        if action == 'accept':
+            friend_request.status = 2  # Update the status to "Accepted"
+        elif action == 'reject':
+            friend_request.status = 3  # Update the status to "Rejected"
+        friend_request.save()
+        return redirect('manage_friend_requests')
+    friend_requests = models.FriendRequest.objects.filter(receiver=request.user)
+    return render(request, 'user_profile/manage_friend_requests.html', {'friend_requests': friend_requests})
+
+
+@login_required
+def friends_list(request):
+    user = request.user
+    friends = user.profile.friends.all()
+    print(friends)
+    return render(request, 'user_profile/friends_list.html', {'friends': friends})

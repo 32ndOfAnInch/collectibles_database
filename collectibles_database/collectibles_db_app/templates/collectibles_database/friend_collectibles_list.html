@@ -4,12 +4,10 @@
 
 {% block content %}
 
-<p><a href="{% url 'create_new_item' %}">Create new item</a></p>
-<p><a href="{% url 'profile_search' %}">Search for users</a></p>
-<p><a href="{% url 'friends_list' %}">View Friends</a></p>
+<p><a href="{% url 'collectibles_list' %}">Back to my collectibles list</a></p>
 
 
-{% if collectibles_list %}
+{% if friend_collectibles_list %}
 {% include 'includes/search.html' %}
 {% include 'includes/paginator_nav.html' %}
 <table>
@@ -26,7 +24,7 @@
         <th>Register Date</th>
         <th>Update Date</th>
     </tr>
-    {% for item in collectibles_list %}
+    {% for item in friend_collectibles_list %}
     <tr>
         <td>{{ item.country }}</td>
         <td>{{ item.currency }}</td>
