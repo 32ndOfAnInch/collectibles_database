@@ -3,7 +3,7 @@
 {% block content %}
 <h1>{{ user_ }}</h1>
 {% if user_.profile and user_.profile.picture %}
-<img class="user-profile-picture" src="{{ user_.profile.picture.url }}">
+    <img class="user-profile-picture" src="{{ user_.profile.picture.url }}">
 {% endif %}
 {% if user_.first_name or user_.last_name %}
     <p>{{ user_.first_name }} {{ user_.last_name }}</p>
@@ -12,20 +12,20 @@
     <p>E-mail: {{ user_.email }}</p>
     <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
 {% endif %}
-{% if user_ != request.user %}
+{% if user_ != request.user and not is_friend_request_sent %}
     <a href="{% url 'send_friend_request' user_id=user_.id %}">Send Friend Request</a>
 {% endif %}
 <h2>Received Friend Requests</h2>
-  {% for friend_request in user_.received_request.all %}
+{% for friend_request in user_.received_request.all %}
     <p>From: {{ friend_request.sender.username }}</p>
     <p>Status: {{ friend_request.get_status_display }}</p>
     <form method="post" action="{% url 'manage_friend_requests' %}">
-      {% csrf_token %}
-      <input type="hidden" name="friend_request_id" value="{{ friend_request.id }}">
-      <button type="submit" name="action" value="accept">Accept</button>
-      <button type="submit" name="action" value="reject">Reject</button>
+        {% csrf_token %}
+        <input type="hidden" name="friend_request_id" value="{{ friend_request.id }}">
+        <button type="submit" name="action" value="accept">Accept</button>
+        <button type="submit" name="action" value="reject">Reject</button>
     </form>
-  {% empty %}
+{% empty %}
     <p>No friend requests.</p>
-  {% endfor %}
+{% endfor %}
 {% endblock content %}

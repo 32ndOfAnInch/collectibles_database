@@ -16,12 +16,10 @@ User = get_user_model()
 
 
 @login_required
-def profile(request, user_id=None):
-    if user_id is None:
-        user = request.user
-    else:
-        user = get_object_or_404(get_user_model(), id=user_id)
-    return render(request, 'user_profile/profile.html', {'user_': user})
+def profile(request, user_id):
+    user_ = get_object_or_404(User, id=user_id)
+    is_friend_request_sent = models.FriendRequest.objects.filter(sender=request.user, receiver=user_, status__in=[1, 2]).exists()
+    return render(request, 'user_profile/profile.html', {'user_': user_, 'is_friend_request_sent': is_friend_request_sent})
 
 
 @login_required
@@ -132,3 +130,12 @@ def friends_list(request):
     user = request.user
     friends = user.profile.friends.all()
     return render(request, 'user_profile/friends_list.html', {'friends': friends})
+
+
+@login_required
+def notifications(request, user_id=None):
+    if user_id is None:
+        user = request.user
+    else:
+        user = get_object_or_404(get_user_model(), id=user_id)
+    return render(request, 'user_profile/notifications.html', {'user_': user})
