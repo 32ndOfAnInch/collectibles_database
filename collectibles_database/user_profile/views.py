@@ -73,13 +73,13 @@ def signup(request):
             user.set_password(password)
             user.save()
 
-            # create a new Profile object for the user
-            profile = models.Profile.objects.create(user=user)
+            # # create a new Profile object for the user
+            # profile = models.Profile.objects.create(user=user)
             
-            # save the profile picture if provided
-            profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
-            if profile_form.is_valid():
-                profile_form.save()
+            # # save the profile picture if provided
+            # profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+            # if profile_form.is_valid():
+            #     profile_form.save()
 
             messages.success(request, "User registration successful!")
             return redirect('login')

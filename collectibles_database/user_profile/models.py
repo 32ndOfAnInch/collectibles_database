@@ -84,10 +84,3 @@ class FriendRequest(models.Model):
 
     def get_absolute_url(self):
         return reverse("friendrequest_detail", kwargs={"pk": self.pk})
-
-
-@receiver(post_save, sender=FriendRequest)
-def update_friends(sender, instance, **kwargs):
-    if instance.status == 2:  # Friend request is accepted
-        instance.sender.profile.friends.add(instance.receiver.profile)
-        instance.receiver.profile.friends.add(instance.sender.profile)
