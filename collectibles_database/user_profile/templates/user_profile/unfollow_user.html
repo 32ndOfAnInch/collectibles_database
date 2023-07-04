@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Unfollow user{% endblock title %}
+
+{% block content %}
+<h1>Do you really want to unfollow {{ receiver.username }}?</h1>
+<form method="post" action="{% url 'unfollow_user' user_id=receiver.id %}">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+    <a href="{% url 'friends_list' %}">Cancel</a>
+</form>
+{% endblock content %}

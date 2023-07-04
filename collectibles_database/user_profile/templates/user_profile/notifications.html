@@ -3,17 +3,21 @@
 {% block title %} {{ block.super }} {% endblock title %}
 
 {% block content %}
-<h2>Received Friend Requests</h2>
-    {% for friend_request in user_.received_request.all %}
-        <p>From: {{ friend_request.sender.username }}</p>
-        <p>Status: {{ friend_request.get_status_display }}</p>
-        <form method="post" action="{% url 'manage_friend_requests' %}">
+  <h2>Received Friend Requests</h2>
+  {% if friend_requests %}
+    {% for friend_request in friend_requests %}
+      <p>From: {{ friend_request.sender.username }}</p>
+      <p>Status: {{ friend_request.get_status_display }}</p>
+      <form method="post" action="{% url 'notifications' %}">
         {% csrf_token %}
         <input type="hidden" name="friend_request_id" value="{{ friend_request.id }}">
         <button type="submit" name="action" value="accept">Accept</button>
         <button type="submit" name="action" value="reject">Reject</button>
-        </form>
+      </form>
     {% empty %}
-        <p>No friend requests.</p>
+      <p>No friend requests.</p>
     {% endfor %}
+  {% else %}
+    <p>No friend requests.</p>
+  {% endif %}
 {% endblock content %}

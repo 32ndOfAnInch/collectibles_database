@@ -18,8 +18,11 @@ User = get_user_model()
 @login_required
 def profile(request, user_id):
     user_ = get_object_or_404(User, id=user_id)
-    is_friend_request_sent = models.FriendRequest.objects.filter(sender=request.user, receiver=user_, status__in=[1, 2]).exists()
-    return render(request, 'user_profile/profile.html', {'user_': user_, 'is_friend_request_sent': is_friend_request_sent})
+    is_friend_request_sent = models.FriendRequest.objects.filter(
+        sender=request.user, receiver=user_, status__in=[1, 2]).exists()
+    return render(
+        request, 'user_profile/profile.html', {'user_': user_, 'is_friend_request_sent': is_friend_request_sent}
+        )
 
 
 @login_required
@@ -36,7 +39,9 @@ def profile_update(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'user_profile/profile_update.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(
+        request, 'user_profile/profile_update.html', {'user_form': user_form, 'profile_form': profile_form}
+        )
 
 
 @csrf_protect
@@ -102,27 +107,25 @@ class ProfileSearchView(LoginRequiredMixin, ListView):
 @login_required
 def send_friend_request(request, user_id):
     receiver = get_object_or_404(User, id=user_id)
+
+    # Prevent sending friend request to oneself
+    if receiver == request.user:
+        messages.error(request, "You cannot send a friend request to yourself.")
+        return redirect('profile', user_id=receiver.id)
+    
+    # Prevent sending friend request to existing friends
+    if receiver.profile.friends.filter(user=request.user).exists():
+        messages.error(request, "You are already friends with this user.")
+        return redirect('profile', user_id=receiver.id)
+
     collectible_item = models.CollectibleItem.objects.first()
     if request.method == 'POST':
-        friend_request = models.FriendRequest(sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1)
+        friend_request = models.FriendRequest(
+            sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1
+            )
         friend_request.save()
         return redirect('collectibles_list')  # Redirect to a success page or appropriate URL
     return render(request, 'user_profile/send_friend_request.html', {'receiver': receiver})
-
-@login_required
-def manage_friend_requests(request):
-    if request.method == 'POST':
-        friend_request_id = request.POST.get('friend_request_id')
-        action = request.POST.get('action')
-        friend_request = get_object_or_404(models.FriendRequest, id=friend_request_id, receiver=request.user)
-        if action == 'accept':
-            friend_request.status = 2  # Update the status to "Accepted"
-        elif action == 'reject':
-            friend_request.status = 3  # Update the status to "Rejected"
-        friend_request.save()
-        return redirect('manage_friend_requests')
-    friend_requests = models.FriendRequest.objects.filter(receiver=request.user)
-    return render(request, 'user_profile/manage_friend_requests.html', {'friend_requests': friend_requests})
 
 
 @login_required
@@ -138,4 +141,22 @@ def notifications(request, user_id=None):
         user = request.user
     else:
         user = get_object_or_404(get_user_model(), id=user_id)
-    return render(request, 'user_profile/notifications.html', {'user_': user})
+
+    friend_requests = user.received_request.filter(status=1)  # Filter only pending friend requests
+
+    if request.method == 'POST':
+        friend_request_id = request.POST.get('friend_request_id')
+        action = request.POST.get('action')
+        friend_request = get_object_or_404(models.FriendRequest, id=friend_request_id, receiver=request.user)
+
+        if action == 'accept':
+            friend_request.status = 2  # Update the status to "Accepted"
+        elif action == 'reject':
+            friend_request.status = 3  # Update the status to "Rejected"
+
+        friend_request.save()
+        return redirect('notifications')
+
+    return render(
+        request, 'user_profile/notifications.html', {'user_': user, 'friend_requests': friend_requests}
+        )
