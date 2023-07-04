@@ -10,6 +10,7 @@ from .import models
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from typing import Any
+from django.db import transaction
 
 
 User = get_user_model()
@@ -152,3 +153,30 @@ def notifications(request, user_id=None):
     return render(
         request, 'user_profile/notifications.html', {'user_': user, 'friend_requests': friend_requests}
         )
+
+
+@login_required
+@transaction.atomic
+def unfollow_friend(request, user_id):
+    user_to_unfollow = models.Profile.objects.get(user_id=user_id)
+    current_user_profile = request.user.profile
+
+    if request.method == 'POST':
+        # Remove the friendship from both sides
+        current_user_profile.friends.remove(user_to_unfollow)
+        user_to_unfollow.friends.remove(current_user_profile)
+        # Delete related FriendRequest instances
+        models.FriendRequest.objects.filter(
+            sender=current_user_profile.user, receiver=user_to_unfollow.user
+            ).delete()
+        models.FriendRequest.objects.filter(
+            sender=user_to_unfollow.user, receiver=current_user_profile.user
+            ).delete()
+
+        messages.success(request, "You have unfollowed the user.")
+        return redirect('profile', user_id=user_id)
+
+    context = {
+        'receiver': user_to_unfollow.user
+    }
+    return render(request, 'user_profile/unfollow_friend.html', context)

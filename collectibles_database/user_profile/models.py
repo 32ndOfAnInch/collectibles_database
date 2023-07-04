@@ -42,6 +42,9 @@ class Profile(models.Model):
                 pic.save(self.picture.path)
                 
 
+    def remove_friend(self, friend):
+        self.friends.remove(friend)
+
 
 class FriendRequest(models.Model):
     sender = models.ForeignKey(

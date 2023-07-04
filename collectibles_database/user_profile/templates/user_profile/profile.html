@@ -16,4 +16,9 @@
 {% if user_ != request.user and not is_friend_request_sent and not request.user|is_friend:user_.id %}
     <a href="{% url 'send_friend_request' user_id=user_.id %}">Send Friend Request</a>
 {% endif %}
+{% if request.user|is_friend:user_.id %}
+    {% if user_ != request.user %}
+        <a href="{% url 'unfollow_friend' user_id=user_.id %}">Unfollow</a>
+    {% endif %}
+{% endif %}
 {% endblock content %}
