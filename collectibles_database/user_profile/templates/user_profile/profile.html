@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 {% block title %}{{ user_ }} profile in {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{{ user_ }}</h1>
@@ -12,7 +13,7 @@
     <p>E-mail: {{ user_.email }}</p>
     <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
 {% endif %}
-{% if user_ != request.user and not is_friend_request_sent %}
+{% if user_ != request.user and not is_friend_request_sent and not request.user|is_friend:user_.id %}
     <a href="{% url 'send_friend_request' user_id=user_.id %}">Send Friend Request</a>
 {% endif %}
 {% endblock content %}
