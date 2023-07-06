@@ -19,7 +19,7 @@ class Profile(models.Model):
         related_name='profile',
         null=True, blank=True,
     )
-    picture = models.ImageField(_("picture"), upload_to='user_profile/pictures')
+    picture = models.ImageField(_("picture"), upload_to='user_profile/pictures', null=True, blank=True)
     friends = models.ManyToManyField("self", blank=True)
 
     class Meta:

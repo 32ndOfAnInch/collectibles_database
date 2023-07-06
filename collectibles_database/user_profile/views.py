@@ -17,13 +17,17 @@ User = get_user_model()
 
 
 @login_required
-def profile(request, user_id):
-    user_ = get_object_or_404(User, id=user_id)
-    is_friend_request_sent = models.FriendRequest.objects.filter(
-        sender=request.user, receiver=user_, status__in=[1, 2]).exists()
-    return render(
-        request, 'user_profile/profile.html', {'user_': user_, 'is_friend_request_sent': is_friend_request_sent}
-        )
+def profile(request, user_id=None):
+    if user_id == None:
+        user_ = request.user
+        return render(request, 'user_profile/profile.html', {'user_': user_})
+    else:
+        user_ = get_object_or_404(User, id=user_id)
+        is_friend_request_sent = models.FriendRequest.objects.filter(
+            sender=request.user, receiver=user_, status__in=[1, 2]).exists()
+        return render(
+            request, 'user_profile/profile.html', {'user_': user_, 'is_friend_request_sent': is_friend_request_sent}
+            )
 
 
 @login_required
@@ -117,7 +121,7 @@ def send_friend_request(request, user_id):
             sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1
             )
         friend_request.save()
-        return redirect('collectibles_list')  # Redirect to a success page or appropriate URL
+        return redirect('profile')  # Redirect to a success page or appropriate URL
     return render(request, 'user_profile/send_friend_request.html', {'receiver': receiver})
 
 
