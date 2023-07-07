@@ -7,9 +7,27 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class GradationSystem(models.Model):
+    name = models.CharField(_("name"), max_length=100)
+    description = models.TextField(_("description"), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("gradation_system")
+        verbose_name_plural = _("gradation_systems")
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Value(models.Model):
     value = models.CharField(_("value"), max_length=50)
-    
+    description = models.TextField(_("description"), null=True, blank=True)
+    gradation_system = models.ForeignKey(
+        GradationSystem, 
+        verbose_name=_("gradation_system"), 
+        on_delete=models.CASCADE,
+        related_name="value",
+        )
 
     class Meta:
         verbose_name = _("value")
@@ -20,30 +38,6 @@ class Value(models.Model):
 
     def get_absolute_url(self):
         return reverse("value_detail", kwargs={"pk": self.pk})
-
-
-class GradationSystem(models.Model):
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
-        on_delete=models.CASCADE,
-        related_name="gradation_systems"
-    )
-    value = models.ForeignKey(
-        Value, 
-        verbose_name=_("value"), 
-        on_delete=models.CASCADE,
-        related_name="gradation_systems"
-        )
-    name = models.CharField(_("name"), max_length=100)
-    description = models.TextField(_("description"), null=True, blank=True)
-
-    class Meta:
-        verbose_name = _("gradation_system")
-        verbose_name_plural = _("gradation_systems")
-
-    def __str__(self):
-        return f"{self.name}"
 
 
 class CollectibleItem(models.Model):

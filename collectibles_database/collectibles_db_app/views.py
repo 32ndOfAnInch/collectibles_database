@@ -10,7 +10,7 @@ from . import forms
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 
 def index(request):
@@ -75,6 +75,13 @@ class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        instance = context.get('object')
+        if instance:
+            condition_id = instance.condition_id
+            if condition_id:
+                context['form'].fields['value'].queryset = models.Value.objects.filter(
+                    gradation_system_id=condition_id
+                )
         return context
     
     def get_initial(self) -> Dict[str, Any]:
@@ -122,6 +129,18 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user.is_authenticated and obj.user == self.request.user
     
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        instance = context.get('object')
+        if instance:
+            condition_id = instance.condition_id
+            if condition_id:
+                context['form'].fields['value'].queryset = models.Value.objects.filter(
+                    gradation_system_id=condition_id
+                )
+        return context
+        
+
 class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = models.CollectibleItem
     template_name = 'collectibles_database/collectible_item_delete.html'
@@ -137,3 +156,15 @@ class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return self.request.user.is_authenticated and obj.user == self.request.user
     
+
+def get_values(request):
+    gradation_system_id = request.GET.get('gradation_system_id')
+
+    # Fetch the related Value objects based on the gradation_system_id
+    values = models.Value.objects.filter(gradation_system_id=gradation_system_id)
+
+    data = {
+        'values': list(values.values('id', 'value'))
+    }
+
+    return JsonResponse(data)

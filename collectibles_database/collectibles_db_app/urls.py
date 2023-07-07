@@ -8,4 +8,5 @@ urlpatterns = [
     path('collectibles/update/<int:pk>/', views.UpdateItemView.as_view(), name='update_item'),
     path('collectibles/create/', views.CreateItemView.as_view(), name='create_new_item'),
     path('collectibles/delete/<int:pk>/', views.DeleteItemView.as_view(), name='delete_item'),
+    path('get_values/', views.get_values, name='get_values'),
 ]
