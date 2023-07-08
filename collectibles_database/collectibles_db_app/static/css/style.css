@@ -17,8 +17,8 @@ nav {
     display: flex;
     justify-content: space-between;
     padding: 0 15%;
-    height: 75px;
-    line-height: 75px;
+    height: 68px;
+    line-height: 68px;
     background: #404040;
 }
 
@@ -69,15 +69,15 @@ nav .nav-list .nav-link {
         position: absolute;
         background: #404040;
         width: 100%;
-        top: 75px;
+        top: 68px;
         left: 0;
         transform: translateY(-100%);
         z-index: -1;
-        transition: .6s;
+        transition: .5s;
     }
 
     nav .nav-list .nav-item {
-        padding-left: 35px;
+        padding-left: 25px;
     }
 
     nav .navbar-toggler {
@@ -146,9 +146,9 @@ i {
     display: flex;
     justify-content: space-between;
     padding: 0 15%;
-    height: 75px;
-    line-height: 75px;
-    background: #404040;
+    height: 68px;
+    line-height: 68px;
+    background: #F0A500;
 }
 
 
@@ -165,11 +165,11 @@ i {
 }
 
 .secNav nav .nav-list .nav-item:hover {
-    background: #b69955;
+    background: #CCCCCC;
 }
 
 .secNav nav .nav-list .nav-link {
-    color: #f1f1f1;
+    color: #000000;
     font-size: 18;
     font-weight: 500;
 }
@@ -190,13 +190,13 @@ i {
     .secNav nav .nav-list {
         display: grid;
         position: absolute;
-        background: #404040;
+        background: #F0A500;
         width: 100%;
-        top: 75px;
+        top: 68px;
         left: 0;
         transform: translateY(-100%);
         z-index: -1;
-        transition: .6s;
+        transition: .5s;
     }
 
     .secNav nav .nav-list .nav-item {
@@ -219,7 +219,7 @@ i {
     width: 40px;
     height: 5px;
     margin-bottom: 10px;
-    background: #ffffff;
+    background: #404040;
     border-radius: 10%;
     transition: .4s;
 }
@@ -230,7 +230,7 @@ i {
 
 .secNav .navbar-input:checked ~ nav .nav-list {
     transform: translateY(0%);
-    margin-top: 75px;
+    margin-top: 68px;
     z-index: 1;
 }
 
@@ -251,4 +251,37 @@ i {
 .secNav .navbar-input:checked ~ nav .navbar-toggler .bar:nth-child(3) {
     position: absolute;
     transform: rotate(-45deg);
+}
+
+
+/* footer and body*/
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #5c5c5c;
+    margin-top: auto;
+}
+
+footer p {
+    font-weight: 500;
+    color: #ffffff;
+}
+
+
+/* collectibles list */
+
+.item-front-image {
+    max-width: 20%;
+    margin: 0 0.5rem;
+    border: 2px solid #000;
 }

@@ -65,9 +65,11 @@
         </label>
 
         <ul class="nav-list">
+            {% if not collectibles_list %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'collectibles_list' %}">My database</a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile_search' %}">Search for users</a>
             </li>
