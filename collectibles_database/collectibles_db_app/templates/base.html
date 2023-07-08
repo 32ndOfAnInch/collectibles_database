@@ -13,6 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+{% comment %} responsive navbar {% endcomment %}
+
     <input class="navbar-input" type="checkbox" id="toggle">
     <nav>
         <a class="logo" href="#"><img src="{% static 'collectibles/img/logo.bmp' %}"></a>
@@ -24,14 +27,6 @@
         </label>
 
         <ul class="nav-list">
-            <li class="nav-item">
-                <a class="nav-link">{% trans "about"|capfirst %}</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'collectibles_list' %}" >{% trans "collectibles_list"|capfirst %}</a>
-            </li>
-            {% endif %}
             {% if user.is_authenticated %}
                 {% if user.is_staff or user.is_superuser %}
                 <li class="nav-item">
@@ -56,6 +51,36 @@
             {% endif %}
         </ul>
     </nav>
+
+{% comment %} second navbar {% endcomment %}
+{% if user.is_authenticated %}
+<div class="secNav">
+    <input class="navbar-input" type="checkbox" id="toggle2">
+    <nav>
+
+        <label class="navbar-toggler" for="toggle2">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </label>
+
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'collectibles_list' %}">My database</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile_search' %}">Search for users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'friends_list' %}">View Friends</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'friends_list' %}">Statistics</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}
 
     <div>
         {% block content %}
