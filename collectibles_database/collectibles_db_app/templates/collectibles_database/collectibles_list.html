@@ -12,8 +12,9 @@
 {% if collectibles_list %}
 {% include 'includes/search.html' %}
 {% include 'includes/paginator_nav.html' %}
-<ul class="collectibles_list">
+<div class="items-grid-container">
     {% for item in collectibles_list %}
+    <div>
         <li>
         <a href="#">
             {% if item.obverse_side %}
@@ -29,10 +30,11 @@
         <li>Item type: {{ item.get_item_type_display }}</li>
         <li>Denomination: {{ item.denomination }}</li>
         <li>Quantity: {{ item.quantity }}</li>
-        <li>Condition: {{ item.condition }}</li>
+        <li>Condition: {{ item.condition.value.value }}</li>
         <li>Description: {{ item.description }}</li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% include 'includes/paginator_pages.html' %}
 {% endif %}

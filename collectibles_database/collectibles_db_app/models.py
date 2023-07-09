@@ -26,7 +26,7 @@ class Value(models.Model):
         GradationSystem, 
         verbose_name=_("gradation_system"), 
         on_delete=models.CASCADE,
-        related_name="value",
+        related_name="values",
         )
 
     class Meta:
