@@ -111,7 +111,7 @@ class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = models.CollectibleItem
-    form_class = forms.CreateItemForm
+    form_class = forms.UpdateItemForm
     template_name = 'collectibles_database/collectible_item_form.html'
     success_url = reverse_lazy('collectibles_list')
     context_object_name = 'update_item'
@@ -126,6 +126,7 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return initial
 
     def form_valid(self, form):
+        form.instance.user = self.request.user
         messages.success(self.request, _('Item details updated successfully!'))
         return super().form_valid(form)
     
@@ -139,7 +140,7 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         instance = context.get('object')
         if instance:
-            condition_id = instance.condition.gradation_system_id
+            condition_id = instance.condition_id
             if condition_id:
                 context['form'].fields['value'].queryset = models.Value.objects.filter(
                     gradation_system_id=condition_id

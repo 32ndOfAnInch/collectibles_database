@@ -34,8 +34,8 @@
         </div>
         <div class="list-item-buttons">
             <a href="{% url 'item_detail' item.pk %}">View Details</a>
-            <a href="#">&#x270D;</a>
-            <a href="#">&#128465;</a>
+            <a href="{% url 'update_item' item.pk %}">&#x270D;</a>
+            <a href="{% url 'delete_item' item.pk %}">&#128465;</a>
         </div>
     </div>
     {% endfor %}
