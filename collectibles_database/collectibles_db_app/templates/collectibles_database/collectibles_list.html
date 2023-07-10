@@ -15,7 +15,8 @@
 <div class="items-grid-container">
     {% for item in collectibles_list %}
     <div>
-        <li>
+        <div class="content-container">
+        <div>
         <a href="#">
             {% if item.obverse_side %}
                 <img class="item-front-image" src="{{ item.obverse_side.url }}">
@@ -23,15 +24,19 @@
                 <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
             {% endif %}
         </a>
-        </li>
-        <li>Country: {{ item.country }}</li>
-        <li>Currency: {{ item.currency }}</li>
-        <li>Release Year: {{ item.release_year }}</li>
-        <li>Item type: {{ item.get_item_type_display }}</li>
-        <li>Denomination: {{ item.denomination }}</li>
-        <li>Quantity: {{ item.quantity }}</li>
-        <li>Condition: {{ item.condition.value.value }}</li>
-        <li>Description: {{ item.description }}</li>
+        </div>
+        <div>Country: {{ item.country }}</div>
+        <div>Currency: {{ item.currency }}</div>
+        <div>Release Year: {{ item.release_year }}</div>
+        <div>Item type: {{ item.get_item_type_display }}</div>
+        <div>Denomination: {{ item.denomination }}</div>
+        <div>Quantity: {{ item.quantity }}</div>
+        </div>
+        <div class="list-item-buttons">
+            <a href="#">View Details</a>
+            <a href="#">&#x270D;</a>
+            <a href="#">&#128465;</a>
+        </div>
     </div>
     {% endfor %}
 </div>

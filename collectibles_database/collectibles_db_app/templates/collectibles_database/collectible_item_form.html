@@ -30,7 +30,7 @@
       
             // Fetch the related Value objects based on the selected GradationSystem
             $.ajax({
-              url: '/get_values/',  // Replace with your Django URL to fetch the values
+              url: '{% url "get_values" %}',
               type: 'GET',
               data: {
                 gradation_system_id: gradationSystemId

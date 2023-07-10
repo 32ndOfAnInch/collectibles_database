@@ -20,7 +20,7 @@ class GradationSystem(models.Model):
 
 
 class Value(models.Model):
-    value = models.CharField(_("value"), max_length=50)
+    value = models.CharField(_("value"), max_length=50, null=True, blank=True)
     description = models.TextField(_("description"), null=True, blank=True)
     gradation_system = models.ForeignKey(
         GradationSystem, 
@@ -48,7 +48,7 @@ class CollectibleItem(models.Model):
         related_name="collectible_items"
         )
     country = models.CharField(_("country"), max_length=100)
-    currency = models.CharField(_("currency"), max_length=100)
+    currency = models.CharField(_("currency"), max_length=100, null=True, blank=True)
     release_year = models.IntegerField(_("release_year"))
     circulation = models.IntegerField(_("circulation"), null=True, blank=True)
 
@@ -73,6 +73,14 @@ class CollectibleItem(models.Model):
     condition = models.ForeignKey(
         GradationSystem,
         verbose_name=_("condition"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="collectible_items"
+    )
+    value = models.ForeignKey(
+        Value,
+        verbose_name=_("value"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

@@ -133,7 +133,7 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         instance = context.get('object')
         if instance:
-            condition_id = instance.condition_id
+            condition_id = instance.condition.gradation_system_id
             if condition_id:
                 context['form'].fields['value'].queryset = models.Value.objects.filter(
                     gradation_system_id=condition_id
