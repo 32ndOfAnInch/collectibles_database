@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ block.super }} {% endblock title %}
+
+{% block content %}
+{% if item.obverse_side %}
+    <img class="item-front-image" src="{{ item.obverse_side.url }}">
+{% endif %}
+{% if item.reverse_side %}
+    <img class="item-front-image" src="{{ item.reverse_side.url }}">
+{% endif %}
+<p>Country: {{ item.country }}</p>
+<p>{{ item.currency }}</p>
+<p>{{ item.get_item_type_display }}</p>
+<p>{{ item.release_year }}</p>
+<p>{{ item.circulation }}</p>
+<p>{{ item.denomination }}</p>
+<p>{{ item.quantity }}</p>
+<p>{{ item.condition }}</p>
+<p>{{ item.value }}</p>
+<p>{{ item.description }}</p>
+<p>{{ item.register_date }}</p>
+<p>{{ item.update_date }}</p>
+{% endblock content %}

@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from PIL import Image
 
 
 User = get_user_model()
@@ -113,3 +114,18 @@ class CollectibleItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("collectibleitem_detail", kwargs={"pk": self.pk})
+    
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+        if self.obverse_side:
+            pic = Image.open(self.obverse_side.path)
+            if pic.width > 300 or pic.height > 300:
+                new_size = (300, 300)
+                pic.thumbnail(new_size)
+                pic.save(self.obverse_side.path)
+        if self.reverse_side:
+            pic = Image.open(self.reverse_side.path)
+            if pic.width > 300 or pic.height > 300:
+                new_size = (300, 300)
+                pic.thumbnail(new_size)
+                pic.save(self.reverse_side.path)

@@ -17,7 +17,7 @@
     <div>
         <div class="content-container">
         <div>
-        <a href="#">
+        <a href="{% url 'item_detail' item.pk %}">
             {% if item.obverse_side %}
                 <img class="item-front-image" src="{{ item.obverse_side.url }}">
             {% else %}
@@ -33,7 +33,7 @@
         <div>Quantity: {{ item.quantity }}</div>
         </div>
         <div class="list-item-buttons">
-            <a href="#">View Details</a>
+            <a href="{% url 'item_detail' item.pk %}">View Details</a>
             <a href="#">&#x270D;</a>
             <a href="#">&#128465;</a>
         </div>

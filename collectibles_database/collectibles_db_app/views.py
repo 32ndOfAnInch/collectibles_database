@@ -1,16 +1,17 @@
 from typing import Any, Dict
 from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.db.models import Q
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models.query import QuerySet
+from django.db.models import Q
 from . import models
 from . import forms
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.http import Http404, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -19,7 +20,7 @@ def index(request):
 
 class CollectiblesListView(LoginRequiredMixin, ListView):
     model = models.CollectibleItem
-    paginate_by = 7
+    paginate_by = 12
     template_name = 'collectibles_database/collectibles_list.html'
     context_object_name = 'collectibles_list'
 
@@ -40,7 +41,7 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
 
 class FriendCollectiblesListView(LoginRequiredMixin, ListView):
     model = models.CollectibleItem
-    paginate_by = 7
+    paginate_by = 12
     template_name = 'collectibles_database/friend_collectibles_list.html'
     context_object_name = 'friend_collectibles_list'
 
@@ -63,6 +64,11 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         
         # If the logged-in user is not friends with the requested user, raise 404 error
         raise Http404("You are not authorized to view this page.")
+
+@login_required
+def item_detail(request, pk: int):
+    return render(request, 'collectibles_database/collectible_item_detail.html', 
+                  {'item': get_object_or_404(models.CollectibleItem, pk=pk)})
 
 
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} {{ block.super }} {% endblock title %} 
 
@@ -10,36 +11,34 @@
 {% if friend_collectibles_list %}
 {% include 'includes/search.html' %}
 {% include 'includes/paginator_nav.html' %}
-<table>
-    <tr>
-        <th>Country</th>
-        <th>Currency</th>
-        <th>Release Year</th>
-        <th>Circulation</th>
-        <th>Item Type</th>
-        <th>Denomination</th>
-        <th>Quantity</th>
-        <th>Condition</th>
-        <th>Description</th>
-        <th>Register Date</th>
-        <th>Update Date</th>
-    </tr>
+<div class="items-grid-container">
     {% for item in friend_collectibles_list %}
-    <tr>
-        <td>{{ item.country }}</td>
-        <td>{{ item.currency }}</td>
-        <td>{{ item.release_year }}</td>
-        <td>{{ item.circulation }}</td>
-        <td>{{ item.get_item_type_display }}</td>
-        <td>{{ item.denomination }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.condition }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.register_date }}</td>
-        <td>{{ item.update_date }}</td>
-    </tr>
+    <div>
+        <div class="content-container">
+        <div>
+        <a href="{% url 'item_detail' item.pk %}">
+            {% if item.obverse_side %}
+                <img class="item-front-image" src="{{ item.obverse_side.url }}">
+            {% else %}
+                <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
+            {% endif %}
+        </a>
+        </div>
+        <div>Country: {{ item.country }}</div>
+        <div>Currency: {{ item.currency }}</div>
+        <div>Release Year: {{ item.release_year }}</div>
+        <div>Item type: {{ item.get_item_type_display }}</div>
+        <div>Denomination: {{ item.denomination }}</div>
+        <div>Quantity: {{ item.quantity }}</div>
+        </div>
+        <div class="list-item-buttons">
+            <a href="{% url 'item_detail' item.pk %}">View Details</a>
+            <a href="#">&#x270D;</a>
+            <a href="#">&#128465;</a>
+        </div>
+    </div>
     {% endfor %}
-</table>
+</div>
 
 {% include 'includes/paginator_pages.html' %}
 {% endif %}

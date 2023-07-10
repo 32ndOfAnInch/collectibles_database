@@ -8,7 +8,9 @@
 {% else %}
 <h1>Add item to the list</h1>
 {% endif %}
-    <form method = "post" action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}">
+    <form method = "post" 
+    action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}" 
+    enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
 
