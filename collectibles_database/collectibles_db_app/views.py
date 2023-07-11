@@ -5,7 +5,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models.query import QuerySet
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, Min, Avg, Count
+from django.db.models.functions import Coalesce
 from . import models
 from . import forms
 from django.urls import reverse, reverse_lazy
@@ -75,16 +76,54 @@ def item_detail(request, pk: int):
     return render(request, 'collectibles_database/collectible_item_detail.html', 
                   {'item': get_object_or_404(models.CollectibleItem, pk=pk)})
 
+# this needed for retrieving tuple values for statistics
+ITEM_TYPE_CHOICES = (
+    (1, _('Circulation Coins')),
+    (2, _('Banknotes')),
+    (3, _('Commemorative Coins')),
+    (4, _('Circulating Commemoratives')),
+    (5, _('Collector Coins')),
+    (6, _('Bullion Coins')),
+    (7, _('Medals')),
+    (8, _('Other')),
+)
+
+def get_item_type_display(item_type):
+    return dict(ITEM_TYPE_CHOICES).get(item_type, '')
 
 @login_required
 def statistics_view(request):
     total_records = models.CollectibleItem.objects.filter(user=request.user).count()
     total_items = models.CollectibleItem.objects.filter(user=request.user).aggregate(
         total_items=Sum('quantity'))['total_items']
+    oldest_item = models.CollectibleItem.objects.filter(user=request.user).aggregate(
+        Min('release_year'))['release_year__min']
+    average_year = models.CollectibleItem.objects.filter(user=request.user).aggregate(
+        Avg('release_year'))['release_year__avg']
+    average_year = round(average_year, 1)
+    item_type_stats = models.CollectibleItem.objects.filter(user=request.user).values('item_type').annotate(
+        total_records=Count('id'),
+        total_items=Coalesce(Sum('quantity'), 0),
+        oldest_item=Min('release_year'),
+    ).order_by('item_type')
+
+    item_type_stats = [
+        {
+            'item_type': get_item_type_display(stat['item_type']),
+            'total_records': stat['total_records'],
+            'total_items': stat['total_items'],
+            'oldest_item': stat['oldest_item'],
+        }
+        for stat in item_type_stats
+    ]
+
     
     context = {
         'total_records': total_records,
         'total_items': total_items,
+        'oldest_item': oldest_item,
+        'average_year': average_year,
+        'item_type_stats': item_type_stats,
     }
 
     return render(request, 'collectibles_database/collectibles_statistics.html', context)
