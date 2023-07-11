@@ -1,10 +1,11 @@
 from typing import Any, Dict
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models.query import QuerySet
-from django.db.models import Q
+from django.db.models import Q, Sum
 from . import models
 from . import forms
 from django.urls import reverse, reverse_lazy
@@ -12,6 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.http import Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
+
+
+User = get_user_model()
 
 
 def index(request):
@@ -65,10 +69,25 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         # If the logged-in user is not friends with the requested user, raise 404 error
         raise Http404("You are not authorized to view this page.")
 
+
 @login_required
 def item_detail(request, pk: int):
     return render(request, 'collectibles_database/collectible_item_detail.html', 
                   {'item': get_object_or_404(models.CollectibleItem, pk=pk)})
+
+
+@login_required
+def statistics_view(request):
+    total_records = models.CollectibleItem.objects.filter(user=request.user).count()
+    total_items = models.CollectibleItem.objects.filter(user=request.user).aggregate(
+        total_items=Sum('quantity'))['total_items']
+    
+    context = {
+        'total_records': total_records,
+        'total_items': total_items,
+    }
+
+    return render(request, 'collectibles_database/collectibles_statistics.html', context)
 
 
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):

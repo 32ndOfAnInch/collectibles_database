@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ block.super }} {% endblock title %}
+
+{% block content %}
+{{ user.username }}
+<ul>
+    <li><strong>Total listings:</strong> {{ total_records }}</li>
+    <li><strong>Total items:</strong> {{ total_items }}</li>
+</ul>
+{% endblock content %}
