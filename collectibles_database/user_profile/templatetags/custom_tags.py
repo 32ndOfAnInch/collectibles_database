@@ -1,5 +1,5 @@
 from django import template
-from user_profile.models import Profile
+from user_profile.models import Profile, FriendRequest
 
 register = template.Library()
 

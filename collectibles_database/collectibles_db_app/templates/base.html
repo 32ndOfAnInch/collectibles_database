@@ -29,40 +29,51 @@
                 </li>
             </ul>
             {% else %}
-            {% if user and user.profile.picture %}
-            <img class="user-profile-img" src="{{ user.profile.picture.url }}" onclick="toggleMenu()">
-            {% else %}
-            <img class="user-profile-img" src="{% static 'collectibles/img/generic_user_logo.jpg' %}" onclick="toggleMenu()">
-            {% endif %}
-            <div class="sub-menu-wrap" id="subMenu">
-                <div class="sub-menu">
-                    <div class="user-info">
-                        <a href="{% url 'profile' %}">
-                            {% if user and user.profile.picture %}
-                            <img class="user-profile-img" src="{{ user.profile.picture.url }}" >
-                            {% else %}
-                            <img class="user-profile-img" src="{% static 'collectibles/img/generic_user_logo.jpg' %}">
-                            {% endif %}
-                        </a>
-                        <a href="{% url 'profile' %}">
-                            <h3>{{ user.username }}</h3>
-                        </a>
-                    </div>
-                    {% if user.is_authenticated %}
-                        {% if user.is_staff or user.is_superuser %}
-                        <hr>
-                        <a href="{% url 'admin:index' %}" class="sub-menu-link"><p>Administration</p></a>
-                        {% endif %}
+            <div class="notifications-and-user">
+                <a href="{% url 'notifications' %}">
+                    {% if friend_requests %}
+                    <img class="notification-bell-image" 
+                    src="{% static 'collectibles/img/notification_bell_rings.bmp' %}">
+                    {% else %}
+                    <img class="notification-bell-image" 
+                    src="{% static 'collectibles/img/notification_bell_calm.bmp' %}">
                     {% endif %}
-                    <hr>
-                    <a href="{% url 'profile_update' %}" class="sub-menu-link"><p>Edit Profile</p></a>
-                    <a href="{% url 'profile_search' %}" class="sub-menu-link"><p>Search for Users</p></a>
-                    <a href="{% url 'friends_list' %}" class="sub-menu-link"><p>View Friends List</p></a>
-                    <hr>
-                    <a href="{% url 'logout' %}" class="sub-menu-link"><p>Log Out</p></a>
+                </a>
+                {% if user and user.profile.picture %}
+                <img class="user-profile-img" src="{{ user.profile.picture.url }}" onclick="toggleMenu()">
+                {% else %}
+                <img class="user-profile-img" src="{% static 'collectibles/img/generic_user_logo.jpg' %}" onclick="toggleMenu()">
+                {% endif %}
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <a href="{% url 'profile' %}">
+                                {% if user and user.profile.picture %}
+                                <img class="user-profile-img" src="{{ user.profile.picture.url }}" >
+                                {% else %}
+                                <img class="user-profile-img" src="{% static 'collectibles/img/generic_user_logo.jpg' %}">
+                                {% endif %}
+                            </a>
+                            <a href="{% url 'profile' %}">
+                                <h3>{{ user.username }}</h3>
+                            </a>
+                        </div>
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff or user.is_superuser %}
+                            <hr>
+                            <a href="{% url 'admin:index' %}" class="sub-menu-link"><p>Administration</p></a>
+                            {% endif %}
+                        {% endif %}
+                        <hr>
+                        <a href="{% url 'profile_update' %}" class="sub-menu-link"><p>Edit Profile</p></a>
+                        <a href="{% url 'profile_search' %}" class="sub-menu-link"><p>Search for Users</p></a>
+                        <a href="{% url 'friends_list' %}" class="sub-menu-link"><p>View Friends List</p></a>
+                        <hr>
+                        <a href="{% url 'logout' %}" class="sub-menu-link"><p>Log Out</p></a>
+                    </div>
                 </div>
-            </div>
             {% endif %}
+            </div>
         </nav>
     </div>
     <script>
