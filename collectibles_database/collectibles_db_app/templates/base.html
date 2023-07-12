@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static i18n %}
+{% load custom_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
 <html lang="{{ LANGUAGE_CODE }}">
@@ -31,7 +32,7 @@
             {% else %}
             <div class="notifications-and-user">
                 <a href="{% url 'notifications' %}">
-                    {% if friend_requests %}
+                    {% if request.user|has_pending_friend_requests %}
                     <img class="notification-bell-image" 
                     src="{% static 'collectibles/img/notification_bell_rings.bmp' %}">
                     {% else %}
