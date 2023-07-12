@@ -1,4 +1,4 @@
-/* navbar */
+/* navbar (here goes login, logout, signin, user profile, notifications etc.) */
 
 * {
     margin: 0;
@@ -7,49 +7,123 @@
     outline: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 html { 
     font-family: Helvetica;
 }
 
-nav {
+.user-nav{
+    width: 100%;
+    min-height: 6vh;
+    background: #b18f8f;
+    color: white;
+}
+
+body{
+    width: 100%;
+}
+
+nav{
+    background:#404040;
+    width: 100%;
+    padding: 0 10%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 0 15%;
-    height: 68px;
-    line-height: 68px;
-    background: #404040;
+    position: relative;
 }
 
-nav .logo {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: .5px;
-}
-
-nav .nav-list {
-    display: flex;
-}
-
-nav .nav-list .nav-item{
+.user-profile-img {
+    border-radius: 100%;
+    border: 1px solid #818181;
+    max-width: 55px;
+    max-height: 53px;
+    margin-top: 4px;
     cursor: pointer;
-    height: 100%;
-    padding: 0 30px;
-    transition: .4s;
-    font-size: large;
 }
 
-nav .nav-list .nav-item:hover {
-    background: #b69955;
+nav ul{
+    width: 100%;
+    text-align: left;
 }
 
-nav .nav-list .nav-link {
-    color: #f1f1f1;
-    font-size: 18;
+.top-nav ul {
+    width: 100%;
+    text-align: right;
+}
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 5px 10px;
+}
+
+nav ul li a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    z-index: 1;
+}
+
+
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu{
+    background: aliceblue;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #404040;
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+}
+
+.user-info h3{
     font-weight: 500;
+    color: black;
 }
+
+.user-info img{
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #383838;
+    margin: 20px 0;
+}
+
+.sub-menu-link p {
+    width: 100%;
+}
+
 
 @media (max-width: 935px) {
 
@@ -64,82 +138,22 @@ nav .nav-list .nav-link {
 
 @media (max-width: 675px) {
 
-    nav .nav-list {
-        display: grid;
-        position: absolute;
-        background: #404040;
-        width: 100%;
-        top: 68px;
-        left: 0;
-        transform: translateY(-100%);
-        z-index: -1;
-        transition: .5s;
+    nav {
+        padding: 0 1rem;
     }
 
     nav .nav-list .nav-item {
-        padding-left: 25px;
-    }
-
-    nav .navbar-toggler {
-        display: grid !important;
+        padding: 0 10px;
     }
 }
 
-nav .navbar-toggler {
-    display: none;
-    height: min-content;
-    margin: 18px -10px 0 0;
-    cursor: pointer;
-}
-
-nav .navbar-toggler .bar {
-    width: 40px;
-    height: 5px;
-    margin-bottom: 10px;
-    background: #ffffff;
-    border-radius: 10%;
-    transition: .4s;
-}
-
-.navbar-input {
-    display: none;
-}
-
-.navbar-input:checked ~ nav .nav-list {
-    transform: translateY(0%);
-    z-index: 1;
-}
-
-.navbar-input:checked ~ nav .navbar-toggler {
-    margin-top: 35px;
-    margin-right: 25px;
-}
-
-.navbar-input:checked ~ nav .navbar-toggler .bar:nth-child(1) {
-    position: absolute;
-    transform: rotate(45deg);
-}
-
-.navbar-input:checked ~ nav .navbar-toggler .bar:nth-child(2) {
-    display: none;
-}
-
-.navbar-input:checked ~ nav .navbar-toggler .bar:nth-child(3) {
-    position: absolute;
-    transform: rotate(-45deg);
-}
-
-i {
-    margin-top: 29px;
-}
-
-#user-user-name {
-    color: #e3f7ac;
-}
 
 
-/* second navbar */
+/* ************************************************ */
 
+/* second navbar (here goes database related links) */
+
+/* ************************************************ */
 
 
 .secNav nav {
@@ -158,8 +172,8 @@ i {
 
 .secNav nav .nav-list .nav-item{
     cursor: pointer;
-    height: 100%;
-    padding: 0 30px;
+    height: 80%;
+    padding: 0 6px;
     transition: .4s;
     font-size: large;
 }
@@ -192,7 +206,7 @@ i {
         position: absolute;
         background: #F0A500;
         width: 100%;
-        top: 68px;
+        top: 0px;
         left: 0;
         transform: translateY(-100%);
         z-index: -1;
@@ -200,7 +214,7 @@ i {
     }
 
     .secNav nav .nav-list .nav-item {
-        padding-left: 35px;
+        padding-left: 20px;
     }
 
     .secNav nav .navbar-toggler {
@@ -230,13 +244,15 @@ i {
 
 .secNav .navbar-input:checked ~ nav .nav-list {
     transform: translateY(0%);
-    margin-top: 68px;
+    margin-top: 40px;
     z-index: 0;
 }
 
+
 .secNav .navbar-input:checked ~ nav .navbar-toggler {
-    margin-top: 25px;
+    margin-top: 0px;
     margin-right: 25px;
+    z-index: 1;
 }
 
 .secNav .navbar-input:checked ~ nav .navbar-toggler .bar:nth-child(1) {
