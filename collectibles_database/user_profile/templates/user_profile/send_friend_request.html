@@ -3,10 +3,14 @@
 {% block title %}Send Friend Request{% endblock title %}
 
 {% block content %}
-<h1>Do you really want to send a friend request to {{ receiver.username }}?</h1>
-<form method="post" action="{% url 'send_friend_request' user_id=receiver.id %}">
-    {% csrf_token %}
-    <button type="submit">Confirm</button>
-    <a href="{% url 'profile' user_id=receiver.id %}">Cancel</a>
-</form>
+
+<div class="friends-confirm">
+    <h2>Do you really want to send a friend request to {{ receiver.username }}?</h2>
+    <form method="post" action="{% url 'send_friend_request' user_id=receiver.id %}">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+        <a href="{% url 'profile' user_id=receiver.id %}">Cancel</a>
+    </form>
+</div>
+
 {% endblock content %}

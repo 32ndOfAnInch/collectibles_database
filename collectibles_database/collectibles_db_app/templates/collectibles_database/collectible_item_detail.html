@@ -49,13 +49,15 @@
             {% endif %}
         </ul>
     </div>
-    {% comment %} If the listing does not belong to friend {% endcomment %}
-    {% if user.is_authenticated and item.user == user %}
     <div class="ask-action-dialog">
-        <a href="{% url 'update_item' item.pk %}">Update</a>
-        <a href="{% url 'delete_item' item.pk %}">Delete</a>
+        {% comment %} If the listing does not belong to friend {% endcomment %}
+        {% if user.is_authenticated and item.user == user %}
+            <a href="{% url 'update_item' item.pk %}">Update</a>
+            <a href="{% url 'delete_item' item.pk %}">Delete</a>
+        {% endif %}
+        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
     </div>
-    {% endif %}
+    
 </div>
 
 {% endblock content %}

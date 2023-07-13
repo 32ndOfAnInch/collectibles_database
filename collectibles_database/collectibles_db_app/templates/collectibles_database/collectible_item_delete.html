@@ -53,7 +53,7 @@
         <form action="{{ request.path }}" method="post">
             {% csrf_token %}
             <button type="submit">Confirm</button>
-            <a href="{% url 'collectibles_list' %}">Cancel</a>
+            <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>
         </form>
     </div>
 </div>

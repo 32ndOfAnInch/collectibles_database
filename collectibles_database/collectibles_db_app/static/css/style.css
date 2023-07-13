@@ -317,18 +317,29 @@ footer p {
 /* collectibles list */
 
 .item-front-image {
-    max-width: 35%;
+    max-width: 40%;
     margin: 0 0.5rem;
-    border: 2px solid #000;
+    border: 2px solid #424242;
 }
+
 
 /* collectibles list containers */
 
 .items-grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 5px;
+    grid-template-columns: repeat(4, 25%);
+    gap: 4px;
     padding: 10px;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    position: relative;
+    &::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+
 }
   
 .items-grid-container > div {
@@ -376,7 +387,7 @@ footer p {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f7f7f7;
+    background-color: #f0a5001c;
 }
   
 .signup-login-container h1 {
@@ -409,6 +420,7 @@ footer p {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    font-size: 16px;
 }
   
 .signup-login-container button[type="submit"]:hover {
@@ -553,7 +565,7 @@ footer p {
 
 @media (max-width: 768px) {
     .item-front-image {
-        max-width: 100%;
+        max-width: 50%;
     }
 }
 @media (max-width: 475px){
@@ -566,7 +578,7 @@ footer p {
         margin: 5px;
     }
     .item-front-image {
-        max-width: 80%;
+        max-width: 55%;
     }
 }
 
@@ -622,4 +634,49 @@ footer p {
 
 .ask-action-dialog a:nth-child(2) {
     background-color: #dc3545;
+}
+
+.ask-action-dialog a:nth-child(3) {
+    background-color: #777777;
+}
+
+/* friend request and unfollow friend confirmations */
+
+.friends-confirm {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0a5001c;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.friends-confirm h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.friends-confirm form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.friends-confirm form button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #575757;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 35px;
+}
+
+.friends-confirm form a {
+    font-size: 18px;
+    color: #428bca;
+    text-decoration: none;
 }
