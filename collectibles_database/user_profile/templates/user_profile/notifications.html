@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ block.super }} {% endblock title %}
+{% block title %} Notifications {% endblock title %}
 
 {% block content %}
-  <h2>Received Friend Requests</h2>
+
+    <h2>Received Friend Requests</h2>
   {% if friend_requests %}
     {% for friend_request in friend_requests %}
       <p>From: {{ friend_request.sender.username }}</p>

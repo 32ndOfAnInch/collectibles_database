@@ -1,18 +1,61 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ block.super }} {% endblock title %}
+{% block title %} Delete Item {% endblock title %}
 
 {% block content %}
-<h1>Do you really want to delete this record? :</h1>
-<p>Country: {{ object.country }}</p>
-<p>Currency: {{ object.currency }}</p>
-<p>Denomination: {{ object.denomination }}</p>
-<p>Condition: {{ object.condition }}</p>
-<p>Description: {{ object.description }}</p>
-<form action="{{ request.path }}" method="post">
-    {% csrf_token %}
-    <button type="submit">Confirm</button>
-    <a href="{% url 'collectibles_list' %}">Cancel</a>
-</form>
+<div class="dialog-message">
+    <h2>Do you really want to delete this record?</h2>
+</div>
+<div class="item-detail-container">
+    <div class="item-detail-img">
+        {% if object.obverse_side %}
+            <img class="item-front-image" src="{{ object.obverse_side.url }}">
+        {% endif %}
+        {% if object.reverse_side %}
+            <img class="item-front-image" src="{{ object.reverse_side.url }}">
+        {% endif %}
+    </div>
+    <div class="item-detail-contents">
+        <ul>
+            <li>Country: {{ object.country }}</li>
+            <li>Item Type: {{ object.get_item_type_display }}</li>
+            <li>Release Year: {{ object.release_year }}</li>
+            <li>Quantity: {{ object.quantity }}</li>
+            <br>
+            {% if object.currency %}
+                <li>Currency: {{ object.currency }}</li>
+            {% endif %}
+            {% if object.circulation %}
+                <li>Circulation: {{ object.circulation }}</li>
+            {% endif %}
+            {% if object.denomination %}
+                {% comment %} removing .0 if it is .0 from variable {% endcomment %}
+                {% if object.denomination|floatformat:0|stringformat:"s" == object.denomination|floatformat:0 %}
+                <li>Denomination: {{ object.denomination|floatformat }}</li>
+                {% else %}
+                <li>Denomination: {{ object.denomination }}</li>
+                {% endif %}
+            {% endif %}
+            <li>Item condition:
+                <ul>
+                    <li>Grading System: {{ object.condition }}</li>
+                    <li>Value: {{ object.value }}</li>
+                </ul>
+            </li>
+            <li>Description: {{ object.description }}</li>
+            <li>Register Date: {{ object.register_date }}</li>
+            {% if object.update_date %}
+            <li>Last Changes: {{ object.update_date }}</li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="ask-delete-dialog">
+        <form action="{{ request.path }}" method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm</button>
+            <a href="{% url 'collectibles_list' %}">Cancel</a>
+        </form>
+    </div>
+</div>
 
 {% endblock content %}

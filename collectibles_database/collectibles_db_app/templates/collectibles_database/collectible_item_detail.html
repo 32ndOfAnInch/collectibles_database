@@ -1,25 +1,61 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %} {{ block.super }} {% endblock title %}
+{% block title %} Delete Item {% endblock title %}
 
 {% block content %}
-{% if item.obverse_side %}
-    <img class="item-front-image" src="{{ item.obverse_side.url }}">
-{% endif %}
-{% if item.reverse_side %}
-    <img class="item-front-image" src="{{ item.reverse_side.url }}">
-{% endif %}
-<p>Country: {{ item.country }}</p>
-<p>{{ item.currency }}</p>
-<p>{{ item.get_item_type_display }}</p>
-<p>{{ item.release_year }}</p>
-<p>{{ item.circulation }}</p>
-<p>{{ item.denomination }}</p>
-<p>{{ item.quantity }}</p>
-<p>{{ item.condition }}</p>
-<p>{{ item.value }}</p>
-<p>{{ item.description }}</p>
-<p>{{ item.register_date }}</p>
-<p>{{ item.update_date }}</p>
+<div class="dialog-message">
+    <h2>Item Details</h2>
+</div>
+<div class="item-detail-container">
+    <div class="item-detail-img">
+        {% if item.obverse_side %}
+            <img class="item-front-image" src="{{ item.obverse_side.url }}">
+        {% endif %}
+        {% if item.reverse_side %}
+            <img class="item-front-image" src="{{ item.reverse_side.url }}">
+        {% endif %}
+    </div>
+    <div class="item-detail-contents">
+        <ul>
+            <li>Country: {{ item.country }}</li>
+            <li>Item Type: {{ item.get_item_type_display }}</li>
+            <li>Release Year: {{ item.release_year }}</li>
+            <li>Quantity: {{ item.quantity }}</li>
+            <br>
+            {% if item.currency %}
+                <li>Currency: {{ item.currency }}</li>
+            {% endif %}
+            {% if item.circulation %}
+                <li>Circulation: {{ item.circulation }}</li>
+            {% endif %}
+            {% if item.denomination %}
+                {% comment %} removing .0 if it is .0 from variable {% endcomment %}
+                {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
+                <li>Denomination: {{ item.denomination|floatformat }}</li>
+                {% else %}
+                <li>Denomination: {{ item.denomination }}</li>
+                {% endif %}
+            {% endif %}
+            <li>Item condition:
+                <ul>
+                    <li>Grading System: {{ item.condition }}</li>
+                    <li>Value: {{ item.value }}</li>
+                </ul>
+            </li>
+            <li>Description: {{ item.description }}</li>
+            <li>Register Date: {{ item.register_date }}</li>
+            {% if item.update_date %}
+            <li>Last Changes: {{ item.update_date }}</li>
+            {% endif %}
+        </ul>
+    </div>
+    {% comment %} If the listing does not belong to friend {% endcomment %}
+    {% if user.is_authenticated and item.user == user %}
+    <div class="ask-action-dialog">
+        <a href="{% url 'update_item' item.pk %}">Update</a>
+        <a href="{% url 'delete_item' item.pk %}">Delete</a>
+    </div>
+    {% endif %}
+</div>
+
 {% endblock content %}

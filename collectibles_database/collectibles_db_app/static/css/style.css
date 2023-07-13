@@ -519,3 +519,107 @@ footer p {
 .news-item p {
     font-size: 16px;
 }
+
+
+
+/* Item details (and delete dialog) */
+
+.dialog-message h2{
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.item-detail-container {
+    display: grid;
+    gap: 20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.item-detail-img{
+    box-sizing: border-box;
+    float: left;
+    padding: 5px;
+    grid-template-columns: auto auto;
+    width: 100%;
+}
+
+.item-detail-img img::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    .item-front-image {
+        max-width: 100%;
+    }
+}
+@media (max-width: 475px){
+    .item-detail-img{
+        display: grid;
+        grid-template-columns: auto;
+        width: 100%;
+    }
+    .item-detail-img img{
+        margin: 5px;
+    }
+    .item-front-image {
+        max-width: 80%;
+    }
+}
+
+
+.item-detail-contents {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.item-detail-contents ul li {
+    list-style-type: disc;
+    padding: 3px;
+    font-size: 18px;
+}
+
+.item-detail-contents ul ul li{
+    list-style-type: circle;
+    margin-left: 10px;
+    font-size: 16px;
+}
+  
+.ask-delete-dialog {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+  
+.ask-delete-dialog button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+  
+.ask-delete-dialog a {
+    margin-left: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.ask-action-dialog a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+.ask-action-dialog a:nth-child(2) {
+    background-color: #dc3545;
+}
