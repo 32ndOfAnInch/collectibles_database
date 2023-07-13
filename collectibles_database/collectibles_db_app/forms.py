@@ -73,3 +73,4 @@ class UpdateItemForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['value'].queryset = self.instance.condition.values.all()
+            
