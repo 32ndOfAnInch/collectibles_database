@@ -98,6 +98,8 @@ class ProfileSearchView(LoginRequiredMixin, ListView):
             qs = qs.filter(
                 Q(user__username__icontains=query)
             )
+        else:
+            qs = qs.none()
         return qs
 
 
@@ -107,7 +109,6 @@ def send_friend_request(request, user_id):
 
     # Prevent sending friend request to oneself
     if receiver == request.user:
-        messages.error(request, "You cannot send a friend request to yourself.")
         return redirect('profile', user_id=receiver.id)
     
     # Prevent sending friend request to existing friends
@@ -121,7 +122,7 @@ def send_friend_request(request, user_id):
             sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1
             )
         friend_request.save()
-        return redirect('profile')  # Redirect to a success page or appropriate URL
+        return redirect('profile', user_id=receiver.id)  # Redirect to a success page or appropriate URL
     return render(request, 'user_profile/send_friend_request.html', {'receiver': receiver})
 
 

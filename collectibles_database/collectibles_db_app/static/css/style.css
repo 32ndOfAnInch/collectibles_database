@@ -88,7 +88,7 @@ nav ul li a{
 }
 
 .sub-menu{
-    background: aliceblue;
+    background: #fff7e6;
     padding: 20px;
     margin: 10px;
     border: 1px solid #404040;
@@ -766,15 +766,16 @@ footer p {
 
 
 
-/* friends list */
+/* friends list and user list */
 
 
-.friends-list-container {
+.user-list-container {
     margin-top: 20px;
     margin-left: 20px;
+    margin-right: 10px;
 }
   
-.friends-list {
+.user-list {
     list-style-type: none;
     padding: 0;
     display: grid;
@@ -782,7 +783,7 @@ footer p {
     grid-gap: 20px;
 }
   
-.friend-item {
+.user-item {
     background-color: #f0a5001c;
     padding: 10px;
     margin-top: 10px;
@@ -790,19 +791,19 @@ footer p {
     text-align: center;
 }
 
-.friend-item p{
+.user-item p{
     margin-top: 10px;
     margin-bottom: 5px;
 }
   
-.friend-list-image {
+.user-list-image {
     width: 120px;
     height: 120px;
     object-fit: cover;
     border-radius: 10%;
 }
   
-.friend-details {
+.user-details {
     margin-top: 10px;
 }
   
@@ -836,4 +837,86 @@ footer p {
   
 .button-primary:hover {
     background-color: #0056b3;
+}
+
+
+/* Profile */
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.profile-container p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.profile-picture {
+    flex: 0 0 300px;
+    max-width: 300px;
+}
+
+.user-profile-picture {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 5%;
+}
+
+.profile-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.send-request-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+}
+
+.unfollow-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #424242;
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 767px) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .button-container {
+        align-items: center;
+    }
+    .send-request-button ,
+    .unfollow-button  {
+        display: grid;
+    }
+    .send-request-button a,
+    .unfollow-button a {
+        text-align: center;
+    }
+    .profile-details {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
 }

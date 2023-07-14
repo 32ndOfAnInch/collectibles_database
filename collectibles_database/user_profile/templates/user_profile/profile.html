@@ -1,24 +1,43 @@
 {% extends 'base.html' %}
 {% load custom_tags %}
-{% block title %}{{ user_ }} profile in {{ block.super }}{% endblock title %}
+{% load static %}
+
+{% block title %}{{ user_ }} Profile {% endblock title %}
+
 {% block content %}
-<h1>{{ user_ }}</h1>
-{% if user_.profile and user_.profile.picture %}
-    <img class="user-profile-picture" src="{{ user_.profile.picture.url }}">
-{% endif %}
-{% if user_.first_name or user_.last_name %}
-    <p>{{ user_.first_name }} {{ user_.last_name }}</p>
-{% endif %}
-{% if user_ == request.user %}
-    <p>E-mail: {{ user_.email }}</p>
-    <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
-{% endif %}
+
+<div class="profile-container">
+    <div class="profile-picture">
+        {% if user_.profile and user_.profile.picture %}
+            <img class="user-profile-picture" src="{{ user_.profile.picture.url }}" >
+        {% else %}
+            <img class="user-profile-picture" src="{% static 'collectibles/img/generic_user_logo.jpg' %}">
+        {% endif %}
+    </div>
+    <div class="profile-details">
+        <h2>{{ user_ }}</h2>
+        {% if user_.first_name or user_.last_name %}
+            <p>{{ user_.first_name }} {{ user_.last_name }}</p>
+        {% endif %}
+        {% if user_ == request.user %}
+            <p>E-mail: {{ user_.email }}</p>
+            <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
+        {% endif %}
+    </div>
+</div>
+
 {% if user_ != request.user and not is_friend_request_sent and not request.user|is_friend:user_.id %}
-    <a href="{% url 'send_friend_request' user_id=user_.id %}">Send Friend Request</a>
+    <div class="send-request-button">
+        <a href="{% url 'send_friend_request' user_id=user_.id %}">Send Friend Request</a>
+    </div>
 {% endif %}
+
 {% if request.user|is_friend:user_.id %}
     {% if user_ != request.user %}
+    <div class="unfollow-button">
         <a href="{% url 'unfollow_friend' user_id=user_.id %}">Unfollow</a>
+    </div>
     {% endif %}
 {% endif %}
+
 {% endblock content %}

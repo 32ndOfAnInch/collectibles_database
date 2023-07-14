@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+
 {% block title %} Search for Users {% endblock title %}
 
 {% block content %}
-<h1>search for users</h1>
-{% include 'includes/search.html' %}
-{% for profile in profile_search %}
-<p><a href="{% url 'profile' user_id=profile.user.id %}">{{ profile.user }}</a></p>
-{% endfor %}
+
+<div class="user-list-container">
+    <h2>User Search</h2>
+    {% include 'includes/search.html' %}
+    <div class="user-list">
+        {% for profile in profile_search %}
+        <li class="user-item">
+            <a href="{% url 'profile' user_id=profile.user.id %}">
+              {% get_profile_picture profile.user as profile_picture %}
+              <img class="user-list-image" src="{{ profile_picture }}">
+            </a>
+              <div class="user-details">
+                <h3>{{ profile.user.username }}</h3>
+                <p><a href="{% url 'profile' user_id=profile.user.id %}" 
+                  class="button">Go to {{ profile.user.username }}'s profile</a></p>
+              </div>
+          </li>
+          {% endfor %}
+    </div>
+</div>
 
 {% endblock content %}
