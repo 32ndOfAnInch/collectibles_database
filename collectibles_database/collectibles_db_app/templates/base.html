@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'collectibles/img/favicon.ico' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
@@ -31,6 +31,10 @@
             </ul>
             {% else %}
             <div class="notifications-and-user">
+                <a href="#">
+                    <img class="settings-image" 
+                    src="{% static 'collectibles/img/settings.bmp' %}">
+                </a>
                 <a href="{% url 'notifications' %}">
                     {% if request.user|has_pending_friend_requests %}
                     <img class="notification-bell-image" 

@@ -1,22 +1,40 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
 
 {% block title %}Friends List{% endblock title %}
 
 {% block content %}
-  <h1>Friends List</h1>
 
-  {% if friends %}
+{% if friends %}
+<div class="friends-list-container">
+  <h2>Friends List</h2>
+  <div class="friends-list">
     <ul>
       {% for friend in friends %}
-        <li>
-            <p>{{ friend.user.username }}</p>
-          <p><a href="{% url 'profile' user_id=friend.user.id %}">Go to {{ friend.user.username }}'s profile</a></p>
-          <p><a href="{% url 'friend_collectibles_list' friend.user.id %}">View {{ friend.user.username }}'s' database</a></p>
-        </li>
+      <li class="friend-item">
+        <a href="{% url 'profile' user_id=friend.user.id %}">
+          {% get_profile_picture friend.user as profile_picture %}
+          <img class="friend-list-image" src="{{ profile_picture }}">
+        </a>
+          <div class="friend-details">
+            <h3>{{ friend.user.username }}</h3>
+            <p><a href="{% url 'profile' user_id=friend.user.id %}" 
+              class="button">Go to {{ friend.user.username }}'s profile</a></p>
+            <p><a href="{% url 'friend_collectibles_list' friend.user.id %}" 
+              class="button button-primary">View {{ friend.user.username }}'s database</a></p>
+          </div>
+      </li>
       {% endfor %}
     </ul>
+  </div>
   {% else %}
-    <p>No friends.</p>
+  <div class="no-friends">
+    <h2>No friends on the list.</h2>
+    <p>Go and <a href="{% url 'profile_search' %}">find</a> someone from users list.</p>
+    <p>Or invite to join the app if they don't have an account</p>
+  </div>
   {% endif %}
+</div>
 
 {% endblock content %}
