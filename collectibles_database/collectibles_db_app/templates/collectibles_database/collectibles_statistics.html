@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ block.super }} {% endblock title %}
+{% block title %} Statistics {% endblock title %}
 
 {% block content %}
-{{ user.username }}
-<ul>
-    <li><strong>Total listings:</strong> {{ total_records }}</li>
-    <li><strong>Total items:</strong> {{ total_items }}</li>
-    <li><strong>Oldest item date:</strong> {{ oldest_item }}</li>
-    <li><strong>Average year of items:</strong> {{ average_year }}</li>
-</ul>
-<table>
-    <tr>
-        <th>Item Type</th>
-        <th>Total Records</th>
-        <th>Total Items</th>
-        <th>Oldest Item</th>
-    </tr>
-    {% for stat in item_type_stats %}
-    <tr>
-        <td>{{ stat.item_type }}</td>
-        <td>{{ stat.total_records }}</td>
-        <td>{{ stat.total_items }}</td>
-        <td>{{ stat.oldest_item }}</td>
-    </tr>
-    {% endfor %}
-</table>
+
+<div class="statistics-container">
+    <h2>User: {{ user.username }}</h2>
+    <ul class="statistics-list">
+        <li><strong>Total listings:</strong> {{ total_records }}</li>
+        <li><strong>Total items:</strong> {{ total_items }}</li>
+        <li><strong>Oldest item date:</strong> {{ oldest_item }}</li>
+        <li><strong>Average year of items:</strong> {{ average_year }}</li>
+    </ul>
+    <table class="item-type-table">
+        <caption><strong>Statistics by item type</strong></caption>
+        <tr>
+            <th>Item Type</th>
+            <th>Total Records</th>
+            <th>Total Items</th>
+            <th>Oldest Item (date)</th>
+        </tr>
+        {% for stat in item_type_stats %}
+        <tr>
+            <td>{{ stat.item_type }}</td>
+            <td>{{ stat.total_records }}</td>
+            <td>{{ stat.total_items }}</td>
+            <td>{{ stat.oldest_item }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 {% endblock content %}
