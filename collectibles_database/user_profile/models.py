@@ -2,10 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
+from PIL import Image, ExifTags
 from collectibles_db_app.models import CollectibleItem
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 
 
 User = get_user_model()
@@ -32,14 +30,33 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("profile_detail", kwargs={"pk": self.pk})
 
-    def save(self, *args, **kwargs) -> None:
+    def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.picture:
-            pic = Image.open(self.picture.path)
-            if pic.width > 300 or pic.height > 300:
+            img = Image.open(self.picture.path)
+            try:
+                # Check if the image has an EXIF orientation tag
+                for orientation in ExifTags.TAGS.keys():
+                    if ExifTags.TAGS[orientation] == 'Orientation':
+                        break
+                exif = dict(img._getexif().items())
+
+                if orientation in exif:
+                    if exif[orientation] == 3:
+                        img = img.rotate(180, expand=True)
+                    elif exif[orientation] == 6:
+                        img = img.rotate(270, expand=True)
+                    elif exif[orientation] == 8:
+                        img = img.rotate(90, expand=True)
+            except (AttributeError, KeyError, IndexError):
+                # Ignore if the image doesn't have EXIF data or orientation tag
+                pass
+
+            # Resize the image if needed
+            if img.width > 300 or img.height > 300:
                 new_size = (300, 300)
-                pic.thumbnail(new_size)
-                pic.save(self.picture.path)
+                img.thumbnail(new_size)
+            img.save(self.picture.path)
                 
 
     def remove_friend(self, friend):

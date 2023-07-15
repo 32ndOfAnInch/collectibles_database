@@ -1,24 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %} Notifications {% endblock title %}
+{% block title %}Notifications{% endblock title %}
 
 {% block content %}
+<div class="notifications-container">
+    <h2>Notifications</h2>
 
-    <h2>Received Friend Requests</h2>
-  {% if friend_requests %}
-    {% for friend_request in friend_requests %}
-      <p>From: {{ friend_request.sender.username }}</p>
-      <p>Status: {{ friend_request.get_status_display }}</p>
-      <form method="post" action="{% url 'notifications' %}">
-        {% csrf_token %}
-        <input type="hidden" name="friend_request_id" value="{{ friend_request.id }}">
-        <button type="submit" name="action" value="accept">Accept</button>
-        <button type="submit" name="action" value="reject">Reject</button>
-      </form>
-    {% empty %}
-      <p>No friend requests.</p>
-    {% endfor %}
-  {% else %}
-    <p>No friend requests.</p>
-  {% endif %}
+    {% if friend_requests %}
+    <div class="friend-requests">
+        <h3>Received Friend Requests</h3>
+        {% for friend_request in friend_requests %}
+        <div class="friend-request">
+            <p class="sender-username">From: {{ friend_request.sender.username }}</p>
+            <p class="view-profile-link">View <a href="{% url 'profile' user_id=friend_request.sender.id %}">{{ friend_request.sender.username }}</a>'s profile</p>
+            <p class="request-status">Status: {{ friend_request.get_status_display }}</p>
+            <form method="post" action="{% url 'notifications' %}">
+                {% csrf_token %}
+                <input type="hidden" name="friend_request_id" value="{{ friend_request.id }}">
+                <div class="notification-buttons">
+                    <button class="accept-button" type="submit" name="action" value="accept">Accept</button>
+                    <button class="reject-button" type="submit" name="action" value="reject">Reject</button>
+                </div>
+            </form>
+        </div>
+        {% empty %}
+        <h3>No new notifications.</h3>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h3>No new notifications.</h3>
+    {% endif %}
+</div>
 {% endblock content %}

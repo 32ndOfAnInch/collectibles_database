@@ -13,16 +13,16 @@
         {% for profile in profile_search %}
         <li class="user-item">
             <a href="{% url 'profile' user_id=profile.user.id %}">
-              {% get_profile_picture profile.user as profile_picture %}
-              <img class="user-list-image" src="{{ profile_picture }}">
+                {% get_profile_picture profile.user as profile_picture %}
+                <img class="user-list-image" src="{{ profile_picture }}">
             </a>
-              <div class="user-details">
-                <h3>{{ profile.user.username }}</h3>
-                <p><a href="{% url 'profile' user_id=profile.user.id %}" 
-                  class="button">Go to {{ profile.user.username }}'s profile</a></p>
-              </div>
-          </li>
-          {% endfor %}
+                <div class="user-details">
+                    <h3>{{ profile.user.username }}</h3>
+                    <p><a href="{% url 'profile' user_id=profile.user.id %}" 
+                    class="button">Go to {{ profile.user.username }}'s profile</a></p>
+                </div>
+        </li>
+        {% endfor %}
     </div>
 </div>
 

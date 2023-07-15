@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="friends-confirm">
-    <h2>Do you really want to unfollow {{ receiver.username }}?</h1>
+    <h2>Do you really want to unfollow {{ receiver.username }}?</h2>
     <form method="post" action="{% url 'unfollow_friend' user_id=receiver.id %}">
         {% csrf_token %}
         <button class="unfollow-btn" type="submit">Confirm</button>

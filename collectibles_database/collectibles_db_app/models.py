@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
-from PIL import Image
+from PIL import Image, ExifTags
 
 
 User = get_user_model()
@@ -114,18 +114,41 @@ class CollectibleItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("collectibleitem_detail", kwargs={"pk": self.pk})
-    
-    def save(self, *args, **kwargs) -> None:
+
+
+    # This part is for keeping images in their original orientation and resizing
+    def _rotate_image(self, image):
+        try:
+            # Check if the image has an EXIF orientation tag
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+            exif = dict(image._getexif().items())
+
+            if orientation in exif:
+                if exif[orientation] == 3:
+                    image = image.rotate(180, expand=True)
+                elif exif[orientation] == 6:
+                    image = image.rotate(270, expand=True)
+                elif exif[orientation] == 8:
+                    image = image.rotate(90, expand=True)
+        except (AttributeError, KeyError, IndexError):
+            # Ignore if the image doesn't have EXIF data or orientation tag
+            pass
+
+        return image
+
+    def _resize_and_save_image(self, field_name):
+        image_field = getattr(self, field_name)
+        if image_field:
+            image = Image.open(image_field.path)
+            image = self._rotate_image(image)
+            if image.width > 600 or image.height > 600:
+                new_size = (600, 600)
+                image.thumbnail(new_size)
+            image.save(image_field.path)
+
+    def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.obverse_side:
-            pic = Image.open(self.obverse_side.path)
-            if pic.width > 300 or pic.height > 300:
-                new_size = (300, 300)
-                pic.thumbnail(new_size)
-                pic.save(self.obverse_side.path)
-        if self.reverse_side:
-            pic = Image.open(self.reverse_side.path)
-            if pic.width > 300 or pic.height > 300:
-                new_size = (300, 300)
-                pic.thumbnail(new_size)
-                pic.save(self.reverse_side.path)
+        self._resize_and_save_image('obverse_side')
+        self._resize_and_save_image('reverse_side')

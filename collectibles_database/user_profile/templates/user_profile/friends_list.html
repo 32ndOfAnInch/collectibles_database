@@ -8,31 +8,31 @@
 
 {% if friends %}
 <div class="user-list-container">
-  <h2>Friends List</h2>
-  <div class="user-list">
-    <ul>
-      {% for friend in friends %}
-      <li class="user-item">
-        <a href="{% url 'profile' user_id=friend.user.id %}">
-          {% get_profile_picture friend.user as profile_picture %}
-          <img class="user-list-image" src="{{ profile_picture }}">
-        </a>
-          <div class="user-details">
-            <h3>{{ friend.user.username }}</h3>
-            <p><a href="{% url 'profile' user_id=friend.user.id %}" 
-              class="button">Go to {{ friend.user.username }}'s profile</a></p>
-            <p><a href="{% url 'friend_collectibles_list' friend.user.id %}" 
-              class="button button-primary">View {{ friend.user.username }}'s database</a></p>
-          </div>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% else %}
-  <div class="no-friends">
+    <h2>Friends List</h2>
+    <div class="user-list">
+        <ul>
+        {% for friend in friends %}
+            <li class="user-item">
+                <a href="{% url 'profile' user_id=friend.user.id %}">
+                    {% get_profile_picture friend.user as profile_picture %}
+                    <img class="user-list-image" src="{{ profile_picture }}">
+                </a>
+            <div class="user-details">
+                <h3>{{ friend.user.username }}</h3>
+                <p><a href="{% url 'profile' user_id=friend.user.id %}" 
+                    class="button">Go to {{ friend.user.username }}'s profile</a></p>
+                <p><a href="{% url 'friend_collectibles_list' friend.user.id %}" 
+                    class="button button-primary">View {{ friend.user.username }}'s database</a></p>
+            </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% else %}
+<div class="no-friends">
     <h2>No friends on the list.</h2>
-  </div>
-  {% endif %}
+</div>
+{% endif %}
 </div>
 
 {% endblock content %}

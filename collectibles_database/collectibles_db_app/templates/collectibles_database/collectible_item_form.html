@@ -3,27 +3,27 @@
 {% block title %} {{ block.super }} {% endblock title %}
 
 {% block content %}
+
 {% if object.id %}
-<h1>Update item record</h1>
+<h2>Update item record</h2>
 {% else %}
-<h1>Add item to the list</h1>
+<h2>Add item to the list</h2>
 {% endif %}
     <form method = "post" 
     action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}" 
     enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
         <button type="submit">Confirm</button>
     </form>
     <script>
         console.log("hello")
         $(document).ready(function () {
-          // Disable the dependent dropdown initially
-          // $('#id_value').prop('disabled', true);
+        // Disable the dependent dropdown initially
+        // $('#id_value').prop('disabled', true);
       
-          // Handle the change event of the 'condition' dropdown
-          $('#id_condition').on('change', function () {
+        // Handle the change event of the 'condition' dropdown
+        $('#id_condition').on('change', function () {
             var gradationSystemId = $(this).val();
             var valueSelect = $('#id_value');
       
@@ -32,21 +32,21 @@
       
             // Fetch the related Value objects based on the selected GradationSystem
             $.ajax({
-              url: '{% url "get_values" %}',
-              type: 'GET',
-              data: {
-                gradation_system_id: gradationSystemId
-              },
-              success: function (data) {
+                url: '{% url "get_values" %}',
+                type: 'GET',
+                data: {
+                    gradation_system_id: gradationSystemId
+                },
+                success: function (data) {
                 // Enable the Value dropdown and populate it with the fetched data
-                valueSelect.prop('disabled', false);
+                    valueSelect.prop('disabled', false);
       
-                $.each(data.values, function (key, value) {
-                  valueSelect.append($('<option>').text(value.value).attr('value', value.id));
-                });
-              }
+                    $.each(data.values, function (key, value) {
+                        valueSelect.append($('<option>').text(value.value).attr('value', value.id));
+                    });
+                }
             });
-          });
+        });
         });
     </script>
 
