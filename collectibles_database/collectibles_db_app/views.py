@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.http import Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
+from .utils.spacy_utils import extract_entities
 
 
 User = get_user_model()
@@ -32,14 +33,17 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
         query = self.request.GET.get('query')
+        user = self.request.user
         
         if query:
+            entities = extract_entities(query, user)
+            country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
             qs = qs.filter(
-                Q(country__icontains=query),
-                user=self.request.user
+                Q(country__icontains=query) | Q(country__in=country_names),
+                user=user
             )
         else:
-            qs = qs.filter(user=self.request.user)
+            qs = qs.filter(user=user)
         
         return qs
     
@@ -57,9 +61,13 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         
         # Check if the logged-in user is friends with the requested user
         if self.request.user.profile.friends.filter(user_id=user_id).exists():
+            user = User.objects.get(id=user_id)
+            entities = extract_entities(query, user)
+
             if query:
+                country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
                 qs = qs.filter(
-                    Q(country__icontains=query),
+                    Q(country__icontains=query) | Q(country__in=country_names),
                     user_id=user_id
                 )
             else:

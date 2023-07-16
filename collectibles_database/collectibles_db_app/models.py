@@ -69,7 +69,7 @@ class CollectibleItem(models.Model):
         choices=ITEM_TYPE_CHOICES,
         db_index=True,
         )
-    denomination = models.FloatField(_("denomination"), null=True, blank=True)
+    denomination = models.FloatField(_("denomination"), null=True, blank=True) # float, because I have 2.5 euro coin lol :D
     quantity = models.IntegerField(_("quantity"))
     condition = models.ForeignKey(
         GradationSystem,
