@@ -90,7 +90,7 @@
         }
     </script>
 
-{% comment %} second navbar {% endcomment %}
+{% comment %} second navbar (css only, w burger){% endcomment %}
 {% if user.is_authenticated %}
 <div class="secNav">
     <input class="navbar-input" type="checkbox" id="toggle2">
@@ -105,7 +105,11 @@
         <ul class="nav-list">
             {% if not collectibles_list %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'collectibles_list' %}">My database</a>
+                <a class="nav-link" href="{% url 'collectibles_list' %}">My collectibles</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create_new_item' %}">&#10133;Add new item</a>
             </li>
             {% endif %}
             <li class="nav-item">
@@ -116,10 +120,8 @@
 </div>
 {% endif %}
 
-    <div>
-        {% block content %}
-        {% endblock content %}
-    </div>
+    {% block content %}
+    {% endblock content %}
     <footer><p>&copy;collectibles database 2023 </p></footer>
 </body>
 </html>

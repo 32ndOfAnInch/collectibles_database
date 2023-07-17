@@ -5,11 +5,9 @@
 
 {% block content %}
 
-<p><a href="{% url 'collectibles_list' %}">Back to my collectibles list</a></p>
-
-
-{% if friend_collectibles_list %}
 {% include 'includes/search.html' %}
+{% if friend_collectibles_list %}
+<h2>{{ friend.username }}'s collectibles list</h2>
 {% include 'includes/paginator_nav.html' %}
 <div class="items-grid-container">
     {% for item in friend_collectibles_list %}
@@ -39,5 +37,9 @@
 </div>
 
 {% include 'includes/paginator_pages.html' %}
+
+{% else %}
+<h2>No items found in your friend's collectibles list</h2>
 {% endif %}
+
 {% endblock content %}

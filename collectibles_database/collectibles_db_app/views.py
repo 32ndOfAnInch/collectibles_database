@@ -39,7 +39,10 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
             entities = extract_entities(query, user)
             country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
             qs = qs.filter(
-                Q(country__icontains=query) | Q(country__in=country_names),
+                Q(country__icontains=query) | 
+                Q(country__in=country_names) |  # fuzzy matching
+                Q(release_year__icontains=query) |
+                Q(currency__icontains=query),
                 user=user
             )
         else:
@@ -67,7 +70,10 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
             if query:
                 country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
                 qs = qs.filter(
-                    Q(country__icontains=query) | Q(country__in=country_names),
+                    Q(country__icontains=query) | 
+                    Q(country__in=country_names) |  # fuzzy matching
+                    Q(release_year__icontains=query) |
+                    Q(currency__icontains=query),
                     user_id=user_id
                 )
             else:
@@ -78,6 +84,12 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         # If the logged-in user is not friends with the requested user, raise 404 error
         raise Http404("You are not authorized to view this page.")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        user = User.objects.get(id=user_id)
+        context['friend'] = user
+        return context
 
 @login_required
 def item_detail(request, pk: int):

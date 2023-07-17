@@ -2,55 +2,89 @@
 {% load static %}
 
 {% block content %}
-
-{% comment %} Content for not logged in users {% endcomment %}
-{% if not user.is_authenticated %}
-<div class="welcome-section">
-    <div class="container">
-        <h1>Welcome to Collectibles DB app!</h1>
-        <p>Organize and explore your collectible items with ease.</p>
-        <div class="cta-buttons">
-            <a href="{% url 'login' %}?next={{request.path}}" class="btn btn-primary">Get Started</a>
-        </div>
-    </div>
-</div>
-
-<div class="highlight-section">
-    <div class="container">
-        <h2>App Highlights</h2>
-        <div class="highlight-grid">
-            <div class="highlight-item">
-                <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
-                <h3>Friends Functionality</h3>
-                <p>Connect and see your fellow collector database</p>
-                <p>It comes handy when you want to surprise your friend with a gift but don't sure if they already have that particular item</p>
-            </div>
-            <div class="highlight-item">
-                <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
-                <h3>Explore Collectibles</h3>
-                <p>Organize your collections with ease.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
-                <h3>Mobile Friendly Interface</h3>
-                <p>Access your collectible items anytime, anywhere on any device.</p>
+<div class="background-container">
+    {% comment %} Content for not logged in users {% endcomment %}
+    {% if not user.is_authenticated %}
+    <div class="welcome-section">
+        <div class="container">
+            <h1>Welcome to Collectibles DB app!</h1>
+            <p>Organize and explore your collectible items with ease.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'login' %}?next={{request.path}}" class="btn btn-primary">Get Started</a>
             </div>
         </div>
     </div>
-</div>
-{% endif %}
 
-{% comment %} Content for every user (may be changed later) {% endcomment %}
-<div class="news-section">
-    <div class="container">
-        <h2>News and Updates</h2>
-        <div class="news-item">
-            <h3>Lorem Ipsum Dolor Sit Amet</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus turpis eget metus sodales, at ullamcorper enim aliquam.</p>
+    <div class="highlight-section">
+        <div class="container">
+            <h2>App Highlights</h2>
+            <div class="highlight-grid">
+                <div class="highlight-item">
+                    <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
+                    <h3>Friends Functionality</h3>
+                    <p>Connect and see your fellow collector database</p>
+                    <p>It comes handy when you want to surprise your friend with a gift but don't sure if they already have that particular item</p>
+                </div>
+                <div class="highlight-item">
+                    <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
+                    <h3>Explore Collectibles</h3>
+                    <p>Organize your collections with ease.</p>
+                </div>
+                <div class="highlight-item">
+                    <img src="{% static 'collectibles/img/noimage.png' %}" class="highlight-image">
+                    <h3>Mobile Friendly Interface</h3>
+                    <p>Access your collectible items anytime, anywhere on any device.</p>
+                </div>
+            </div>
         </div>
-        <div class="news-item">
-            <h3>Nulla Vulputate Nunc Eu Facilisis</h3>
-            <p>Nulla vulputate nunc eu facilisis aliquet. Nullam sit amet est urna. Mauris scelerisque bibendum semper.</p>
+    </div>
+    {% endif %}
+
+    {% comment %} content for logged in user {% endcomment %}
+    {% if user.is_authenticated %}
+        <div class="welcome-section">
+            <div class="container">
+                <h1>Welcome, {{ user.username }}!</h1>
+                <br>
+                <p>Thank you for being a part of our community.</p>
+                <a href="{% url 'collectibles_list' %}" class="btn btn-primary">View Collectible Items</a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% comment %} Content for every user (may be changed later) {% endcomment %}
+    <div class="news-section">
+        <div class="container">
+            <h2>News and Updates</h2>
+            <div class="news-item">
+                <h3>07 16 Improved items search functionality </h3>
+                <p>Machine learning powered search function will allow the user to find items, even if typos have been left in the search field. 
+                    For now, this feature is only applied to find a country.</p>
+            </div>
+            <div class="news-item">
+                <h3>07 12 Improved responsive WEB page functionality </h3>
+                <p>Improved functionality allows the user to more conveniently use the app from phones or tablets.</p>
+            </div>
+            <div class="news-item">
+                <h3>07 11 Added statistics functionality </h3>
+                <p>From now on, users can see the basic statistics of their collection. 
+                    You can see things like total number of items, oldest item, average age of items.
+                    It is also possible to see statistics by item type.</p>
+            </div>
+            <div class="news-item">
+                <h3>07 04 Implemented Friends functionality to the app </h3>
+                <p>A user can invite another user to be friends, if the invitation is accepted, the users become friends and can see each other's databases.
+                    This is a very useful feature. If the user knows his friend's collection, then he can gift the friend an item he doesn't have.
+                </p>
+            </div>
+            <div class="news-item">
+                <h3>Lorem Ipsum Dolor Sit Amet</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus turpis eget metus sodales, at ullamcorper enim aliquam.</p>
+            </div>
+            <div class="news-item">
+                <h3>Nulla Vulputate Nunc Eu Facilisis</h3>
+                <p>Nulla vulputate nunc eu facilisis aliquet. Nullam sit amet est urna. Mauris scelerisque bibendum semper.</p>
+            </div>
         </div>
     </div>
 </div>

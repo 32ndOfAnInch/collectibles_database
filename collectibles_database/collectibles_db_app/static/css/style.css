@@ -29,11 +29,13 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* background-color: #dfdfdf;
+}
+
+.background-container {
+    background-color: #b9b9b9;
     background-image: url("../collectibles/img/backgroundq.png");
     background-size: cover;
     background-blend-mode: lighten;
-    background-blend-mode: multiply; */
 }
 
 nav{
@@ -67,6 +69,7 @@ nav ul{
 }
 .top-nav {
     max-height: 68px;
+    z-index: 2;
 }
 .top-nav ul {
     width: 100%;
@@ -210,6 +213,7 @@ nav ul li a{
     height: 68px;
     line-height: 68px;
     background: #f0a400;
+    z-index: 1;
 }
 
 
@@ -256,7 +260,7 @@ nav ul li a{
         top: 0px;
         left: 0;
         transform: translateY(-100%);
-        z-index: -1;
+        z-index: 1;
         transition: .5s;
     }
 
@@ -354,6 +358,14 @@ ul.paginator {
     border: 1px solid #aacc99;
     background-color: #ffebd0;
     border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.paginator a, .paginator .current span{
+    margin-top: 6px;
 }
 
 .item-front-image {
@@ -390,6 +402,7 @@ ul.paginator {
     padding: 10px;
     margin-bottom: 20px;
     max-width: 480px;
+    z-index: 0;
 }
 
 @media (max-width: 1175px) {
@@ -710,16 +723,16 @@ ul.paginator {
     background-color: #f9f9f9;
 }
 
-.form-group {
+.item-form-container .form-group {
     margin-bottom: 15px;
     font-size: 18px;
 }
 
-.red-asterisk {
+.item-form-container .red-asterisk {
     color: red;
 }
 
-.nested-form-group {
+.item-form-container .nested-form-group {
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -748,7 +761,7 @@ ul.paginator {
     margin-bottom: 20px;
 }
 
-textarea {
+.item-form-container textarea {
     width: 100%;
     height: 100px;
     padding: 10px;

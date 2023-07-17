@@ -50,8 +50,8 @@ class CollectibleItem(models.Model):
         )
     country = models.CharField(_("country"), max_length=100)
     currency = models.CharField(_("currency"), max_length=100, null=True, blank=True)
-    release_year = models.IntegerField(_("release_year"))
-    circulation = models.IntegerField(_("circulation"), null=True, blank=True)
+    release_year = models.PositiveIntegerField(_("release_year"))
+    circulation = models.PositiveIntegerField(_("circulation"), null=True, blank=True)
 
     ITEM_TYPE_CHOICES = (
         (1, _('Circulation Coins')),
@@ -70,7 +70,7 @@ class CollectibleItem(models.Model):
         db_index=True,
         )
     denomination = models.FloatField(_("denomination"), null=True, blank=True) # float, because I have 2.5 euro coin lol :D
-    quantity = models.IntegerField(_("quantity"))
+    quantity = models.PositiveIntegerField(_("quantity"))
     condition = models.ForeignKey(
         GradationSystem,
         verbose_name=_("condition"),

@@ -6,5 +6,5 @@ User = get_user_model()
 def get_country_names(user):
     items = user.collectible_items.all()
     country_names = set(item.country for item in items if item.country)
-    print(country_names)
+    # print(country_names)
     return list(country_names)
