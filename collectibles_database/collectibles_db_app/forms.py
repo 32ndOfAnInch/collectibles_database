@@ -36,6 +36,7 @@ class CreateItemForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['value'].queryset = self.instance.condition.value.all()
+            
 
 class UpdateItemForm(forms.ModelForm):
     condition = forms.ModelChoiceField(

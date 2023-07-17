@@ -15,21 +15,31 @@
     {% for item in collectibles_list %}
     <div>
         <div class="content-container">
-        <div>
-        <a href="{% url 'item_detail' item.pk %}">
-            {% if item.obverse_side %}
-                <img class="item-front-image" src="{{ item.obverse_side.url }}">
-            {% else %}
-                <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
+            <div>
+                <a href="{% url 'item_detail' item.pk %}">
+                    {% if item.obverse_side %}
+                        <img class="item-front-image" src="{{ item.obverse_side.url }}">
+                    {% else %}
+                        <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
+                    {% endif %}
+                </a>
+            </div>
+            <div>Country: {{ item.country }}</div>
+            <div>Item type: {{ item.get_item_type_display }}</div>
+            <div>Release Year: {{ item.release_year }}</div>
+            <div>Quantity: {{ item.quantity }}</div>
+            {% if item.currency %}
+                <div>Currency: {{ item.currency }}</div>
             {% endif %}
-        </a>
-        </div>
-        <div>Country: {{ item.country }}</div>
-        <div>Currency: {{ item.currency }}</div>
-        <div>Release Year: {{ item.release_year }}</div>
-        <div>Item type: {{ item.get_item_type_display }}</div>
-        <div>Denomination: {{ item.denomination }}</div>
-        <div>Quantity: {{ item.quantity }}</div>
+            {% if item.denomination %}
+                {% comment %} removing .0 if it is .0 from variable {% endcomment %}
+                {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
+                <div>Denomination: {{ item.denomination|floatformat }}</div>
+                {% else %}
+                <div>Denomination: {{ item.denomination }}</div>
+                {% endif %}
+            {% endif %}
+
         </div>
         <div class="list-item-buttons">
             <a href="{% url 'item_detail' item.pk %}">View Details</a>
@@ -41,5 +51,8 @@
 </div>
 
 {% include 'includes/paginator_pages.html' %}
+{% else %}
+<p>No items found</p>
 {% endif %}
+
 {% endblock content %}

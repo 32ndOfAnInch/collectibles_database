@@ -3,51 +3,111 @@
 {% block title %} {{ block.super }} {% endblock title %}
 
 {% block content %}
-
-{% if object.id %}
-<h2>Update item record</h2>
-{% else %}
-<h2>Add item to the list</h2>
-{% endif %}
-    <form method = "post" 
-    action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}" 
-    enctype="multipart/form-data">
+<div class="item-form-container">
+    {% if object.id %}
+    <h2>Update item record</h2>
+    {% else %}
+    <h2>Add item to the list</h2>
+    {% endif %}
+    <form method="post" action="{{ request.path }}?collectibleitem_id={{ collectibleitem.id }}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+            <div class="form-group">
+                <label for="id_country">Country<span class="red-asterisk">*</span></label>
+                {{ form.country }}
+            </div>
+            <div class="form-group">
+                <label for="id_item_type">Item Type<span class="red-asterisk">*</span></label>
+                {{ form.item_type }}
+            </div>
+            <div class="form-group">
+                <label for="id_release_year">Release Year<span class="red-asterisk">*</span></label>
+                {{ form.release_year }}
+            </div>
+            <div class="form-group">
+                <label for="id_quantity">Quantity<span class="red-asterisk">*</span></label>
+                {{ form.quantity }}
+            </div>
+            <div class="form-group">
+                <label for="id_currency">Currency</label>
+                {{ form.currency }}
+            </div>
+            <div class="form-group">
+                <label for="id_denomination">Denomination</label>
+                {{ form.denomination }}
+            </div>
+            <div class="form-group">
+                <label for="id_circulation">Circulation</label>
+                {{ form.circulation }}
+            </div>
+            <hr>
+            <div class="form-group">
+                <label><strong>Item Condition</strong></label>
+                <div class="nested-form-group">
+                    <label for="id_condition">Grading System<span class="red-asterisk">*</span></label>
+                    {{ form.condition }}
+                </div>
+                <div class="nested-form-group">
+                    <label for="id_value">Value<span class="red-asterisk">*</span></label>
+                    {{ form.value }}
+                </div>    
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="id_description">Description</label>
+                {{ form.description }}
+            </div>
+            <hr>
+            <div class="form-group">
+                <label><strong>Item Images</strong></label>
+                <div class="nested-form-group">
+                    <label for="id_obverse_side">Obverse Side</label>
+                    {{ form.obverse_side }}
+                </div>
+                <div class="nested-form-group">
+                    <label for="id_reverse_side">Reverse Side</label>
+                    {{ form.reverse_side }}
+                </div>
+            </div>
+            <hr>
+        <p><span class="red-asterisk">*</span> - required fields</p>
         <button type="submit">Confirm</button>
     </form>
-    <script>
-        console.log("hello")
-        $(document).ready(function () {
-        // Disable the dependent dropdown initially
-        // $('#id_value').prop('disabled', true);
-      
-        // Handle the change event of the 'condition' dropdown
-        $('#id_condition').on('change', function () {
-            var gradationSystemId = $(this).val();
-            var valueSelect = $('#id_value');
-      
-            // Clear and disable the dependent dropdown
-            valueSelect.empty().prop('disabled', true);
-      
-            // Fetch the related Value objects based on the selected GradationSystem
-            $.ajax({
-                url: '{% url "get_values" %}',
-                type: 'GET',
-                data: {
-                    gradation_system_id: gradationSystemId
-                },
-                success: function (data) {
-                // Enable the Value dropdown and populate it with the fetched data
-                    valueSelect.prop('disabled', false);
-      
-                    $.each(data.values, function (key, value) {
-                        valueSelect.append($('<option>').text(value.value).attr('value', value.id));
-                    });
-                }
-            });
+</div>
+<script>
+    console.log("hello")
+    $(document).ready(function () {
+    // Disable the dependent dropdown initially
+    // $('#id_value').prop('disabled', true);
+  
+    // Handle the change event of the 'condition' dropdown
+    $('#id_condition').on('change', function () {
+        var gradationSystemId = $(this).val();
+        var valueSelect = $('#id_value');
+  
+        // Clear and disable the dependent dropdown
+        valueSelect.empty().prop('disabled', true);
+  
+        // Fetch the related Value objects based on the selected GradationSystem
+        $.ajax({
+            url: '{% url "get_values" %}',
+            type: 'GET',
+            data: {
+                gradation_system_id: gradationSystemId
+            },
+            success: function (data) {
+            // Enable the Value dropdown and populate it with the fetched data
+                valueSelect.prop('disabled', false);
+  
+                $.each(data.values, function (key, value) {
+                    valueSelect.append($('<option>').text(value.value).attr('value', value.id));
+                });
+            }
         });
-        });
-    </script>
+    });
+    });
+</script>
 
 {% endblock content %}

@@ -88,7 +88,7 @@ class CollectibleItem(models.Model):
         related_name="collectible_items"
     )
     
-    description = models.CharField(_("description"), max_length=3000, null=True, blank=True)
+    description = models.TextField(_("description"), max_length=3000, null=True, blank=True)
     obverse_side = models.ImageField(
         _("obverse_side"), 
         upload_to='collectibles/obverse_side',
