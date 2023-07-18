@@ -113,7 +113,6 @@ def send_friend_request(request, user_id):
     
     # Prevent sending friend request to existing friends
     if receiver.profile.friends.filter(user=request.user).exists():
-        messages.error(request, "You are already friends with this user.")
         return redirect('profile', user_id=receiver.id)
 
     collectible_item = models.CollectibleItem.objects.first()
@@ -178,7 +177,7 @@ def unfollow_friend(request, user_id):
             sender=user_to_unfollow.user, receiver=current_user_profile.user
             ).delete()
 
-        messages.success(request, "You have unfollowed the user.")
+        # messages.success(request, "You have unfollowed the user.")
         return redirect('profile', user_id=user_id)
 
     context = {

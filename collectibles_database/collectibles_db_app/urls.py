@@ -11,4 +11,5 @@ urlpatterns = [
     path('collectibles/delete/<int:pk>/', views.DeleteItemView.as_view(), name='delete_item'),
     path('get_values/', views.get_values, name='get_values'),
     path('collectibles/statistics', views.statistics_view, name='statistics'),
+    path('collectibles/about', views.about_view, name='about'),
 ]

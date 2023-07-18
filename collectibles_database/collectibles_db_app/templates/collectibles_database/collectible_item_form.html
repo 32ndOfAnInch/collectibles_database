@@ -21,6 +21,7 @@
             <div class="form-group">
                 <label for="id_item_type">Item Type<span class="red-asterisk">*</span></label>
                 {{ form.item_type }}
+                <p>See more about item types in "About" page</p>
             </div>
             <div class="form-group">
                 <label for="id_release_year">Release Year<span class="red-asterisk">*</span></label>
@@ -45,6 +46,7 @@
             <hr>
             <div class="form-group">
                 <label><strong>Item Condition</strong></label>
+                <p>Check 'Other' if you are not sure, see more in "About" page</p>
                 <div class="nested-form-group">
                     <label for="id_condition">Grading System<span class="red-asterisk">*</span></label>
                     {{ form.condition }}
@@ -65,10 +67,12 @@
                 <div class="nested-form-group">
                     <label for="id_obverse_side">Obverse Side</label>
                     {{ form.obverse_side }}
+                    <p>Horizontal 4:3 images recommended</p>
                 </div>
                 <div class="nested-form-group">
                     <label for="id_reverse_side">Reverse Side</label>
                     {{ form.reverse_side }}
+                    <p>Horizontal 4:3 images recommended</p>
                 </div>
             </div>
             <hr>

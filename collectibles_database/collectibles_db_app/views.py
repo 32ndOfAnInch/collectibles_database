@@ -149,6 +149,10 @@ def statistics_view(request):
     return render(request, 'collectibles_database/collectibles_statistics.html', context)
 
 
+def about_view(request):
+    gradation_systems = models.GradationSystem.objects.all()
+    return render(request, 'collectibles_database/about.html', {'gradation_systems': gradation_systems})
+
 class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = models.CollectibleItem
     form_class = forms.CreateItemForm
@@ -175,7 +179,7 @@ class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, _('New item successfully added to the list!'))
+        # messages.success(self.request, _('New item successfully added to the list!'))
         return super().form_valid(form)
     
     def get_form(self, form_class=None):
@@ -205,7 +209,7 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, _('Item details updated successfully!'))
+        # messages.success(self.request, _('Item details updated successfully!'))
         return super().form_valid(form)
     
     # UserPassesTestMixin conditions
@@ -233,7 +237,7 @@ class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = 'delete_item'
 
     def form_valid(self, form):
-        messages.success(self.request, _('Item deleted successfully!'))
+        # messages.success(self.request, _('Item deleted successfully!'))
         return super().form_valid(form)
     
     # UserPassesTestMixin conditions

@@ -38,9 +38,17 @@
 
         </div>
         <div class="list-item-buttons">
+            <div class="view-detail-btn">
             <a href="{% url 'item_detail' item.pk %}">View Details</a>
-            <a href="{% url 'update_item' item.pk %}">&#x270D;</a>
-            <a href="{% url 'delete_item' item.pk %}">&#128465;</a>
+            </div>
+            <div class="edit-del-container">
+                <div class="edit-item-btn">
+                    <a href="{% url 'update_item' item.pk %}">&#x270D;</a>
+                </div>
+                <div class="delete-item-btn">
+                    <a href="{% url 'delete_item' item.pk %}">&#128465;</a>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}

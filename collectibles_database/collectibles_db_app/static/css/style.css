@@ -76,14 +76,14 @@ ul.paginator {
 }
 
 .item-front-image {
-    max-width: 40%;
+    max-width: 60%;
     margin: 0 0.5rem;
     border: 2px solid #424242;
 }
 
 .items-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(4, 24.9%);
     gap: 4px;
     padding: 10px;
     box-sizing: border-box;
@@ -128,14 +128,51 @@ ul.paginator {
 }
 
 .list-item-buttons {
-    border: 1px solid #949494;
+    border-top: 1px solid #949494;
     padding: 5px;
-    margin-top: 15px;
+    margin-top: 5px;
     position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+.view-detail-btn{
+    margin-left: 20px;
+    margin-top: 11px;
+}
+
+.edit-del-container{
+    margin-left: 5px;
+    display: ruby;
+}
+
+.edit-item-btn{
+    margin-right: 5px;
+    border: 2px solid rgb(99, 99, 99);
+    font-size: 28px;
+    border-radius: 10%;
+}
+
+.edit-item-btn a{
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.delete-item-btn{
+    margin-left: 5px;
+    border: 2px solid red;
+    font-size: 28px;
+    border-radius: 10%;
+}
+
+.delete-item-btn a{
+    padding-left: 6px;
+    padding-right: 6px;
+    
 }
 
 .content-container {
-    min-height: 320px;
+    min-height: 360px;
 }
 
 .content-container > div:first-child {
@@ -214,6 +251,7 @@ ul.paginator {
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
+    border: 1px solid #404040;
 }
 
 @media(max-width: 775px) {
@@ -503,4 +541,52 @@ ul.paginator {
     box-sizing: border-box;
     font-size: 14px;
     float: right;
+}
+
+/* about page */
+
+.about-container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.about-container h1 {
+    text-decoration: underline;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+.item-types-container,
+.gradation-systems-container {
+    margin-bottom: 20px;
+}
+
+.item-types-container h2 {
+    margin-bottom: 18px;
+}
+
+.item-types-list ul li,
+.gradation-systems-list ul li{
+    list-style-type: disc;
+    padding: 0;
+}
+
+.item-types-list li,
+.gradation-systems-list li {
+    margin-bottom: 20px;
+}
+
+.source-links {
+    margin-bottom: 15px;
+}
+
+.source-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.source-links ul li {
+    margin-right: 10px;
+    margin-top: 2px;
 }

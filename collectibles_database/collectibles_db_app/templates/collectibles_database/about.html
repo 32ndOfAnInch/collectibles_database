@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} About {% endblock title %}
+
+{% block content %}
+    <div class="about-container">
+        <h1>About</h1>
+        {% comment %} handwritten part, maybe will change later {% endcomment %}
+        <div class="item-types-container">
+            <h2>Item Types</h2>
+            <ul class="item-types-list">
+                <li>
+                    <h3>Circulation Coins</h3>
+                    <p>Circulation coins are coins issued by a state. They can be used to pay at any time without a problem 
+                        - provided that they aren't old coins that lost their status as legal tender.</p>
+                </li>
+                <li>
+                    <h3>Banknotes</h3>
+                    <p>A banknote is a type of negotiable promissory note, 
+                        made by a bank or other licensed authority, payable to the bearer on demand.</p>
+                </li>
+                <li>
+                    <h3>Commemorative Coins</h3>
+                    <p>A commemorative coin is a coin issued to commemorate some particular event 
+                        or issue with a distinct design with reference to the occasion on which they were issued.</p>
+                    <p>Many coins of this category serve as collector's items only, 
+                        although some countries also issue commemorative coins for regular circulation.</p>
+                </li>
+                <li>
+                    <h3>Circulating Commemoratives</h3>
+                    <p>Circulating commemoratives are intended to be used for commerce, 
+                        but the design will only be issued for a limited time to commemorate an event, 
+                        anniversary, person or location, among other items.</p>
+                    <p>Examples include the €2 commemorative coins and U.S. 50 State Quarters.</p>
+                </li>
+                <li>
+                    <h3>Collector Coins</h3>
+                    <p>Collector coins, also known as numismatic coins, 
+                        are specially minted coins that are sought after and collected for their rarity, 
+                        historical significance, artistic design, or other unique qualities.</p>
+                    <p>Unlike regular circulation coins used in everyday transactions, 
+                        collector coins are primarily intended for numismatists, coin enthusiasts, and collectors.</p>
+                </li>
+                <li>
+                    <h3>Bullion Coins</h3>
+                    <p>Bullion coins are a specific type of coin that is 
+                        primarily valued for its precious metal content rather than its rarity or numismatic qualities.</p>
+                </li>
+                <li>
+                    <h3>Medals</h3>
+                    <p>Medals are a type of coin-like objects that are distinct from traditional currency coins.</p>
+                    <p>They do not have a face value, no issuing nation and can be produced and distributed by any person or institution</p>
+                </li>
+                <li>
+                    <h3>Other</h3>
+                    <p>These may be other items that do not fit into any of the categories listed above.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="source-links">
+            <ul>More information:
+                <li><a href="https://cosmosofcollectibles.com/what-is-the-difference-between-a-coin-a-commemorative-coin-and-a-medal/">https://cosmosofcollectibles.com</a></li>
+            </ul>
+        </div>
+        
+        <div class="gradation-systems-container">
+            <h2>Item Condition Valuation: Grading Systems</h2>
+            <ul class="gradation-systems-list">
+                {% for gradation_system in gradation_systems %}
+                    <li>
+                        <h3>{{ gradation_system.name }}</h3>
+                        <p>{{ gradation_system.description }}</p>
+                    </li>
+                {% empty %}
+                    <li>No gradation systems found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="source-links">
+            <ul>More information:
+                <li><a href="https://www.pcgs.com/grades">https://www.pcgs.com/grades</a></li>
+                <li><a href="https://www.theibns.org/joomla/index.php?option=com_content&view=article&id=4&Itemid=25">https://www.theibns.org</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
