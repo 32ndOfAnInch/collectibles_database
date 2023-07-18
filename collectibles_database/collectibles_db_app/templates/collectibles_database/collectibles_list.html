@@ -5,7 +5,6 @@
 
 {% block content %}
 
-{% include 'includes/search.html' %}
 {% if collectibles_list %}
 {% include 'includes/paginator_nav.html' %}
 <div class="items-grid-container">
@@ -49,6 +48,7 @@
 
 {% include 'includes/paginator_pages.html' %}
 {% else %}
+{% include 'includes/search.html' %}
 <p>No items found</p>
 <h2><a class="nav-link" href="{% url 'create_new_item' %}">&#10133;Add new item</a></h2>
 {% endif %}

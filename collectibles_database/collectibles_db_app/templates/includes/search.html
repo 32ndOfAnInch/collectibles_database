@@ -1,5 +1,7 @@
+<div class="search-form">
 <form action="{{ request.path }}" method="get">
-    <input name="query" type="text" value="{{ request.GET.query }}">
-    <button type="submit">&#128269;</button>
+    <input class="search-field" name="query" type="text" value="{{ request.GET.query }}">
+    <button class="search-btn" type="submit">&#128269;</button>
     {% if request.GET.query %}<a href="{{ request.path }}">clear</a>{% endif %}
 </form>
+</div>

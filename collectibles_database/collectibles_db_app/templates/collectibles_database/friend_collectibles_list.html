@@ -5,7 +5,6 @@
 
 {% block content %}
 
-{% include 'includes/search.html' %}
 {% if friend_collectibles_list %}
 <h2>{{ friend.username }}'s collectibles list</h2>
 {% include 'includes/paginator_nav.html' %}
@@ -39,6 +38,7 @@
 {% include 'includes/paginator_pages.html' %}
 
 {% else %}
+{% include 'includes/search.html' %}
 <h2>No items found in your friend's collectibles list</h2>
 {% endif %}
 
