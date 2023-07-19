@@ -38,6 +38,10 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         if query:
             entities = extract_entities(query, user)
             country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
+            # country_names = []
+            # for entity in entities:
+            #     if entity[1] == 'GPE':
+            #         country_names.append(entity[0])
             qs = qs.filter(
                 Q(country__icontains=query) | 
                 Q(country__in=country_names) |  # fuzzy matching

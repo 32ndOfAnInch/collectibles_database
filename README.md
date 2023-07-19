@@ -7,6 +7,7 @@ The Collectible Items Database App is a Django-based web application that allows
 * Profile management with profile pictures
 * Collectible item creation and management
 * Search functionality to find specific items or users
+  * Enhanced with fuzzy matching nlp libraries (spacy and fuzzywuzzy) to find closest matching items from given list from db
 * Statistics
 * Friend request system for connecting with other collectors
   * Ability to see a friend's collectible items
@@ -27,3 +28,9 @@ The Collectible Items Database App is a Django-based web application that allows
 GNU General Public License v3.0
 ##
 Note that the project is still under construction, so, many changes can still happen.
+Note 2: spacy library installation guide: https://spacy.io/usage
+Note 3: I will soon add fixtures.json for item gradation systems and their values, to add fixtures to db, use command:
+`python manage.py loaddata (name of file).json`
+If your code editor doesn't catch spacy library, try to restart your code editor, it worked for me
+
+Feel free to clone/fork

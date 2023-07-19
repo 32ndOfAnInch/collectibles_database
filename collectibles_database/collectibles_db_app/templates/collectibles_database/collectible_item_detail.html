@@ -31,7 +31,7 @@
             {% if item.denomination %}
                 {% comment %} removing .0 if it is .0 from variable {% endcomment %}
                 {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
-                <li>Denomination: {{ item.denomination|floatformat }}</li>
+                <li>Denomination: {{ item.denomination|floatformat:"-2" }}</li>
                 {% else %}
                 <li>Denomination: {{ item.denomination }}</li>
                 {% endif %}
