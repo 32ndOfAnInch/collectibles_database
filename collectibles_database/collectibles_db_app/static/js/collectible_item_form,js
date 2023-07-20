@@ -1,0 +1,31 @@
+console.log("hello")
+$(document).ready(function () {
+    // Disable the dependent dropdown initially
+    // $('#id_value').prop('disabled', true);
+
+    // Handle the change event of the 'condition' dropdown
+    $('#id_condition').on('change', function () {
+        var gradationSystemId = $(this).val();
+        var valueSelect = $('#id_value');
+
+        // Clear and disable the dependent dropdown
+        valueSelect.empty().prop('disabled', true);
+
+        // Fetch the related Value objects based on the selected GradationSystem
+        $.ajax({
+            url: '{% url "get_values" %}',
+            type: 'GET',
+            data: {
+            gradation_system_id: gradationSystemId
+            },
+            success: function (data) {
+                // Enable the Value dropdown and populate it with the fetched data
+                valueSelect.prop('disabled', false);
+
+                $.each(data.values, function (key, value) {
+                    valueSelect.append($('<option>').text(value.value).attr('value', value.id));
+                });
+            }
+        });
+    });
+});
