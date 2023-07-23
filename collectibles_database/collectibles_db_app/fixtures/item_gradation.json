@@ -1,0 +1,387 @@
+[
+    {
+        "model": "collectibles_db_app.gradationsystem",
+        "pk": 1,
+        "fields": {
+            "name": "Other/Will specify in comments",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.gradationsystem",
+        "pk": 2,
+        "fields": {
+            "name": "Sheldon coin grading scale",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.gradationsystem",
+        "pk": 3,
+        "fields": {
+            "name": "The IBNS grading scale",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 1,
+        "fields": {
+            "value": "Other/Will specify in comments",
+            "description": "",
+            "gradation_system": 1
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 2,
+        "fields": {
+            "value": "Mint State 70 (MS-70)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 3,
+        "fields": {
+            "value": "Mint State 69 (MS-69)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 4,
+        "fields": {
+            "value": "Mint State 68 (MS-68)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 5,
+        "fields": {
+            "value": "Mint State 67 (MS-67)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 6,
+        "fields": {
+            "value": "Mint State 66 (MS-66)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 7,
+        "fields": {
+            "value": "Mint State 65 (MS-65)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 8,
+        "fields": {
+            "value": "Mint State 64 (MS-64)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 9,
+        "fields": {
+            "value": "Mint State 63 (MS-63)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 10,
+        "fields": {
+            "value": "Mint State 62 (MS-62)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 11,
+        "fields": {
+            "value": "Mint State 61 (MS-61)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 12,
+        "fields": {
+            "value": "Mint State 60 (MS-60)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 13,
+        "fields": {
+            "value": "Choice About Uncirculated 58 (AU-58)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 14,
+        "fields": {
+            "value": "Choice About Uncirculated 55 (AU-55)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 15,
+        "fields": {
+            "value": "Choice About Uncirculated 53 (AU-53)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 16,
+        "fields": {
+            "value": "Choice About Uncirculated 50 (AU-50)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 17,
+        "fields": {
+            "value": "Choice Extremely Fine 45 (XF-45)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 18,
+        "fields": {
+            "value": "Choice Extremely Fine 40 (XF-40)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 19,
+        "fields": {
+            "value": "Choice Very Fine 35 (VF-35)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 20,
+        "fields": {
+            "value": "Choice Very Fine 30 (VF-30)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 21,
+        "fields": {
+            "value": "Very Fine 25 (VF-25)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 22,
+        "fields": {
+            "value": "Very Fine 20 (VF-20)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 23,
+        "fields": {
+            "value": "Choice Fine 15 (F-15)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 24,
+        "fields": {
+            "value": "Fine 12 (F-12)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 25,
+        "fields": {
+            "value": "Choice Very Good 10 (VG-10)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 26,
+        "fields": {
+            "value": "Very Good 8 (VG-8)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 27,
+        "fields": {
+            "value": "Choice Good 6 (G-6)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 28,
+        "fields": {
+            "value": "Good 4 (G-4)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 29,
+        "fields": {
+            "value": "About Good 3 (AG-3)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 30,
+        "fields": {
+            "value": "Fair 2 (FR-2)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 31,
+        "fields": {
+            "value": "Poor 1 (PO-1)",
+            "description": "",
+            "gradation_system": 2
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 32,
+        "fields": {
+            "value": "UNCIRCULATED (UNC)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 33,
+        "fields": {
+            "value": "ABOUT UNCIRCULATED (AU)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 34,
+        "fields": {
+            "value": "EXTREMELY FINE (XF)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 35,
+        "fields": {
+            "value": "VERY FINE (VF)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 36,
+        "fields": {
+            "value": "FINE (F)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 37,
+        "fields": {
+            "value": "VERY GOOD (VG)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 38,
+        "fields": {
+            "value": "GOOD (G)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 39,
+        "fields": {
+            "value": "FAIR (FR)",
+            "description": "",
+            "gradation_system": 3
+        }
+    },
+    {
+        "model": "collectibles_db_app.value",
+        "pk": 40,
+        "fields": {
+            "value": "POOR (PR)",
+            "description": "",
+            "gradation_system": 3
+        }
+    }
+  ]
+  

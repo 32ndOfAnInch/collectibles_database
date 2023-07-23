@@ -29,7 +29,7 @@ GNU General Public License v3.0
 ##
 Note that the project is still under construction, so, many changes can still happen.
 Note 2: spacy library installation guide: https://spacy.io/usage . If your code editor doesn't catch spacy library, try to restart your code editor, it worked for me
-Note 3: I will soon add fixtures.json for item gradation systems and their values, to add fixtures to db, use command:
-`python manage.py loaddata (name of file).json`
+Note 3: I will soon add fixtures.json for item gradation systems and their values, to add fixtures to db, use this command before launching the app:
+`python manage.py loaddata collectibles_db_app/fixtures/item_gradation.json`
 
 Feel free to clone/fork
