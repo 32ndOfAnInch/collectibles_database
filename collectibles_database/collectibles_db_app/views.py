@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models.query import QuerySet
-from django.db.models import Q, Sum, Min, Avg, Count
+from django.db.models import Q, Sum, Min, Avg, Count, F
 from django.db.models.functions import Coalesce
 from . import models
 from . import forms
@@ -122,9 +122,16 @@ def statistics_view(request):
         total_items=Sum('quantity'))['total_items']
     oldest_item = models.CollectibleItem.objects.filter(user=request.user).aggregate(
         Min('release_year'))['release_year__min']
-    average_year = models.CollectibleItem.objects.filter(user=request.user).aggregate(
-        Avg('release_year'))['release_year__avg']
-    average_year = round(average_year, 1)
+    total_years = models.CollectibleItem.objects.filter(user=request.user).annotate(
+        total_year=F('release_year') * F('quantity')).aggregate(
+        total_years=Sum('total_year'))['total_years']
+    if total_items:
+        average_year = total_years / total_items
+        average_year = round(average_year, 1)
+    else:
+        average_year = None
+
+    # stats by item type
     item_type_stats = models.CollectibleItem.objects.filter(user=request.user).values('item_type').annotate(
         total_records=Count('id'),
         total_items=Coalesce(Sum('quantity'), 0),
