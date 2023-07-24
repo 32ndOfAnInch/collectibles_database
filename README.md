@@ -22,14 +22,16 @@ The Collectible Items Database App is a Django-based web application that allows
 `python manage.py makemigrations`
 `python manage.py migrate`
 `python manage.py createsuperuser`
-5. Start the development server:
+5. Don't forget to create local_settings.py file in the same directory as settings.py and create your own password: `SECRET_KEY = 'your password goes here'`
+6. I added fixtures json for item gradation systems, their values and item_types, to add fixtures to db, use these commands before launching the app first time:
+`python manage.py loaddata collectibles_db_app/fixtures/item_gradation.json`
+`python manage.py loaddata collectibles_db_app/fixtures/item_type.json`
+7. Start the development server:
 `python manage.py runserver`
 ## License
 GNU General Public License v3.0
 ##
 Note that the project is still under construction, so, many changes can still happen.
 Note 2: spacy library installation guide: https://spacy.io/usage . If your code editor doesn't catch spacy library, try to restart your code editor, it worked for me
-Note 3: I will soon add fixtures.json for item gradation systems and their values, to add fixtures to db, use this command before launching the app:
-`python manage.py loaddata collectibles_db_app/fixtures/item_gradation.json`
 
 Feel free to clone/fork

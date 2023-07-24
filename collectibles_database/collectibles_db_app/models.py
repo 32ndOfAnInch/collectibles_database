@@ -23,6 +23,12 @@ class GradationSystem(models.Model):
 class Value(models.Model):
     value = models.CharField(_("value"), max_length=50, null=True, blank=True)
     description = models.TextField(_("description"), null=True, blank=True)
+    picture = models.ImageField(
+        _("picture"), 
+        upload_to='collectibles/gradation_value', 
+        null=True, 
+        blank=True,
+        )
     gradation_system = models.ForeignKey(
         GradationSystem, 
         verbose_name=_("gradation_system"), 
@@ -41,6 +47,27 @@ class Value(models.Model):
         return reverse("value_detail", kwargs={"pk": self.pk})
 
 
+class ItemType(models.Model):
+    name = models.CharField(_("name"), max_length=50)
+    description = models.TextField(_("description"), null=True, blank=True)
+    picture = models.ImageField(
+        _("picture"), 
+        upload_to='collectibles/item_type', 
+        null=True, 
+        blank=True,
+        )
+
+    class Meta:
+        verbose_name = _("item_type")
+        verbose_name_plural = _("item_types")
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def get_absolute_url(self):
+        return reverse("itemtype_detail", kwargs={"pk": self.pk})
+
+
 class CollectibleItem(models.Model):
     user = models.ForeignKey(
         User, 
@@ -52,23 +79,14 @@ class CollectibleItem(models.Model):
     currency = models.CharField(_("currency"), max_length=100, null=True, blank=True)
     release_year = models.PositiveIntegerField(_("release_year"))
     circulation = models.PositiveIntegerField(_("circulation"), null=True, blank=True)
-
-    ITEM_TYPE_CHOICES = (
-        (1, _('Circulation Coins')),
-        (2, _('Banknotes')),
-        (3, _('Commemorative Coins')),
-        (4, _('Circulating Commemoratives')),
-        (5, _('Collector Coins')),
-        (6, _('Bullion Coins')),
-        (7, _('Medals')),
-        (8, _('Other')),
+    item_type = models.ForeignKey(
+        ItemType, 
+        verbose_name=_("item_type"), 
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="collectible_items"
     )
-
-    item_type = models.PositiveSmallIntegerField(
-        _("item_type"),
-        choices=ITEM_TYPE_CHOICES,
-        db_index=True,
-        )
     denomination = models.FloatField(_("denomination"), null=True, blank=True)
     quantity = models.PositiveIntegerField(_("quantity"))
     condition = models.ForeignKey(

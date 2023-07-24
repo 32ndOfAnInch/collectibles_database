@@ -14,3 +14,4 @@ class  CollectibleItemAdmin(admin.ModelAdmin):
 admin.site.register(models.CollectibleItem, CollectibleItemAdmin)
 admin.site.register(models.GradationSystem)
 admin.site.register(models.Value)
+admin.site.register(models.ItemType)

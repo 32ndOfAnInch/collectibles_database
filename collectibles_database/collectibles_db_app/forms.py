@@ -11,6 +11,11 @@ class CreateItemForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_value'})
     )
 
+    item_type = forms.ModelChoiceField(
+        queryset=models.ItemType.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_item_type'})
+    )
+
     class Meta:
         model = models.CollectibleItem
         fields = (
@@ -46,6 +51,11 @@ class UpdateItemForm(forms.ModelForm):
     value = forms.ModelChoiceField(
         queryset=models.Value.objects.none(),
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_value'})
+    )
+
+    item_type = forms.ModelChoiceField(
+        queryset=models.ItemType.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_item_type'})
     )
 
     class Meta:

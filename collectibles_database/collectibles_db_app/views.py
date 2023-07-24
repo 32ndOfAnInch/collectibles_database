@@ -95,25 +95,12 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         context['friend'] = user
         return context
 
+
 @login_required
 def item_detail(request, pk: int):
     return render(request, 'collectibles_database/collectible_item_detail.html', 
                   {'item': get_object_or_404(models.CollectibleItem, pk=pk)})
 
-# this needed for retrieving tuple values for statistics
-ITEM_TYPE_CHOICES = (
-    (1, _('Circulation Coins')),
-    (2, _('Banknotes')),
-    (3, _('Commemorative Coins')),
-    (4, _('Circulating Commemoratives')),
-    (5, _('Collector Coins')),
-    (6, _('Bullion Coins')),
-    (7, _('Medals')),
-    (8, _('Other')),
-)
-
-def get_item_type_display(item_type):
-    return dict(ITEM_TYPE_CHOICES).get(item_type, '')
 
 @login_required
 def statistics_view(request):
@@ -132,15 +119,15 @@ def statistics_view(request):
         average_year = None
 
     # stats by item type
-    item_type_stats = models.CollectibleItem.objects.filter(user=request.user).values('item_type').annotate(
+    item_type_stats = models.CollectibleItem.objects.filter(user=request.user).values('item_type__name').annotate(
         total_records=Count('id'),
         total_items=Coalesce(Sum('quantity'), 0),
         oldest_item=Min('release_year'),
-    ).order_by('item_type')
+    ).order_by('item_type__name')
 
     item_type_stats = [
         {
-            'item_type': get_item_type_display(stat['item_type']),
+            'item_type': stat['item_type__name'],
             'total_records': stat['total_records'],
             'total_items': stat['total_items'],
             'oldest_item': stat['oldest_item'],

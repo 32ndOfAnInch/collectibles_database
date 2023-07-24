@@ -21,6 +21,8 @@
         {% endif %}
         {% if user_ == request.user or request.user|is_friend:user_.id %}
             <p>E-mail: {{ user_.email }}</p>
+        {% endif %}
+        {% if user_ == request.user %}
             <p><a href="{% url 'profile_update' %}">Update Profile</a></p>
         {% endif %}
     </div>

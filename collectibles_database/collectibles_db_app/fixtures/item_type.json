@@ -1,0 +1,66 @@
+[
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 1,
+        "fields": {
+            "name": "Circulation Coins",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 2,
+        "fields": {
+            "name": "Banknotes",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 3,
+        "fields": {
+            "name": "Commemorative Coins",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 4,
+        "fields": {
+            "name": "Circulating Commemoratives",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 5,
+        "fields": {
+            "name": "Collector Coins",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 6,
+        "fields": {
+            "name": "Bullion Coins",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 7,
+        "fields": {
+            "name": "Medals",
+            "description": ""
+        }
+    },
+    {
+        "model": "collectibles_db_app.itemtype",
+        "pk": 8,
+        "fields": {
+            "name": "Other",
+            "description": ""
+        }
+    }
+]
