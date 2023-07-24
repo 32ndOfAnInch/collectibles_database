@@ -3,6 +3,10 @@
 
 {% block title %} {{ block.super }} {% endblock title %} 
 
+{% block search_bar %}
+{% include 'includes/search.html' %}
+{% endblock search_bar %}
+
 {% block content %}
 
 {% if friend_collectibles_list %}
@@ -47,7 +51,6 @@
 {% include 'includes/paginator_pages.html' %}
 
 {% else %}
-{% include 'includes/search.html' %}
 <h2>No items found in your friend's collectibles list</h2>
 {% endif %}
 

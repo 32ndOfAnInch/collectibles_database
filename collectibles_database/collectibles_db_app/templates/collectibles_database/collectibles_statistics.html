@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if total_records > 0 %}
 <div class="statistics-container">
     <h2>User: {{ user.username }}</h2>
     <ul class="statistics-list">
@@ -30,5 +31,8 @@
         {% endfor %}
     </table>
 </div>
+{% else %}
+<h2>There are no items in your collectibles list to form statistics</h2>
+{% endif %}
 
 {% endblock content %}

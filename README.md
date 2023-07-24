@@ -1,5 +1,5 @@
 # Collectible Items Database App
-This is my final project of codeacademy.lt python course.
+This was my final project of codeacademy.lt python course.
 ## Overview
 The Collectible Items Database App is a Django-based web application that allows users to manage and catalog their collectible items, primarily coins, but also could be used for banknotes and possibly, for post stamps. It provides features for users to create, update, and search collectible items, as well as connect with other users through friend requests with the ability to see their databases.
 ## Key Features

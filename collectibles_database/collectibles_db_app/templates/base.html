@@ -121,9 +121,8 @@
             </li>
         </ul>
         {% comment %} search {% endcomment %}
-        {% if collectibles_list or friend_collectibles_list %}
-        {% include 'includes/search.html' %}
-        {% endif %}
+        {% block search_bar %}
+        {% endblock search_bar %}
     </nav>
 </div>
 {% endif %}
