@@ -161,8 +161,8 @@ class CollectibleItem(models.Model):
         if image_field:
             image = Image.open(image_field.path)
             image = self._rotate_image(image)
-            if image.width > 600 or image.height > 600:
-                new_size = (600, 600)
+            if image.width > 1200 or image.height > 1200:
+                new_size = (1200, 1200)
                 image.thumbnail(new_size)
             image.save(image_field.path)
 

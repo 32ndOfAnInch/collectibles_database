@@ -3,8 +3,8 @@
         "model": "collectibles_db_app.gradationsystem",
         "pk": 1,
         "fields": {
-            "name": "Other/Will specify in comments",
-            "description": ""
+            "name": "Other/Will specify in description",
+            "description": "other_gradation.txt"
         }
     },
     {
@@ -12,7 +12,7 @@
         "pk": 2,
         "fields": {
             "name": "Sheldon coin grading scale",
-            "description": ""
+            "description": "sheldon_coin_scale.txt"
         }
     },
     {
@@ -20,14 +20,14 @@
         "pk": 3,
         "fields": {
             "name": "The IBNS grading scale",
-            "description": ""
+            "description": "ibns_scale.txt"
         }
     },
     {
         "model": "collectibles_db_app.value",
         "pk": 1,
         "fields": {
-            "value": "Other/Will specify in comments",
+            "value": "Other/Will specify in description",
             "description": "",
             "gradation_system": 1
         }

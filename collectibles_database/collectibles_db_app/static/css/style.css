@@ -308,7 +308,7 @@ ul.paginator {
     float: left;
     padding: 5px;
     grid-template-columns: auto auto;
-    width: 100%;
+    max-width: 100%;
 }
 
 .item-detail-img img:hover {
