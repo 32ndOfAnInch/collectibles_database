@@ -1,21 +1,22 @@
-from typing import Any, Dict
 from datetime import datetime
-from django.shortcuts import render, get_object_or_404
+from typing import Any, Dict
+
+from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from django.db.models.query import QuerySet
-from django.db.models import Q, Sum, Min, Avg, Count, F
+from django.db.models import Avg, Count, F, Max, Min, Q, Sum
 from django.db.models.functions import Coalesce
-from . import models
-from . import forms
+from django.db.models.query import QuerySet
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.contrib import messages
-from django.http import Http404, JsonResponse
-from django.contrib.auth.decorators import login_required
-from .utils.spacy_utils import extract_entities
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
+from . import forms, models
+from .utils.spacy_utils import extract_entities
 
 User = get_user_model()
 
@@ -109,6 +110,8 @@ def statistics_view(request):
         total_items=Sum('quantity'))['total_items']
     oldest_item = models.CollectibleItem.objects.filter(user=request.user).aggregate(
         Min('release_year'))['release_year__min']
+    newest_item = models.CollectibleItem.objects.filter(user=request.user).aggregate(
+        Max('release_year'))['release_year__max']
     total_years = models.CollectibleItem.objects.filter(user=request.user).annotate(
         total_year=F('release_year') * F('quantity')).aggregate(
         total_years=Sum('total_year'))['total_years']
@@ -123,6 +126,7 @@ def statistics_view(request):
         total_records=Count('id'),
         total_items=Coalesce(Sum('quantity'), 0),
         oldest_item=Min('release_year'),
+        newest_item=Max('release_year'),
     ).order_by('item_type__name')
 
     item_type_stats = [
@@ -131,6 +135,7 @@ def statistics_view(request):
             'total_records': stat['total_records'],
             'total_items': stat['total_items'],
             'oldest_item': stat['oldest_item'],
+            'newest_item': stat['newest_item'],
         }
         for stat in item_type_stats
     ]
@@ -140,6 +145,7 @@ def statistics_view(request):
         'total_records': total_records,
         'total_items': total_items,
         'oldest_item': oldest_item,
+        'newest_item': newest_item,
         'average_year': average_year,
         'item_type_stats': item_type_stats,
     }

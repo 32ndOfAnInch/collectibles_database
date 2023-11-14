@@ -18,7 +18,7 @@ class Command(BaseCommand):
         for gradation_system in gradation_systems:
             if gradation_system.description.__contains__('.txt'):
                 txt_file_path = fixtures_path + "/" + gradation_system.description
-                normal_path = os.path.abspath(txt_file_path).replace('\\', '\')
+                normal_path = os.path.abspath(txt_file_path).replace('\\', '/')
                 full_path = normal_path.replace('collectibles_database/collectibles_database/', '')
                 #txt_file_path = os.path.join(fixtures_path, gradation_system.description)
                 print("txt_file_path:", normal_path)  # Debugging line

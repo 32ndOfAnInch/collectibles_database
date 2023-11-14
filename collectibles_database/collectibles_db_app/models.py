@@ -1,9 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
-from PIL import Image, ExifTags
-
+from PIL import ExifTags, Image
 
 User = get_user_model()
 
@@ -161,8 +160,8 @@ class CollectibleItem(models.Model):
         if image_field:
             image = Image.open(image_field.path)
             image = self._rotate_image(image)
-            if image.width > 1200 or image.height > 1200:
-                new_size = (1200, 1200)
+            if image.width > 600 or image.height > 600:
+                new_size = (600, 600)
                 image.thumbnail(new_size)
             image.save(image_field.path)
 
