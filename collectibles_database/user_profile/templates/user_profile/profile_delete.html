@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Delete profile? {% endblock title %}
+
+{% block content %}
+
+<div class="dialog-message">
+    <h2>Do you really want to delete your profile? If you proceed, all your records will be permanently deleted</h2>
+</div>
+<div class="item-detail-container">
+    <div class="ask-delete-dialog">
+        <form action="{{ request.path }}" method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm</button>
+            <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

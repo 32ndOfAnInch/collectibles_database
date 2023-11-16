@@ -1,17 +1,19 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
+from typing import Any
+
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_protect
-from . forms import ProfileUpdateForm, UserUpdateForm
+from django.contrib.auth import get_user_model, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from .import models
+from django.db import transaction
 from django.db.models import Q
 from django.db.models.query import QuerySet
-from typing import Any
-from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic import DeleteView, ListView
 
+from . import models
+from .forms import ProfileUpdateForm, UserUpdateForm
 
 User = get_user_model()
 
@@ -102,6 +104,37 @@ class ProfileSearchView(LoginRequiredMixin, ListView):
             qs = qs.none()
         return qs
 
+# It deletes user with profile. When I tried to delete profile first, user was left
+class ProfileDeleteView(LoginRequiredMixin, DeleteView):
+    # model = models.Profile
+    model = User
+    template_name = 'user_profile/profile_delete.html'
+    context_object_name = 'profile_delete'
+    success_url = reverse_lazy('profile_delete_confirmation')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def delete(self, request, *args, **kwargs):
+        user = self.request.user
+        try:
+            # deletes the profile
+            user.delete()
+            
+            # log off
+            logout(request)
+
+            # redirects to the confirmation page, for now it shows success message, but in future I will try to make email confirmation method to prevent accidental user deletion
+            return redirect(self.success_url)
+
+        except Exception as e:
+            # Handle the exception, e.g., display an error message
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('profile_delete_failure')
+
+
+def profile_delete_confirmation(request):
+    return render(request, 'registration/profile_delete_confirmation.html')
 
 @login_required
 def send_friend_request(request, user_id):

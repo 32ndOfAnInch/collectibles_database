@@ -1,10 +1,9 @@
+from collectibles_db_app.models import CollectibleItem
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from PIL import Image, ExifTags
-from collectibles_db_app.models import CollectibleItem
-
+from PIL import ExifTags, Image
 
 User = get_user_model()
 
@@ -62,6 +61,9 @@ class Profile(models.Model):
     def remove_friend(self, friend):
         self.friends.remove(friend)
 
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
 
 class FriendRequest(models.Model):
     sender = models.ForeignKey(
