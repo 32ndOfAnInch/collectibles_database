@@ -36,7 +36,8 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         user = self.request.user
 
         # sorting functionality (by country and by release year)
-        sort_by = self.request.GET.get('sort_by', 'default')
+        sort_by = self.request.GET.get('sort_by', None)
+        order = self.request.GET.get('order', 'asc')
         order_by_fields = []
 
         if sort_by == 'country':
@@ -44,14 +45,20 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         if sort_by == 'release_year':
             order_by_fields.append('release_year')
 
+        # ascending and descending
+        if order == 'asc':
+            order_by_fields = [field for field in order_by_fields]
+        else:
+            order_by_fields = [f"-{field}" for field in order_by_fields]
 
+        
         # queryset fetch and apply sorting
         if order_by_fields:
             qs = qs.filter(user=user).order_by(*order_by_fields)
         else:
             qs = qs.filter(user=user)
 
-
+        
         # search functionality
         query = self.request.GET.get('query')
 
