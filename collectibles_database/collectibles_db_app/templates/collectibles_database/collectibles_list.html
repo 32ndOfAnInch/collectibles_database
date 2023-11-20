@@ -9,6 +9,13 @@
 
 {% block content %}
 
+
+<div class="sort-options">
+    <a href="?sort_by=country{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">Sort by Country</a>
+    <a href="?sort_by=release_year{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">Sort by Release Year</a>
+</div>
+
+
 {% if collectibles_list %}
 {% include 'includes/paginator_nav.html' %}
 <div class="items-grid-container">

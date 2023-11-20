@@ -33,9 +33,28 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
-        query = self.request.GET.get('query')
         user = self.request.user
-        
+
+        # sorting functionality (by country and by release year)
+        sort_by = self.request.GET.get('sort_by', 'default')
+        order_by_fields = []
+
+        if sort_by == 'country':
+            order_by_fields.append('country')
+        if sort_by == 'release_year':
+            order_by_fields.append('release_year')
+
+
+        # queryset fetch and apply sorting
+        if order_by_fields:
+            qs = qs.filter(user=user).order_by(*order_by_fields)
+        else:
+            qs = qs.filter(user=user)
+
+
+        # search functionality
+        query = self.request.GET.get('query')
+
         if query:
             entities = extract_entities(query, user)
             country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
@@ -54,6 +73,12 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
             qs = qs.filter(user=user)
         
         return qs
+    
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context['sort_by'] = self.request.GET.get('sort_by', 'default')
+        return context
     
 
 class FriendCollectiblesListView(LoginRequiredMixin, ListView):
