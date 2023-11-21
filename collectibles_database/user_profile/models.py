@@ -19,6 +19,57 @@ class Profile(models.Model):
     picture = models.ImageField(_("picture"), upload_to='user_profile/pictures', null=True, blank=True)
     friends = models.ManyToManyField("self", blank=True)
 
+    # User preferences
+
+    PAGINATION_CHOICES = [
+        (12, _('12 items per page')),
+        (24, _('24 items per page')),
+        (36, _('36 items per page')),
+        (48, _('48 items per page')),
+    ]
+
+    paginate_by = models.PositiveSmallIntegerField(
+        _("paginate_by"),
+        choices=PAGINATION_CHOICES,
+        default=12,
+    )
+
+    COLOR_THEME_CHOICES = (
+        (1, _('light')),
+        (2, _('dark')),
+    )
+
+    color_theme = models.PositiveSmallIntegerField(
+        _("color_theme"),
+        max_length = 20, 
+        choices = COLOR_THEME_CHOICES,
+        default = 1,
+    )
+
+    DISPLAY_THEME_CHOICES = (
+        (1, _('grid')),
+        (2, _('list')),
+    )
+
+    display_theme = models.PositiveSmallIntegerField(
+        _("color_theme"),
+        max_length = 20, 
+        choices = DISPLAY_THEME_CHOICES,
+        default = 1,
+    )
+
+    is_verification = models.BooleanField(
+        _("is_verification"),
+        default= True,
+    )
+
+    is_notification = models.BooleanField(
+        _("is_notification"),
+        default= True,
+    )
+
+    # user preferences end
+
     class Meta:
         verbose_name = _("profile")
         verbose_name_plural = _("profiles")
