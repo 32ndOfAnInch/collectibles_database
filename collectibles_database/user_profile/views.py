@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DeleteView, ListView
 
 from . import models
-from .forms import ProfileUpdateForm, UserUpdateForm
+from .forms import ProfileUpdateForm, UserPreferencesForm, UserUpdateForm
 
 User = get_user_model()
 
@@ -190,6 +190,19 @@ def notifications(request, user_id=None):
     return render(
         request, 'user_profile/notifications.html', {'user_': user, 'friend_requests': friend_requests}
         )
+
+@login_required
+def preferences(request):
+
+    if request.method == 'POST':
+        form = UserPreferencesForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('preferences')
+    else:
+        form = UserPreferencesForm(instance=request.user.profile)
+
+    return render(request, 'user_profile/preferences.html', {'form': form, 'user_profile': request.user.profile})
 
 
 @login_required

@@ -41,7 +41,6 @@ class Profile(models.Model):
 
     color_theme = models.PositiveSmallIntegerField(
         _("color_theme"),
-        max_length = 20, 
         choices = COLOR_THEME_CHOICES,
         default = 1,
     )
@@ -51,9 +50,8 @@ class Profile(models.Model):
         (2, _('list')),
     )
 
-    display_theme = models.PositiveSmallIntegerField(
-        _("color_theme"),
-        max_length = 20, 
+    display_style = models.PositiveSmallIntegerField(
+        _("display_style"),
         choices = DISPLAY_THEME_CHOICES,
         default = 1,
     )

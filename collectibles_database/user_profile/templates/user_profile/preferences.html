@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Preferences{% endblock title %}
+
+{% block content %}
+<div class="item-form-container">
+    <h2>Preferences</h2>
+    <form method="post" action="{% url 'preferences' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Preferences</button>
+    </form>
+</div>
+{% endblock content %}
