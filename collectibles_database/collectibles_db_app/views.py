@@ -79,7 +79,12 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         else:
             qs = qs.filter(user=user)
         
-        return qs
+        # paginating
+
+        paginate_by = user.profile.paginate_by if user.profile.paginate_by else models.Profile._meta.get_field('paginate_by').default
+        self.paginate_by = paginate_by
+
+        return qs.filter(user=user)
     
 
     def get_context_data(self, **kwargs) -> dict:

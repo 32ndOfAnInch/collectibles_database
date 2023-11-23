@@ -30,3 +30,13 @@ class UserPreferencesForm(forms.ModelForm):
             'is_verification': 'Notifications',
             'is_notification': 'New Item Verification',
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Modify the choices to display only the numbers
+        self.fields['paginate_by'].choices = [
+            (12, '12'),
+            (24, '24'),
+            (36, '36'),
+            (48, '48'),
+        ]
