@@ -90,6 +90,9 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context['sort_by'] = self.request.GET.get('sort_by', 'default')
+        user = self.request.user
+        display_style = user.profile.display_style if user.profile.display_style else models.Profile._meta.get_field('display_style').default
+        context['display_style'] = display_style
         return context
     
 

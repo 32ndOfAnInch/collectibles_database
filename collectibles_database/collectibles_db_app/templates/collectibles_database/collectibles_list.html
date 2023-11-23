@@ -19,55 +19,92 @@
 
 
 {% if collectibles_list %}
-{% include 'includes/paginator_nav.html' %}
-<div class="items-grid-container">
-    {% for item in collectibles_list %}
-    <div>
-        <div class="content-container">
+    {% include 'includes/paginator_nav.html' %}
+    {% if display_style == 1 %}
+        <div class="items-grid-container">
+            {% for item in collectibles_list %}
             <div>
-                <a href="{% url 'item_detail' item.pk %}">
-                    {% if item.obverse_side %}
-                        <img class="item-front-image" src="{{ item.obverse_side.url }}">
-                    {% else %}
-                        <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
+                <div class="content-container">
+                    <div>
+                        <a href="{% url 'item_detail' item.pk %}">
+                            {% if item.obverse_side %}
+                                <img class="item-front-image" src="{{ item.obverse_side.url }}">
+                            {% else %}
+                                <img class="item-front-image" src="{% static 'collectibles/img/noimage.png' %}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div>Country: {{ item.country }}</div>
+                    <div>Item type: {{ item.item_type }}</div>
+                    <div>Release Year: {{ item.release_year }}</div>
+                    <div>Quantity: {{ item.quantity }}</div>
+                    {% if item.currency %}
+                        <div>Currency: {{ item.currency }}</div>
                     {% endif %}
-                </a>
-            </div>
-            <div>Country: {{ item.country }}</div>
-            <div>Item type: {{ item.item_type }}</div>
-            <div>Release Year: {{ item.release_year }}</div>
-            <div>Quantity: {{ item.quantity }}</div>
-            {% if item.currency %}
-                <div>Currency: {{ item.currency }}</div>
-            {% endif %}
-            {% if item.denomination %}
-                {% comment %} removing .0 if it is .0 from variable {% endcomment %}
-                {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
-                <div>Denomination: {{ item.denomination|floatformat:"-2" }}</div>
-                {% else %}
-                <div>Denomination: {{ item.denomination }}</div>
-                {% endif %}
-            {% endif %}
+                    {% if item.denomination %}
+                        {% comment %} removing .0 if it is .0 from variable {% endcomment %}
+                        {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
+                        <div>Denomination: {{ item.denomination|floatformat:"-2" }}</div>
+                        {% else %}
+                        <div>Denomination: {{ item.denomination }}</div>
+                        {% endif %}
+                    {% endif %}
 
-        </div>
-        <div class="list-item-buttons">
-            <div class="view-detail-btn">
-            <a href="{% url 'item_detail' item.pk %}">View Details</a>
-            </div>
-            <div class="edit-del-container">
-                <div class="edit-item-btn">
-                    <a href="{% url 'update_item' item.pk %}">&#x270D;</a>
                 </div>
-                <div class="delete-item-btn">
-                    <a href="{% url 'delete_item' item.pk %}">&#128465;</a>
+                <div class="list-item-buttons">
+                    <div class="view-detail-btn">
+                    <a href="{% url 'item_detail' item.pk %}">View Details</a>
+                    </div>
+                    <div class="edit-del-container">
+                        <div class="edit-item-btn">
+                            <a href="{% url 'update_item' item.pk %}">&#x270D;</a>
+                        </div>
+                        <div class="delete-item-btn">
+                            <a href="{% url 'delete_item' item.pk %}">&#128465;</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-</div>
+    {% elif display_style == 2 %}
+        <table class="items-list-container">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Country</th>
+                    <th>Item Type</th>
+                    <th>Release Year</th>
+                    <th>Quantity</th>
+                    <th>Currency</th>
+                    <th>Denomination</th>
+                    <th>Register Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in collectibles_list %}
+                    <tr>
+                        <td>
+                            {% if item.obverse_side %}
+                                <img class="item-small-image" src="{{ item.obverse_side.url }}">
+                            {% else %}
+                                <img class="item-small-image" src="{% static 'collectibles/img/noimage.png' %}">
+                            {% endif %}
+                        </td>
+                        <td>{{ item.country }}</td>
+                        <td>{{ item.item_type }}</td>
+                        <td>{{ item.release_year }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.currency|default:"-" }}</td>
+                        <td>{{ item.denomination|default:"-" }}</td>
+                        <td>{{ item.register_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
-{% include 'includes/paginator_pages.html' %}
+    {% include 'includes/paginator_pages.html' %}
 {% else %}
 <p>No items found</p>
 <h2><a class="nav-link" href="{% url 'create_new_item' %}">&#10133;Add new item</a></h2>
