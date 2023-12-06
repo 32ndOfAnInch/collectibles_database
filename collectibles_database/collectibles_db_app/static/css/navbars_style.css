@@ -8,6 +8,9 @@
     background: #b18f8f;
     color: white;
     max-height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav{

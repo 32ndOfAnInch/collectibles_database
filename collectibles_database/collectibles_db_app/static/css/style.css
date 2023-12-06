@@ -225,7 +225,7 @@ ul.paginator {
     text-decoration: none;
 }
   
-        /* Highlight section */
+/* Highlight section */
 .highlight-section {
     padding: 40px 0;
     background-color: seashell;
@@ -262,7 +262,7 @@ ul.paginator {
     }
 }
     
-        /* News section */
+/* News section */
 .news-section {
     padding: 40px 0;
 }
@@ -609,6 +609,9 @@ ul.paginator {
 .items-list-container th {
     background-color: #404040;
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 0;
 }
 
 .items-list-container td {
@@ -622,20 +625,37 @@ img.item-small-image {
     margin: 0 auto;
 }
 
-@media (max-width: 600px) {
-    .items-list-container img.item-front-image {
-        max-width: 100px;  /* Adjust the size as needed */
+@media (max-width: 450px) {
+    .items-list-container th, .items-list-container td {
+        font-size: 13px;
+    }
+
+    .items-list-container th:nth-child(n+5), .items-list-container td:nth-child(n+5) {
+        display: none;
+    }
+
+    .items-list-container td:nth-child(3) {
+        font-size: 11px;
+    }
+
+    img.item-small-image {
+        max-width: 50px;
         height: auto;
-    }
-
-    .items-list-container th,
-    .items-list-container td {
         display: block;
-        width: 100%;
-        box-sizing: border-box;
+        margin: 0 auto;
     }
 
-    .items-list-container td {
-        margin-bottom: 10px;
+    .items-list-container {
+        width: 100%;
     }
+}
+.items-list-container th a {
+    color:white
+}
+.items-list-container th a:hover {
+    text-decoration: underline;
+}
+
+.items-list-container th a:visited {
+    color:white;
 }
