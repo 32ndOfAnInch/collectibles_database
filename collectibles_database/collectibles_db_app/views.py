@@ -103,6 +103,7 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         user = self.request.user
         display_style = user.profile.display_style if user.profile.display_style else models.Profile._meta.get_field('display_style').default
         context['display_style'] = display_style
+        
         return context
     
 

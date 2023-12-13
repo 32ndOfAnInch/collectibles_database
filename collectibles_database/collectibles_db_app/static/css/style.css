@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-html { 
+html {
     font-family: Helvetica;
 }
 
@@ -46,7 +46,7 @@ footer p {
 }
 
 
-/* collectibles list and friend collectibles list*/
+/* collectibles list grid */
 
 /* paginator */
 ul.paginator {
@@ -139,11 +139,12 @@ ul.paginator {
 .view-detail-btn{
     margin-left: 20px;
     margin-top: 11px;
+    font-size: 20px;
 }
 
 .edit-del-container{
     margin-left: 5px;
-    display: ruby;
+    display: flex;
 }
 
 .edit-item-btn{
@@ -151,6 +152,7 @@ ul.paginator {
     border: 2px solid rgb(99, 99, 99);
     font-size: 28px;
     border-radius: 10%;
+    max-width: 40px;
 }
 
 .edit-item-btn a{
@@ -593,13 +595,33 @@ ul.paginator {
 
 /* collectibles list display style */
 
+.item-list-wrap{
+	/* We will make the content display from left to right by flex */
+	display: flex !important;
+	/* Making the direction of the flex to row */
+	flex-direction: row !important;
+	/* The overflow in horizontal direction is needed to be hidden  */
+	overflow-y: hidden !important;
+	/* to smooth out the scrolling */
+	scroll-behavior: smooth;
+	width: 100%;
+	gap: 0.6rem;
+}
+.item-list-wrap::-webkit-scrollbar {
+	/* Hide the scrollbar */
+	display: none;
+}
+
+
+
 .items-list-container {
     width: 80%;
-    margin: 50px auto;
+    margin: 20px auto;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
+
 
 .items-list-container th, .items-list-container td {
     padding: 15px;
@@ -610,7 +632,7 @@ ul.paginator {
     background-color: #404040;
     color: white;
     position: sticky;
-    top: 0;
+    top: 128px;
     z-index: 0;
 }
 
@@ -625,12 +647,35 @@ img.item-small-image {
     margin: 0 auto;
 }
 
+@media (max-width: 1300px) {
+    .items-list-container {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    .items-list-container th:nth-child(8), .items-list-container td:nth-child(8) {
+        display: none;
+    }
+}
+
+
+@media (max-width: 950px) {
+    .items-list-container th, .items-list-container td {
+        font-size: 14px;
+    }
+    .items-list-container th:nth-child(n+8), .items-list-container td:nth-child(n+8) {
+        display: none;
+    }
+}
+
 @media (max-width: 450px) {
     .items-list-container th, .items-list-container td {
         font-size: 13px;
     }
 
-    .items-list-container th:nth-child(n+5), .items-list-container td:nth-child(n+5) {
+    .items-list-container th:nth-child(8), .items-list-container td:nth-child(8) {
         display: none;
     }
 
@@ -658,4 +703,51 @@ img.item-small-image {
 
 .items-list-container th a:visited {
     color:white;
+}
+
+.items-list-container tr:hover {
+    background: #f3f3f3;
+}
+.items-list-container td a {
+    display: block;
+    color:black;
+}
+
+.items-list-container td a:visited {
+    color:black;
+}
+
+.edit-list-btn {
+    margin-right: 5px;
+    border: 2px solid #bbbbbb;
+    font-size: 28px;
+    border-radius: 10%;
+    max-width: 40px;
+}
+
+
+
+.list-action-container{
+    /* margin-left: 5px; */
+    display: flex;
+}
+
+
+.edit-list-btn a{
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.delete-list-btn{
+    margin-left: 5px;
+    /* border: 2px solid red; */
+    font-size: 20px;
+    border-radius: 10%;
+}
+
+.delete-list-btn a{
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    
 }

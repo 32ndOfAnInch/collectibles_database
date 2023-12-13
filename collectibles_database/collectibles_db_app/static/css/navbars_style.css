@@ -10,7 +10,7 @@
     max-height: 68px;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 999;
 }
 
 nav{
@@ -65,10 +65,10 @@ nav ul li a{
 .sub-menu-wrap{
     position: absolute;
     top: 100%;
-    right: 10%;
-    width: 320px;
+    right: -1%;
+    width: 300px;
     max-height: 0px;
-    overflow: hidden;
+    overflow: clip;
     transition: max-height 0.5s;
     z-index: 1;
 }
@@ -181,6 +181,12 @@ nav ul li a{
 /* ************************************************ */
 
 
+.secNav {
+    position: sticky;
+    top: 68px;
+    z-index: 998;
+}
+
 .secNav nav {
     display: flex;
     justify-content: space-between;
@@ -217,9 +223,10 @@ nav ul li a{
 /* search button and field*/
 
 .search-field {
-    padding: 5px;
-    border-radius: 5%;
+    padding: 4px;
+    border-radius: 4%;
     font-size: 16px;
+    max-width: 150px;
 }
 
 .search-btn {
@@ -229,7 +236,8 @@ nav ul li a{
 }
 
 .search-form {
-    display: ruby;
+    display: inline-block;
+    min-width: 230px;
 }
 
 @media (max-width: 935px) {
@@ -244,16 +252,27 @@ nav ul li a{
 
     /* search button and field*/
 
+    .search-form {
+        display: inline-block;
+        min-width: 185px;
+    }
+
     .search-field {
         padding: 5px;
         border-radius: 5%;
         font-size: 14px;
+        max-width: 100px;
     }
 
     .search-btn {
         padding: 1px;
         border-radius: 30%;
         font-size: 18px;
+    }
+
+    .search-form {
+        display: inline-block;
+        min-width: 180px;
     }
 }
 

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Preferences{% endblock title %}
 
@@ -8,7 +9,24 @@
     <form method="post" action="{% url 'preferences' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save Preferences</button>
+        <button type="submit" id="savePreferences">Save Preferences</button>
     </form>
 </div>
+
+{% comment %} popup success message {% endcomment %}
+<div id="popupMessage" class="popup-message" style="display: none;">
+    Successfully saved!
+</div>
+
+<script>
+document.getElementById('savePreferences').addEventListener('click', function() {
+    // Show the pop-up message
+    document.getElementById('popupMessage').style.display = 'block';
+
+    // Hide the pop-up message after 3 seconds (adjust as needed)
+    setTimeout(function() {
+        document.getElementById('popupMessage').style.display = 'none';
+    }, 400);
+});
+</script>
 {% endblock content %}
