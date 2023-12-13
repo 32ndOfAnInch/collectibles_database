@@ -117,6 +117,38 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         query = self.request.GET.get('query')
         user_id = self.kwargs.get('user_id')
+        # user = self.request.user
+
+        ## sorting functionality
+        sort_by = self.request.GET.get('sort_by', None)
+        order = self.request.GET.get('order', 'asc')
+        order_by_fields = []
+
+        if sort_by == 'country':
+            order_by_fields.append('country')
+        if sort_by == 'release_year':
+            order_by_fields.append('release_year')
+        if sort_by == 'register_date':
+            order_by_fields.append('register_date')
+        if sort_by == 'quantity':
+            order_by_fields.append('quantity')
+        if sort_by == 'currency':
+            order_by_fields.append('currency')
+        if sort_by == 'denomination':
+            order_by_fields.append('denomination')
+
+        # ascending and descending
+        if order == 'asc':
+            order_by_fields = [field for field in order_by_fields]
+        else:
+            order_by_fields = [f"-{field}" for field in order_by_fields]
+
+        
+        # queryset fetch and apply sorting
+        if order_by_fields:
+            qs = qs.filter(user_id=user_id).order_by(*order_by_fields)
+        else:
+            qs = qs.filter(user_id=user_id)
         
         # Check if the logged-in user is friends with the requested user
         if self.request.user.profile.friends.filter(user_id=user_id).exists():
@@ -145,6 +177,12 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
         user_id = self.kwargs.get('user_id')
         user = User.objects.get(id=user_id)
         context['friend'] = user
+
+        context['sort_by'] = self.request.GET.get('sort_by', 'default')
+        user = self.request.user
+        display_style = user.profile.display_style if user.profile.display_style else models.Profile._meta.get_field('display_style').default
+        context['display_style'] = display_style
+
         return context
 
 

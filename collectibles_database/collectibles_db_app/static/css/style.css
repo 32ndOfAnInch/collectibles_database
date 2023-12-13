@@ -75,6 +75,32 @@ ul.paginator {
     margin-top: 6px;
 }
 
+/* sorting buttons */
+
+.sort-options {
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.sort-options a {
+    padding: 4px;
+    color: black;
+    border: 2px solid #999999;
+    border-radius: 5%;
+    margin: 1px;
+}
+
+.sort-options a:hover {
+    background-color: #e7e7e7;
+}
+
+@media (max-width: 320px){
+    .sort-options a {
+        font-size: 12px;
+    }
+}
+
 .item-front-image {
     max-width: 60%;
     margin: 0 0.5rem;
