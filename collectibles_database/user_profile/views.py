@@ -196,13 +196,25 @@ def preferences(request):
 
     if request.method == 'POST':
         form = UserPreferencesForm(request.POST, instance=request.user.profile)
+
+
         if form.is_valid():
             form.save()
             return redirect('preferences')
+        
+        # light/dark theme handling
+        if 'color_theme' in request.POST:
+            theme = request.POST['color_theme']
+            if theme in dict(models.Profile.COLOR_THEME_CHOICES):
+                request.user.profile.color_theme = theme
+                request.user.profile.save()
+                return redirect('preferences')
+
     else:
         form = UserPreferencesForm(instance=request.user.profile)
 
-    return render(request, 'user_profile/preferences.html', {'form': form, 'user_profile': request.user.profile})
+    return render(request, 'user_profile/preferences.html', 
+                  {'form': form, 'user_profile': request.user.profile, 'color_theme': request.user.profile.color_theme})
 
 
 @login_required

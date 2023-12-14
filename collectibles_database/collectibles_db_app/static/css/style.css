@@ -62,8 +62,6 @@ ul.paginator {
 .paginator a, .paginator .current {
     text-decoration: none;
     padding: 0 0.5rem;
-    border: 1px solid #aacc99;
-    background-color: #ffebd0;
     border-radius: 0.5rem;
     border-radius: 0.5rem;
     margin-top: 8px;
@@ -79,20 +77,15 @@ ul.paginator {
 
 .sort-options {
     display: inline-block;
-    margin-top: 15px;
-    margin-left: 5px;
+    padding-top: 15px;
+    padding-left: 5px;
+    z-index: 2;
 }
 
 .sort-options a {
     padding: 4px;
-    color: black;
-    border: 2px solid #999999;
     border-radius: 5%;
     margin: 1px;
-}
-
-.sort-options a:hover {
-    background-color: #e7e7e7;
 }
 
 @media (max-width: 320px){
@@ -104,7 +97,6 @@ ul.paginator {
 .item-front-image {
     max-width: 60%;
     margin: 0 0.5rem;
-    border: 2px solid #424242;
 }
 
 .items-grid-container {
@@ -125,14 +117,13 @@ ul.paginator {
 }
   
 .items-grid-container > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid #949494;
     text-align: center;
     font-size: 22px;
     padding: 10px;
     margin-bottom: 20px;
     max-width: 480px;
     z-index: 0;
+    border-radius: 1%;
 }
 
 @media (max-width: 1175px) {
@@ -153,8 +144,12 @@ ul.paginator {
     }
 }
 
+#friend-name {
+    padding-top: 5px;
+    padding-left: 2px;
+}
+
 .list-item-buttons {
-    border-top: 1px solid #949494;
     padding: 5px;
     margin-top: 5px;
     position: relative;
@@ -175,7 +170,6 @@ ul.paginator {
 
 .edit-item-btn{
     margin-right: 5px;
-    border: 2px solid rgb(99, 99, 99);
     font-size: 28px;
     border-radius: 10%;
     max-width: 40px;
@@ -188,7 +182,6 @@ ul.paginator {
 
 .delete-item-btn{
     margin-left: 5px;
-    border: 2px solid red;
     font-size: 28px;
     border-radius: 10%;
 }
@@ -621,23 +614,9 @@ ul.paginator {
 
 /* collectibles list display style */
 
-.item-list-wrap{
-	/* We will make the content display from left to right by flex */
-	display: flex !important;
-	/* Making the direction of the flex to row */
-	flex-direction: row !important;
-	/* The overflow in horizontal direction is needed to be hidden  */
-	overflow-y: hidden !important;
-	/* to smooth out the scrolling */
-	scroll-behavior: smooth;
-	width: 100%;
-	gap: 0.6rem;
+.table-background {
+    background-color: #f8f8f8;
 }
-.item-list-wrap::-webkit-scrollbar {
-	/* Hide the scrollbar */
-	display: none;
-}
-
 
 
 .items-list-container {

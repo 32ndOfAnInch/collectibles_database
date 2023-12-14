@@ -26,6 +26,7 @@ class Profile(models.Model):
         (24, _('24 items per page')),
         (36, _('36 items per page')),
         (48, _('48 items per page')),
+        (60, _('48 items per page')),
     ]
 
     paginate_by = models.PositiveSmallIntegerField(

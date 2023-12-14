@@ -1,0 +1,60 @@
+/* collectibles grid display  */
+
+.items-grid-container {
+    background-color: #f8f8f8;
+}
+
+.item-front-image {
+    border: 2px solid #424242;
+}
+
+.items-grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #949494;
+}
+
+#friend-name {
+    background-color: #f8f8f8;
+}
+
+.list-item-buttons {
+    border-top: 1px solid #949494;
+}
+
+.edit-item-btn{
+    border: 2px solid rgb(99, 99, 99);
+}
+
+.delete-item-btn{
+    border: 2px solid red;
+}
+
+.view-detail-btn a {
+    color: #181818;
+}
+
+/* paginator */
+
+.paginator {
+    background-color: #f8f8f8;
+}
+.paginator a, .paginator .current {
+    border: 1px solid #aacc99;
+    background-color: #ffebd0;
+    color: #181818;
+}
+
+/* sorting buttons */
+
+.sort-options {
+    background-color: #f8f8f8;
+}
+
+.sort-options a {
+    color: black;
+    border: 2px solid #999999;
+}
+
+.sort-options a:hover {
+    background-color: #e7e7e7;
+}

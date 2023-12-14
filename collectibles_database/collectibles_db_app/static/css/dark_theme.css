@@ -1,0 +1,77 @@
+/* collectibles grid display  */
+
+.items-grid-container {
+    background-color: #181818;
+}
+
+.item-front-image {
+    border: 2px solid #acacac;
+}
+
+.items-grid-container > div {
+    background-color: rgba(39, 39, 39, 0.8);
+    border: 1px solid #acacac;
+    color: #cccccc
+}
+
+#friend-name {
+    background-color: #181818;
+}
+
+.list-item-buttons {
+    border-top: 1px solid #cccccc;
+}
+
+.list-item-buttons a{
+    color: #cccccc;
+}
+
+.edit-item-btn{
+    border: 2px solid #acacac;
+}
+
+.edit-item-btn a{
+    color: #cccccc;
+}
+
+.delete-item-btn{
+    border: 2px solid rgb(214, 94, 94);
+}
+
+.delete-item-btn a {
+    color: rgb(214, 94, 94);
+}
+
+.view-detail-btn a {
+    color: #cccccc;
+}
+
+/* paginator */
+
+.paginator {
+    background-color: #181818;
+}
+.paginator a, .paginator .current {
+    border: 1px solid #aacc99;
+    background-color: #ffebd0;
+    color: #181818;
+}
+
+/* sorting buttons */
+
+.sort-options {
+    background-color: #181818;
+}
+
+.sort-options a {
+    color: #cccccc;
+    border: 2px solid #999999;
+}
+
+.sort-options a:hover {
+    background-color: #333333;
+}
+
+#friend-name {
+    color: #cccccc;
+}

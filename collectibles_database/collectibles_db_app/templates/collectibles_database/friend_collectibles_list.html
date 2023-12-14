@@ -10,16 +10,17 @@
 
 {% block content %}
 
+
+{% if friend_collectibles_list %}
+<h2 id="friend-name">{{ friend.username }}'s collectibles list</h2>
+{% include 'includes/paginator_nav.html' %}
+
 {% if display_style == 1 %}
     <div class="sort-options">
         <a href="?sort_by=country{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Sort by Country</a>
         <a href="?sort_by=release_year{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Sort by Release Year</a>
     </div>
 {% endif %}
-
-{% if friend_collectibles_list %}
-<h2>{{ friend.username }}'s collectibles list</h2>
-{% include 'includes/paginator_nav.html' %}
 
 {% if display_style == 1 %}
     <div class="items-grid-container">
@@ -58,42 +59,44 @@
         {% endfor %}
     </div>
 {% elif display_style == 2 %}
-<table class="items-list-container">
-    <thead>
-        <tr>
-            <th></th>
-            <th><a href="?sort_by=country{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Country</a></th>
-            <th>Item Type</th>
-            <th><a href="?sort_by=release_year{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Release Year</a></th>
-            <th><a href="?sort_by=quantity{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Quantity</a></th>
-            <th><a href="?sort_by=currency{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Currency</a></th>
-            <th><a href="?sort_by=denomination{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Denomination</a></th>
-            <th><a href="?sort_by=register_date{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Register Date</a></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in friend_collectibles_list %}
+<div class="table-background">
+    <table class="items-list-container">
+        <thead>
             <tr>
-                <td>
-                    <a href="{% url 'item_detail' item.pk %}">
-                    {% if item.obverse_side %}
-                        <img class="item-small-image" src="{{ item.obverse_side.url }}">
-                    {% else %}
-                        <img class="item-small-image" src="{% static 'collectibles/img/noimage.png' %}">
-                    {% endif %}
-                    </a>
-                </td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.country }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.item_type }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.release_year }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.quantity }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.currency|default:"-" }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.denomination|default:"-" }}</a></td>
-                <td><a href="{% url 'item_detail' item.pk %}">{{ item.register_date }}</a></td>
+                <th></th>
+                <th><a href="?sort_by=country{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Country</a></th>
+                <th>Item Type</th>
+                <th><a href="?sort_by=release_year{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Release Year</a></th>
+                <th><a href="?sort_by=quantity{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Quantity</a></th>
+                <th><a href="?sort_by=currency{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Currency</a></th>
+                <th><a href="?sort_by=denomination{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Denomination</a></th>
+                <th><a href="?sort_by=register_date{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Register Date</a></th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for item in friend_collectibles_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'item_detail' item.pk %}">
+                        {% if item.obverse_side %}
+                            <img class="item-small-image" src="{{ item.obverse_side.url }}">
+                        {% else %}
+                            <img class="item-small-image" src="{% static 'collectibles/img/noimage.png' %}">
+                        {% endif %}
+                        </a>
+                    </td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.country }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.item_type }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.release_year }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.quantity }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.currency|default:"-" }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.denomination|default:"-" }}</a></td>
+                    <td><a href="{% url 'item_detail' item.pk %}">{{ item.register_date }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 {% include 'includes/paginator_pages.html' %}
 
