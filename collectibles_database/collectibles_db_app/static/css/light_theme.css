@@ -1,3 +1,30 @@
+/* user navbar */
+
+.secNav nav {
+    background: #f0a400;
+}
+
+.secNav nav .nav-list .nav-link {
+    color: #000000;
+}
+
+.secNav nav .nav-list .nav-item:hover {
+    background: #CCCCCC;
+}
+
+@media (max-width: 710px) {
+
+    .secNav nav .nav-list {
+        background: #f0a400;
+    }
+}
+
+.secNav nav .navbar-toggler .bar {
+    background: #404040;
+}
+
+
+
 /* collectibles grid display  */
 
 .items-grid-container {
@@ -57,4 +84,52 @@
 
 .sort-options a:hover {
     background-color: #e7e7e7;
+}
+
+
+
+/* collectibles list display style */
+
+
+.table-background {
+    background-color: #f8f8f8;
+}
+
+.items-list-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+.items-list-container th {
+    background-color: #404040;
+    color: white;
+}
+
+.items-list-container th a {
+    color:white
+}
+
+.items-list-container td {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.items-list-container th a:visited {
+    color:white;
+}
+
+.items-list-container tr:hover {
+    background: #f3f3f3;
+}
+.items-list-container td a {
+    color:black;
+}
+
+.items-list-container td a:visited {
+    color:black;
+}
+
+.edit-list-btn {
+    border: 2px solid #bbbbbb;
 }

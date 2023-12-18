@@ -193,7 +193,6 @@ nav ul li a{
     padding: 0 13%;
     height: 68px;
     line-height: 68px;
-    background: #f0a400;
     z-index: 1;
 }
 
@@ -210,12 +209,7 @@ nav ul li a{
     font-size: large;
 }
 
-.secNav nav .nav-list .nav-item:hover {
-    background: #CCCCCC;
-}
-
 .secNav nav .nav-list .nav-link {
-    color: #000000;
     font-size: 18;
     font-weight: 500;
 }
@@ -281,7 +275,6 @@ nav ul li a{
     .secNav nav .nav-list {
         display: grid;
         position: absolute;
-        background: #F0A500;
         width: 100%;
         top: 0px;
         left: 0;

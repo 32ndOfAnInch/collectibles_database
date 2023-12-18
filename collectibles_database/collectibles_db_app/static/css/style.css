@@ -614,17 +614,11 @@ ul.paginator {
 
 /* collectibles list display style */
 
-.table-background {
-    background-color: #f8f8f8;
-}
-
 
 .items-list-container {
     width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
 }
 
 
@@ -634,16 +628,11 @@ ul.paginator {
 }
 
 .items-list-container th {
-    background-color: #404040;
-    color: white;
     position: sticky;
     top: 128px;
     z-index: 0;
 }
 
-.items-list-container td {
-    border-bottom: 1px solid #ddd;
-}
 
 img.item-small-image {
     max-width: 100px;
@@ -699,32 +688,19 @@ img.item-small-image {
         width: 100%;
     }
 }
-.items-list-container th a {
-    color:white
-}
+
 .items-list-container th a:hover {
     text-decoration: underline;
 }
 
-.items-list-container th a:visited {
-    color:white;
-}
 
-.items-list-container tr:hover {
-    background: #f3f3f3;
-}
 .items-list-container td a {
     display: block;
-    color:black;
 }
 
-.items-list-container td a:visited {
-    color:black;
-}
 
 .edit-list-btn {
     margin-right: 5px;
-    border: 2px solid #bbbbbb;
     font-size: 28px;
     border-radius: 10%;
     max-width: 40px;
@@ -755,4 +731,8 @@ img.item-small-image {
     padding-right: 6px;
     padding-top: 6px;
     
+}
+
+.table-background {
+    min-height: 70vh;
 }

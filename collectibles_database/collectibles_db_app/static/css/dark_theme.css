@@ -1,3 +1,32 @@
+/* user navbar */
+
+.secNav nav {
+    background: #4f4c2f;
+}
+
+.secNav nav .nav-list .nav-link {
+    color: #eeeeee;
+}
+
+.secNav nav .nav-list .nav-item:hover {
+    background: #333333;
+}
+
+
+@media (max-width: 710px) {
+
+    .secNav nav .nav-list {
+        background: #4f4c2f;
+    }
+}
+
+.secNav nav .navbar-toggler .bar {
+    background: #cccccc;
+}
+
+
+
+
 /* collectibles grid display  */
 
 .items-grid-container {
@@ -74,4 +103,56 @@
 
 #friend-name {
     color: #cccccc;
+}
+
+
+
+/* collectibles list display style */
+
+.table-background {
+    background-color: #181818;
+}
+
+.items-list-container {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    background-color: rgba(39, 39, 39, 0.8);
+}
+
+
+.items-list-container th {
+    background-color: #404040;
+    color: #cccccc;
+}
+
+.items-list-container th a{
+    color: #cccccc;
+}
+
+.items-list-container td {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.items-list-container th a:visited {
+    color:#cccccc;
+}
+
+.items-list-container tr:hover {
+    background: #333333;
+}
+.items-list-container td a {
+    display: block;
+    color:#cccccc;
+}
+
+.items-list-container td a:visited {
+    color:#cccccc;
+}
+
+.edit-list-btn {
+    margin-right: 5px;
+    border: 2px solid #bbbbbb;
+    font-size: 28px;
+    border-radius: 10%;
+    max-width: 40px;
 }
