@@ -10,6 +10,12 @@
 
 {% block content %}
 
+<div class="success-msg">
+    {% for msg in messages %}
+        {{ msg }}
+    {% endfor %}
+</div>
+
 {% if display_style == 1 %}
     <div class="sort-options">
         <a href="?sort_by=country{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}&order={{ request.GET.order|toggle_order }}">Sort by Country</a>

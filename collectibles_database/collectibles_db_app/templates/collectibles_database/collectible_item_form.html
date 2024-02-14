@@ -54,7 +54,7 @@
                 <div class="nested-form-group">
                     <label for="id_value">Value<span class="red-asterisk">*</span></label>
                     {{ form.value }}
-                </div>    
+                </div>
             </div>
             <hr>
             <div class="form-group">
@@ -112,6 +112,45 @@
         });
     });
     });
+</script>
+<script>
+    const socket = new WebSocket('ws://' + window.location.host + '/ws/some_path/');
+
+    socket.onopen = function (event) {
+        console.log('WebSocket opened:', event);
+    };
+
+    socket.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+
+        // Handle the verification result
+        if (data.verification_result === 'matched') {
+            displayMatchingItems(data.matching_items);
+        }
+    };
+
+    socket.onclose = function (event) {
+        console.log('WebSocket closed:', event);
+    };
+
+    function sendVerificationRequest(itemData) {
+        socket.send(JSON.stringify(itemData));
+    }
+
+    function displayMatchingItems(matchingItems) {
+        // Implement logic to display matching items on the page
+        // You can use jQuery or plain JavaScript for DOM manipulation
+        // For example:
+        const matchingItemsContainer = document.getElementById('matching-items');
+        matchingItemsContainer.innerHTML = '<p>Your item matches the following existing items:</p>';
+        const itemList = document.createElement('ul');
+        matchingItems.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.country} - ${item.release_year}`;
+            itemList.appendChild(listItem);
+        });
+        matchingItemsContainer.appendChild(itemList);
+    }
 </script>
 
 {% endblock content %}

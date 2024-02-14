@@ -23,14 +23,14 @@ class Value(models.Model):
     value = models.CharField(_("value"), max_length=50, null=True, blank=True)
     description = models.TextField(_("description"), null=True, blank=True)
     picture = models.ImageField(
-        _("picture"), 
-        upload_to='collectibles/gradation_value', 
-        null=True, 
+        _("picture"),
+        upload_to='collectibles/gradation_value',
+        null=True,
         blank=True,
         )
     gradation_system = models.ForeignKey(
-        GradationSystem, 
-        verbose_name=_("gradation_system"), 
+        GradationSystem,
+        verbose_name=_("gradation_system"),
         on_delete=models.CASCADE,
         related_name="values",
         )
@@ -50,9 +50,9 @@ class ItemType(models.Model):
     name = models.CharField(_("name"), max_length=50)
     description = models.TextField(_("description"), null=True, blank=True)
     picture = models.ImageField(
-        _("picture"), 
-        upload_to='collectibles/item_type', 
-        null=True, 
+        _("picture"),
+        upload_to='collectibles/item_type',
+        null=True,
         blank=True,
         )
 
@@ -69,8 +69,8 @@ class ItemType(models.Model):
 
 class CollectibleItem(models.Model):
     user = models.ForeignKey(
-        User, 
-        verbose_name=_("user"), 
+        User,
+        verbose_name=_("user"),
         on_delete=models.CASCADE,
         related_name="collectible_items"
         )
@@ -79,8 +79,8 @@ class CollectibleItem(models.Model):
     release_year = models.PositiveIntegerField(_("release_year"))
     circulation = models.PositiveIntegerField(_("circulation"), null=True, blank=True)
     item_type = models.ForeignKey(
-        ItemType, 
-        verbose_name=_("item_type"), 
+        ItemType,
+        verbose_name=_("item_type"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -107,15 +107,15 @@ class CollectibleItem(models.Model):
     
     description = models.TextField(_("description"), max_length=3000, null=True, blank=True)
     obverse_side = models.ImageField(
-        _("obverse_side"), 
+        _("obverse_side"),
         upload_to='collectibles/obverse_side',
-        null=True, 
+        null=True,
         blank=True,
         )
     reverse_side = models.ImageField(
-        _("reverse_side"), 
+        _("reverse_side"),
         upload_to='collectibles/reverse_side',
-        null=True, 
+        null=True,
         blank=True,
         )
     register_date = models.DateTimeField(_("register_date"), auto_now_add=True)
@@ -131,6 +131,16 @@ class CollectibleItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("collectibleitem_detail", kwargs={"pk": self.pk})
+    
+    # item verification
+    # def find_similar_items(self, user):
+    #     return CollectibleItem.objects.filter(
+    #         user=user,
+    #         country=self.country,
+    #         release_year=self.release_year,
+    #         item_type=self.item_type,
+    #         denomination=self.denomination,
+    #     ).exclude(pk=self.pk)
 
 
     # This part is for keeping images in their original orientation and resizing

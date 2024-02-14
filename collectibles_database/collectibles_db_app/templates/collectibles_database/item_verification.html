@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Similar Items{% endblock title %}
+
+{% block content %}
+  <h2>Similar Items</h2>
+
+  {% if similar_items %}
+    <ul>
+      {% for item in similar_items %}
+        <li>
+          <strong>Country:</strong> {{ item.country }}<br>
+          <strong>Release Year:</strong> {{ item.release_year }}<br>
+          <strong>Item Type:</strong> {{ item.item_type.name }}<br>
+          <!-- Add more fields as needed -->
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No similar items found.</p>
+  {% endif %}
+{% endblock content %}

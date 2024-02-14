@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import Any, Dict
 
@@ -9,11 +10,11 @@ from django.db.models import Avg, Count, F, Max, Min, Q, Sum
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 from django.http import Http404, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  UpdateView)
+                                  TemplateView, UpdateView)
 
 from . import forms, models
 from .utils.spacy_utils import extract_entities
@@ -272,7 +273,7 @@ class CreateItemView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # messages.success(self.request, _('New item successfully added to the list!'))
+        messages.success(self.request, _('New item successfully added to the list!'))
         return super().form_valid(form)
     
     def get_form(self, form_class=None):
