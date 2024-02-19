@@ -12,7 +12,7 @@
 
 <div class="success-msg">
     {% for msg in messages %}
-        {{ msg }}
+    &#9989;{{ msg }}
     {% endfor %}
 </div>
 
@@ -105,7 +105,15 @@
                             <td><a href="{% url 'item_detail' item.pk %}">{{ item.release_year }}</a></td>
                             <td><a href="{% url 'item_detail' item.pk %}">{{ item.quantity }}</a></td>
                             <td><a href="{% url 'item_detail' item.pk %}">{{ item.currency|default:"-" }}</a></td>
-                            <td><a href="{% url 'item_detail' item.pk %}">{{ item.denomination|default:"-" }}</a></td>
+                            <td><a href="{% url 'item_detail' item.pk %}">
+                                {% if item.denomination %}
+                                    {% comment %} removing .0 if it is .0 from variable {% endcomment %}
+                                    {% if item.denomination|floatformat:0|stringformat:"s" == item.denomination|floatformat:0 %}
+                                    <li>{{ item.denomination|floatformat:"-2" }}</li>
+                                    {% else %}
+                                    <li>{{ item.denomination|default:"-" }}</li>
+                                    {% endif %}
+                                {% endif %}</a></td>
                             <td><a href="{% url 'item_detail' item.pk %}">{{ item.register_date }}</a></td>
                             <td>
                                 <div class="list-action-container">

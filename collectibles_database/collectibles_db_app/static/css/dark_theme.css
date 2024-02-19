@@ -156,3 +156,11 @@
     border-radius: 10%;
     max-width: 40px;
 }
+
+/* messages */
+
+.success-msg {
+    background-color: #093b08;
+    color: #eeeeee;
+    font-size: 20px;
+}

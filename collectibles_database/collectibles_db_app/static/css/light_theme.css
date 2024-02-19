@@ -133,3 +133,12 @@
 .edit-list-btn {
     border: 2px solid #bbbbbb;
 }
+
+
+/* messages */
+
+.success-msg {
+    background-color: #9bfa99;
+    color: black;
+    font-size: 20px;
+}
