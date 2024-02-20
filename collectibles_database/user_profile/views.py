@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DeleteView, ListView
 
@@ -200,6 +201,7 @@ def preferences(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, _('Settings saved!'))
             return redirect('preferences')
         
         # light/dark theme handling
@@ -213,7 +215,7 @@ def preferences(request):
     else:
         form = UserPreferencesForm(instance=request.user.profile)
 
-    return render(request, 'user_profile/preferences.html', 
+    return render(request, 'user_profile/preferences.html',
                   {'form': form, 'user_profile': request.user.profile, 'color_theme': request.user.profile.color_theme})
 
 

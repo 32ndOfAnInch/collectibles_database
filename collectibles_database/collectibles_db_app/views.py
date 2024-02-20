@@ -303,7 +303,7 @@ class UpdateItemView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # messages.success(self.request, _('Item details updated successfully!'))
+        messages.success(self.request, _('Item details updated successfully!'))
         return super().form_valid(form)
     
     # UserPassesTestMixin conditions

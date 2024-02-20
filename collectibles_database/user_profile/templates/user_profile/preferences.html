@@ -4,6 +4,15 @@
 {% block title %}Preferences{% endblock title %}
 
 {% block content %}
+
+
+<div class="success-msg">
+    {% for msg in messages %}
+    &#9989;{{ msg }}
+    {% endfor %}
+</div>
+
+
 <div class="item-form-container">
     <h2>Preferences</h2>
     <form method="post" action="{% url 'preferences' %}">
@@ -13,20 +22,4 @@
     </form>
 </div>
 
-{% comment %} popup success message
-<div id="popupMessage" class="popup-message" style="display: none;">
-    Successfully saved!
-</div>
-
-<script>
-document.getElementById('savePreferences').addEventListener('click', function() {
-    // Show the pop-up message
-    document.getElementById('popupMessage').style.display = 'block';
-
-    // Hide the pop-up message after 3 seconds (adjust as needed)
-    setTimeout(function() {
-        document.getElementById('popupMessage').style.display = 'none';
-    }, 400);
-});
-</script> {% endcomment %}
 {% endblock content %}
