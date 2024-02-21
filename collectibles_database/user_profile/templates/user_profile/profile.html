@@ -6,6 +6,12 @@
 
 {% block content %}
 
+<div class="success-msg">
+    {% for msg in messages %}
+    &#9989;{{ msg }}
+    {% endfor %}
+</div>
+
 <div class="profile-container">
     <div class="profile-picture">
         {% if user_.profile and user_.profile.picture %}

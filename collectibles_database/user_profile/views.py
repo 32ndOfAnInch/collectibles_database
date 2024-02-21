@@ -155,6 +155,7 @@ def send_friend_request(request, user_id):
             sender=request.user, receiver=receiver, collectible_item=collectible_item, status=1
             )
         friend_request.save()
+        messages.success(request, "A friend request was sent to the user. Once they accept, you will able to see each other collectibles")
         return redirect('profile', user_id=receiver.id)  # Redirect to a success page or appropriate URL
     return render(request, 'user_profile/send_friend_request.html', {'receiver': receiver})
 
@@ -182,6 +183,7 @@ def notifications(request, user_id=None):
 
         if action == 'accept':
             friend_request.status = 2  # Update the status to "Accepted"
+            messages.success(request, "You have accepted friend request")
         elif action == 'reject':
             friend_request.status = 3  # Update the status to "Rejected"
 
@@ -237,7 +239,7 @@ def unfollow_friend(request, user_id):
             sender=user_to_unfollow.user, receiver=current_user_profile.user
             ).delete()
 
-        # messages.success(request, "You have unfollowed the user.")
+        messages.success(request, "You have unfollowed the user.")
         return redirect('profile', user_id=user_id)
 
     context = {

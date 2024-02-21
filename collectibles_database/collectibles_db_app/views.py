@@ -81,7 +81,7 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
             #     if entity[1] == 'GPE':
             #         country_names.append(entity[0])
             qs = qs.filter(
-                Q(country__icontains=query) | 
+                Q(country__icontains=query) |
                 Q(country__in=country_names) |  # fuzzy matching
                 Q(release_year__icontains=query) |
                 Q(currency__icontains=query),
@@ -159,7 +159,7 @@ class FriendCollectiblesListView(LoginRequiredMixin, ListView):
             if query:
                 country_names = [entity[0] for entity in entities if entity[1] == 'GPE']
                 qs = qs.filter(
-                    Q(country__icontains=query) | 
+                    Q(country__icontains=query) |
                     Q(country__in=country_names) |  # fuzzy matching
                     Q(release_year__icontains=query) |
                     Q(currency__icontains=query),
@@ -331,7 +331,7 @@ class DeleteItemView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = 'delete_item'
 
     def form_valid(self, form):
-        # messages.success(self.request, _('Item deleted successfully!'))
+        messages.success(self.request, _('Item deleted successfully!'))
         return super().form_valid(form)
     
     # UserPassesTestMixin conditions
