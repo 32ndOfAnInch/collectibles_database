@@ -10,8 +10,8 @@ User = get_user_model()
 
 class Profile(models.Model):
     user = models.OneToOneField(
-        get_user_model(), 
-        verbose_name=_("user"), 
+        get_user_model(),
+        verbose_name=_("user"),
         on_delete=models.CASCADE,
         related_name='profile',
         null=True, blank=True,
@@ -117,21 +117,21 @@ class Profile(models.Model):
 
 class FriendRequest(models.Model):
     sender = models.ForeignKey(
-        User, 
-        verbose_name=_("sender"), 
+        User,
+        verbose_name=_("sender"),
         on_delete=models.CASCADE,
         related_name="sent_request"
         )
     receiver = models.ForeignKey(
-        User, 
-        verbose_name=_("receiver"), 
+        User,
+        verbose_name=_("receiver"),
         on_delete=models.CASCADE,
         related_name="received_request"
         )
     collectible_item = models.ForeignKey(
         CollectibleItem,
         verbose_name=_("collectible_items"),
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
         related_name='friend_requests'
         )
 

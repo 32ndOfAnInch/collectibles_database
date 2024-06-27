@@ -89,6 +89,21 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
             )
         else:
             qs = qs.filter(user=user)
+
+        # filtering funtionality
+
+        filter_form = forms.FilterForm(self.request.GET)
+        if filter_form.is_valid():
+            if filter_form.cleaned_data['country']:
+                qs = qs.filter(country__icontains=filter_form.cleaned_data['country'])
+            if filter_form.cleaned_data['item_type']:
+                item_type_id = filter_form.cleaned_data['item_type'].id
+                qs = qs.filter(item_type_id=item_type_id)
+            if filter_form.cleaned_data['release_year']:
+                qs = qs.filter(release_year=filter_form.cleaned_data['release_year'])
+            if filter_form.cleaned_data['currency']:
+                qs = qs.filter(currency__icontains=filter_form.cleaned_data['currency'])
+
         
         # paginating
 
@@ -104,7 +119,7 @@ class CollectiblesListView(LoginRequiredMixin, ListView):
         user = self.request.user
         display_style = user.profile.display_style if user.profile.display_style else models.Profile._meta.get_field('display_style').default
         context['display_style'] = display_style
-        
+        context['filter_form'] = forms.FilterForm(self.request.GET)
         return context
     
 

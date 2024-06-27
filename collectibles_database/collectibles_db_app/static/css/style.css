@@ -629,7 +629,7 @@ ul.paginator {
 
 .items-list-container th {
     position: sticky;
-    top: -1px;
+    top: 68px;
     z-index: 0;
 }
 

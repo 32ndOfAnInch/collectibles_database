@@ -1,5 +1,7 @@
 from django import forms
+
 from . import models
+
 
 class CreateItemForm(forms.ModelForm):
     condition = forms.ModelChoiceField(
@@ -85,3 +87,9 @@ class UpdateItemForm(forms.ModelForm):
         elif self.instance.pk:
             self.fields['value'].queryset = self.instance.condition.values.all()
             
+
+class FilterForm(forms.Form):
+    country = forms.CharField(max_length=100, required=False)
+    item_type = forms.ModelChoiceField(queryset=models.ItemType.objects.all(), required=False, empty_label='Select Item Type')
+    release_year = forms.CharField(max_length=100, required=False)
+    currency = forms.CharField(max_length=100, required=False)

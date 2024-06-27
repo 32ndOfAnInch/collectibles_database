@@ -31,7 +31,7 @@
 {% comment %} responsive navbar {% endcomment %}
     <div class="user-nav">
         <nav class="top-nav">
-            <a class="logo" href="{% url 'index' %}"><img src="{% static 'collectibles/img/logo.bmp' %}"></a>
+            <a class="logo" href="{% url 'index' %}"><img src="{% static 'collectibles/img/logo2.bmp' %}"></a>
             {% if not user.is_authenticated %}
             <ul>
                 <li>
@@ -44,7 +44,7 @@
             {% else %}
             <div class="notifications-and-user">
                 <a href="{% url 'preferences' %}">
-                    <img class="settings-image" 
+                    <img class="settings-image"
                     src="{% static 'collectibles/img/settings.bmp' %}">
                 </a>
                 <a href="{% url 'notifications' %}">
@@ -86,6 +86,12 @@
                         <a href="{% url 'profile_search' %}" class="sub-menu-link"><p>Search for Users</p></a>
                         <a href="{% url 'friends_list' %}" class="sub-menu-link"><p>View Friends List</p></a>
                         <hr>
+                        {% if not collectibles_list %}
+                            <a class="sub-menu-link" href="{% url 'collectibles_list' %}">My collectibles</a>
+                        {% endif %}
+                        <a class="sub-menu-link" href="{% url 'statistics' %}">Statistics</a>
+                        <a class="sub-menu-link" href="{% url 'about' %}">About</a>
+                        <hr>
                         <a href="{% url 'logout' %}" class="sub-menu-link"><p>Log Out</p></a>
                     </div>
                 </div>
@@ -102,7 +108,7 @@
     </script>
 
 {% comment %} second navbar (css only, w burger){% endcomment %}
-{% if user.is_authenticated %}
+{% comment %} {% if user.is_authenticated %}
 <div class="secNav">
     <input class="navbar-input" type="checkbox" id="toggle2">
     <nav>
@@ -130,13 +136,12 @@
                 <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
         </ul>
-        {% comment %} search {% endcomment %}
         {% block search_bar %}
         {% endblock search_bar %}
     </nav>
 </div>
 
-{% endif %}
+{% endif %} {% endcomment %}
 
     {% block content %}
     {% endblock content %}
